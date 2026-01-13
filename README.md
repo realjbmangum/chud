@@ -5,7 +5,7 @@
 ![Platform](https://img.shields.io/badge/platform-macOS-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
-<img width="596" height="836" alt="image" src="https://github.com/user-attachments/assets/8852a334-16cf-436e-8054-df08e3ffcd62" />
+<img width="250" height="500" alt="image" src="https://github.com/user-attachments/assets/8852a334-16cf-436e-8054-df08e3ffcd62" />
 
 
 ## 🎯 What is C.H.U.D.?
