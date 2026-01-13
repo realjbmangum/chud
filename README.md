@@ -312,7 +312,7 @@ MIT License - see LICENSE file for details
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/chud/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/chud/discussions)
-- **Twitter**: [@yourusername](https://twitter.com/yourusername)
+- **Twitter**: [@RealJBMangum]([https://twitter.com/yourusername](https://x.com/RealJBMangum))
 
 ---
 
