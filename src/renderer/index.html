@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Companion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="overlay" id="overlay">
+    <!-- Drag handle / title bar -->
+    <div class="titlebar">
+      <div class="status-dot" id="status-dot"></div>
+      <span class="title">C.H.U.D.</span>
+      <div class="controls">
+        <button class="control-btn settings" id="settings-btn" title="Settings">⚙</button>
+        <button class="control-btn minimize" onclick="window.companion.minimize()">−</button>
+        <button class="control-btn close" onclick="window.companion.close()">×</button>
+      </div>
+    </div>
+
+    <!-- Settings Panel (hidden by default) -->
+    <div class="settings-panel" id="settings-panel">
+      <div class="settings-header">
+        <h3>Settings</h3>
+        <button class="close-settings" id="close-settings">×</button>
+      </div>
+      <div class="settings-content">
+        <div class="setting-group">
+          <label for="api-key">Anthropic API Key</label>
+          <p class="setting-hint">Optional: Add your Anthropic API key (starts with sk-ant) to enable real-time quota tracking</p>
+          <input type="password" id="api-key" placeholder="sk-ant-..." />
+          <div class="api-key-actions">
+            <button id="show-api-key" class="btn-secondary">Show</button>
+            <button id="save-api-key" class="btn-primary">Save</button>
+          </div>
+          <div class="api-status" id="api-status"></div>
+        </div>
+        <div class="setting-group">
+          <label>Usage Tracking</label>
+          <p class="setting-hint" id="usage-status">
+            <span class="status-indicator" id="quota-indicator">○</span>
+            <span id="quota-status-text">No API key configured</span>
+          </p>
+          <div class="info-box">
+            <strong>Note:</strong> Usage tracking requires an Admin API key (<code>sk-ant-admin...</code>). Regular API keys cannot access organization usage data.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <!-- Model & Session -->
+      <div class="section model-section">
+        <div class="model-badge" id="model-badge">
+          <span class="model-icon">◆</span>
+          <span class="model-name" id="model">waiting...</span>
+        </div>
+        <div class="session-id" id="session">-</div>
+      </div>
+
+      <!-- Daily Quota Usage (if API key configured) -->
+      <div class="section quota-section" id="quota-section">
+        <div class="quota-header">
+          <span class="section-label">DAILY QUOTA</span>
+          <span class="quota-reset" id="quota-reset">Resets at --:--</span>
+        </div>
+        <div class="quota-bar-container">
+          <div class="quota-bar" id="quota-bar"></div>
+        </div>
+        <div class="quota-stats">
+          <span class="quota-percent" id="quota-percent">0%</span>
+          <span class="quota-detail" id="quota-detail">0 tokens used</span>
+        </div>
+      </div>
+
+      <!-- Token Usage Visual -->
+      <div class="section token-section">
+        <div class="token-header">
+          <span class="section-label">TOKENS</span>
+          <span class="token-total" id="token-total">0</span>
+        </div>
+        <div class="token-bars">
+          <div class="token-bar-row">
+            <span class="token-label">IN</span>
+            <div class="token-bar-container">
+              <div class="token-bar token-bar-in" id="token-bar-in"></div>
+            </div>
+            <span class="token-value" id="tokens-in">0</span>
+          </div>
+          <div class="token-bar-row">
+            <span class="token-label">OUT</span>
+            <div class="token-bar-container">
+              <div class="token-bar token-bar-out" id="token-bar-out"></div>
+            </div>
+            <span class="token-value" id="tokens-out">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cost Display -->
+      <div class="section cost-section">
+        <div class="cost-display">
+          <span class="cost-label">COST</span>
+          <span class="cost-value" id="cost">$0.00</span>
+        </div>
+        <div class="cost-bar-container">
+          <div class="cost-bar" id="cost-bar"></div>
+        </div>
+      </div>
+
+      <!-- Time & Messages -->
+      <div class="section stats-section">
+        <div class="stat-box">
+          <div class="stat-value" id="time">00:00</div>
+          <div class="stat-label">TIME</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+          <div class="stat-value" id="messages">0</div>
+          <div class="stat-label">MSGS</div>
+        </div>
+      </div>
+
+      <!-- Todos Progress -->
+      <div class="section todos-section" id="todos-section">
+        <div class="todos-header">
+          <span class="section-label">PROGRESS</span>
+          <span class="todos-count" id="todos-count">0/0</span>
+        </div>
+        <div class="todos-bar-container">
+          <div class="todos-bar" id="todos-bar"></div>
+        </div>
+      </div>
+
+      <!-- Activity / Status -->
+      <div class="section activity-section">
+        <div class="activity-indicator" id="activity">
+          <div class="activity-icon" id="activity-icon">●</div>
+          <span class="activity-text" id="status">Waiting</span>
+        </div>
+        <div class="last-tool" id="last-tool-container">
+          <span class="tool-label">TOOL:</span>
+          <span class="tool-name" id="last-tool">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "chud",
+  "version": "0.1.0",
+  "description": "C.H.U.D. - Claude Heads Up Display. Real-time stats overlay for Claude Code terminal sessions",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "setup": "node scripts/setup-hooks.js",
+    "uninstall": "node scripts/setup-hooks.js --uninstall"
+  },
+  "keywords": ["claude", "claude-code", "terminal", "companion", "overlay", "electron"],
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}
