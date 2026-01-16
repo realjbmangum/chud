@@ -1,0 +1,491 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="SC DMV Alerts - Never Miss an Appointment">
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+          </span>
+          Monitoring SC DMV 24/7
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 max-w-4xl mx-auto">
+          Get Instant Alerts When SC DMV Appointments Open Up
+        </h1>
+
+        <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          Stop refreshing the DMV website. We monitor 24/7 and send you instant SMS and email alerts the moment appointments become available.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#pricing" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors">
+            Get Started Free
+          </a>
+          <a href="#how-it-works" class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+            How It Works
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-16 sm:py-24 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">How It Works</h2>
+        <p class="mt-4 text-lg text-gray-600">Three simple steps to your DMV appointment</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-100 text-brand-600 text-2xl font-bold mb-6">1</div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Sign Up</h3>
+          <p class="text-gray-600">Enter your email and phone number. Select your appointment type and preferred locations.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-100 text-brand-600 text-2xl font-bold mb-6">2</div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">We Monitor 24/7</h3>
+          <p class="text-gray-600">Our system checks the SC DMV website every few minutes for new openings, even while you sleep.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-100 text-brand-600 text-2xl font-bold mb-6">3</div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Get Notified Instantly</h3>
+          <p class="text-gray-600">Receive an instant SMS or email with a direct link to book before the slot fills up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment Types -->
+  <section class="py-16 sm:py-24 bg-gray-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Supported Appointment Types</h2>
+        <p class="mt-4 text-lg text-gray-600">We monitor all major SC DMV services</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">Driver's License</h3>
+          <p class="text-sm text-gray-600">First-time, renewal, or replacement</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">REAL ID</h3>
+          <p class="text-sm text-gray-600">Upgrade to REAL ID compliant license</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">Road Test</h3>
+          <p class="text-sm text-gray-600">Schedule your driving skills test</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">Motorcycle Test</h3>
+          <p class="text-sm text-gray-600">Motorcycle skills test appointments</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">CDL</h3>
+          <p class="text-sm text-gray-600">Commercial Driver's License services</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">State ID</h3>
+          <p class="text-sm text-gray-600">Non-driver identification cards</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 sm:py-24 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Simple Pricing</h2>
+        <p class="mt-4 text-lg text-gray-600">Start free, upgrade when you need more</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Free Tier -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Free</h3>
+          <p class="mt-2 text-gray-600">Perfect for getting started</p>
+
+          <div class="mt-6">
+            <span class="text-4xl font-bold text-gray-900">$0</span>
+            <span class="text-gray-600">/month</span>
+          </div>
+
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Up to 3 alerts per day</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Email notifications</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">All appointment types</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <span class="text-gray-400">SMS notifications</span>
+            </li>
+          </ul>
+
+          <a href="#signup-free" class="mt-8 block w-full rounded-lg bg-white px-4 py-3 text-center text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+            Start Free
+          </a>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="bg-brand-600 rounded-2xl p-8 shadow-lg relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="inline-flex items-center rounded-full bg-brand-900 px-3 py-1 text-xs font-medium text-white">
+              Most Popular
+            </span>
+          </div>
+
+          <h3 class="text-lg font-semibold text-white">Pro</h3>
+          <p class="mt-2 text-brand-100">Never miss an appointment</p>
+
+          <div class="mt-6">
+            <span class="text-4xl font-bold text-white">$5.99</span>
+            <span class="text-brand-100">/month</span>
+          </div>
+
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-white">Unlimited alerts</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-white">Instant SMS notifications</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-white">Email notifications</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-white">All appointment types</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-white">Cancel anytime</span>
+            </li>
+          </ul>
+
+          <a href="#signup-pro" class="mt-8 block w-full rounded-lg bg-white px-4 py-3 text-center text-sm font-semibold text-brand-600 shadow-sm hover:bg-brand-50 transition-colors">
+            Get Pro
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup Form -->
+  <section id="signup-free" class="py-16 sm:py-24 bg-gray-50">
+    <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-gray-900">Start Getting Alerts</h2>
+        <p class="mt-4 text-gray-600">Sign up in 30 seconds. No credit card required for free tier.</p>
+      </div>
+
+      <form id="signup-form" class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+        <div class="space-y-6">
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <!-- Phone (optional) -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+              Phone number <span class="text-gray-400">(optional for free tier)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              placeholder="(555) 123-4567"
+            />
+            <p class="mt-1.5 text-xs text-gray-500">SMS alerts are instant. Email can take a few minutes.</p>
+          </div>
+
+          <!-- Appointment Type -->
+          <div>
+            <label for="appointment_type" class="block text-sm font-medium text-gray-700 mb-2">Appointment type</label>
+            <select
+              id="appointment_type"
+              name="appointment_type"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="">Select appointment type...</option>
+              <option value="drivers_license">Driver's License</option>
+              <option value="real_id">REAL ID</option>
+              <option value="road_test">Road Test</option>
+              <option value="motorcycle_test">Motorcycle Test</option>
+              <option value="cdl">CDL</option>
+              <option value="state_id">State ID</option>
+            </select>
+          </div>
+
+          <!-- Region -->
+          <div>
+            <label for="region" class="block text-sm font-medium text-gray-700 mb-2">Preferred region</label>
+            <select
+              id="region"
+              name="region"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="any">Any location in SC</option>
+              <option value="charleston">Charleston Area</option>
+              <option value="columbia">Columbia Area</option>
+              <option value="greenville">Greenville Area</option>
+              <option value="myrtle_beach">Myrtle Beach Area</option>
+              <option value="spartanburg">Spartanburg Area</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+        >
+          Start Free Alerts
+        </button>
+
+        <p class="mt-4 text-center text-sm text-gray-500">
+          Want unlimited SMS alerts? <a href="#signup-pro" class="text-brand-600 hover:text-brand-700 font-medium">Upgrade to Pro</a>
+        </p>
+        <!-- Status message -->
+        <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-sm"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Pro Signup Form -->
+  <section id="signup-pro" class="py-16 sm:py-24 bg-brand-600">
+    <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-white">Get Pro - $5.99/month</h2>
+        <p class="mt-4 text-brand-100">Unlimited SMS + email alerts. Cancel anytime.</p>
+      </div>
+
+      <form action="/api/checkout" method="POST" class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="space-y-6">
+          <!-- Email -->
+          <div>
+            <label for="pro-email" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+            <input
+              type="email"
+              id="pro-email"
+              name="email"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="pro-phone" class="block text-sm font-medium text-gray-700 mb-2">Phone number for SMS</label>
+            <input
+              type="tel"
+              id="pro-phone"
+              name="phone"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              placeholder="(555) 123-4567"
+            />
+          </div>
+
+          <!-- Appointment Type -->
+          <div>
+            <label for="pro-appointment_type" class="block text-sm font-medium text-gray-700 mb-2">Appointment type</label>
+            <select
+              id="pro-appointment_type"
+              name="appointment_type"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="">Select appointment type...</option>
+              <option value="drivers_license">Driver's License</option>
+              <option value="real_id">REAL ID</option>
+              <option value="road_test">Road Test</option>
+              <option value="motorcycle_test">Motorcycle Test</option>
+              <option value="cdl">CDL</option>
+              <option value="state_id">State ID</option>
+            </select>
+          </div>
+
+          <!-- Region -->
+          <div>
+            <label for="pro-region" class="block text-sm font-medium text-gray-700 mb-2">Preferred region</label>
+            <select
+              id="pro-region"
+              name="region"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="any">Any location in SC</option>
+              <option value="charleston">Charleston Area</option>
+              <option value="columbia">Columbia Area</option>
+              <option value="greenville">Greenville Area</option>
+              <option value="myrtle_beach">Myrtle Beach Area</option>
+              <option value="spartanburg">Spartanburg Area</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+        >
+          Continue to Payment
+        </button>
+
+        <p class="mt-4 text-center text-sm text-gray-500">
+          Secure checkout powered by Stripe. Cancel anytime.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 sm:py-24 bg-white">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">How fast will I get notified?</h3>
+          <p class="mt-2 text-gray-600">We check for new appointments every 5-10 minutes. When a slot opens up, SMS alerts go out instantly. Email typically arrives within 1-2 minutes.</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">Is this affiliated with SC DMV?</h3>
+          <p class="mt-2 text-gray-600">No. This is an independent monitoring service. We check the public SC DMV website and notify you when appointments are available. You still book directly through the official DMV site.</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">Can I cancel anytime?</h3>
+          <p class="mt-2 text-gray-600">Yes. Pro subscriptions can be cancelled at any time with no fees or penalties. Your alerts will continue until the end of your billing period.</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">What if I find an appointment on my own?</h3>
+          <p class="mt-2 text-gray-600">Great! Just unsubscribe from alerts using the link in any notification email, or cancel your Pro subscription in your account settings.</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">Why only 3 alerts per day on free?</h3>
+          <p class="mt-2 text-gray-600">SMS costs money to send, and we want to keep the free tier sustainable. 3 alerts is usually enough to catch an opening, but Pro users get unlimited for the best chance of booking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-gray-400 text-sm">
+          &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+          <a href="mailto:support@scdmvalerts.com" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('signup-form') as HTMLFormElement;
+    const message = document.getElementById('form-message') as HTMLDivElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalBtnText = submitBtn.textContent;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Reset message
+      message.className = 'hidden mt-4 p-4 rounded-lg text-sm';
+      message.textContent = '';
+
+      // Disable button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing up...';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          message.className = 'mt-4 p-4 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';
+          message.textContent = data.message;
+          form.reset();
+        } else {
+          message.className = 'mt-4 p-4 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';
+          message.textContent = data.error;
+        }
+      } catch (error) {
+        message.className = 'mt-4 p-4 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';
+        message.textContent = 'Something went wrong. Please try again.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    });
+  </script>
+</Layout>

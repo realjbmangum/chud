@@ -1,0 +1,13 @@
+{
+  "name": "scdmv-scraper",
+  "version": "1.0.0",
+  "description": "SC DMV appointment availability scraper",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}

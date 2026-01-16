@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Welcome to Pro - SC DMV Alerts">
+  <div class="min-h-screen bg-gradient-to-b from-brand-50 to-white flex items-center justify-center px-4">
+    <div class="max-w-md w-full text-center">
+      <!-- Success Icon -->
+      <div class="mx-auto w-16 h-16 bg-success-500 rounded-full flex items-center justify-center mb-6">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">You're all set!</h1>
+
+      <p class="text-lg text-gray-600 mb-8">
+        Welcome to SC DMV Alerts Pro. You'll now receive <strong>unlimited instant SMS and email alerts</strong> when appointments become available.
+      </p>
+
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-left mb-8">
+        <h2 class="font-semibold text-gray-900 mb-4">What happens next:</h2>
+        <ul class="space-y-3 text-gray-600">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>We start monitoring SC DMV for your appointment type</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>When a slot opens, you get an instant SMS + email</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Click the link to book directly on the SC DMV site</span>
+          </li>
+        </ul>
+      </div>
+
+      <a href="/" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors">
+        Back to Home
+      </a>
+
+      <p class="mt-6 text-sm text-gray-500">
+        Questions? Email <a href="mailto:support@scdmvalerts.com" class="text-brand-600 hover:text-brand-700">support@scdmvalerts.com</a>
+      </p>
+    </div>
+  </div>
+</Layout>

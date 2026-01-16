@@ -1,0 +1,25 @@
+{
+  "name": "scdmv-alerts",
+  "main": "dist/_worker.js/index.js",
+  "compatibility_date": "2026-01-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // D1 Database
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "scdmv-alerts-db",
+      "database_id": "YOUR_D1_DATABASE_ID"
+    }
+  ],
+  // Environment variables (set via wrangler secret or dashboard)
+  "vars": {
+    "SITE_URL": "https://scdmvalerts.com"
+  }
+}
