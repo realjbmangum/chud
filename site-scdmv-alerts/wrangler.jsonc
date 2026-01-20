@@ -15,7 +15,7 @@
     {
       "binding": "DB",
       "database_name": "scdmv-alerts-db",
-      "database_id": "YOUR_D1_DATABASE_ID"
+      "database_id": "a927775f-ed1f-4514-8aa7-5f910f2918b5"
     }
   ],
   // Environment variables (set via wrangler secret or dashboard)

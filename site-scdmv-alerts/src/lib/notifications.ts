@@ -1,5 +1,5 @@
 /**
- * Notification senders for Twilio SMS and Resend Email
+ * Notification senders for Twilio SMS and SendGrid Email
  * Using REST APIs directly for Cloudflare Workers compatibility
  */
 
@@ -60,11 +60,12 @@ function formatPhoneNumber(phone: string): string {
   return `+${digits}`;
 }
 
-// ============ Resend Email ============
+// ============ SendGrid Email ============
 
-interface ResendConfig {
+interface SendGridConfig {
   apiKey: string;
   fromEmail?: string;
+  fromName?: string;
 }
 
 interface EmailParams {
@@ -75,33 +76,61 @@ interface EmailParams {
 }
 
 export async function sendEmail(
-  config: ResendConfig,
+  config: SendGridConfig,
   params: EmailParams
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
-  const url = "https://api.resend.com/emails";
+  const fromEmail = config.fromEmail || "alerts@scdmvappointments.com";
+  const fromName = config.fromName || "SC DMV Alerts";
+
+  const body = JSON.stringify({
+    personalizations: [
+      {
+        to: [{ email: params.to }],
+      },
+    ],
+    from: {
+      email: fromEmail,
+      name: fromName,
+    },
+    subject: params.subject,
+    content: [
+      {
+        type: "text/plain",
+        value: params.text || params.subject,
+      },
+      {
+        type: "text/html",
+        value: params.html,
+      },
+    ],
+  });
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${config.apiKey}`,
+        Authorization: `Bearer ${config.apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        from: config.fromEmail || "SC DMV Alerts <alerts@scdmvalerts.com>",
-        to: params.to,
-        subject: params.subject,
-        html: params.html,
-        text: params.text,
-      }),
+      body,
     });
 
-    const data = await response.json();
-
-    if (response.ok) {
-      return { success: true, messageId: data.id };
+    if (response.ok || response.status === 202) {
+      // SendGrid returns 202 Accepted on success
+      const messageId = response.headers.get("X-Message-Id") || undefined;
+      return { success: true, messageId };
     } else {
-      return { success: false, error: data.message || "Failed to send email" };
+      const responseText = await response.text();
+      let errorMsg = `HTTP ${response.status}`;
+      try {
+        const data = JSON.parse(responseText);
+        if (data.errors && data.errors.length > 0) {
+          errorMsg = data.errors.map((e: { message: string }) => e.message).join(", ");
+        }
+      } catch {
+        errorMsg = responseText || errorMsg;
+      }
+      return { success: false, error: errorMsg };
     }
   } catch (error) {
     return { success: false, error: error instanceof Error ? error.message : "Email error" };
@@ -238,12 +267,12 @@ export function formatEmailText(
 
 function formatAppointmentType(type: string): string {
   const typeMap: Record<string, string> = {
-    drivers_license: "Driver's License",
-    real_id: "REAL ID",
-    road_test: "Road Test",
+    road_test: "Road Test (Class D)",
     motorcycle_test: "Motorcycle Test",
-    cdl: "CDL",
-    state_id: "State ID",
+    cdl_a: "CDL Class A",
+    cdl_b: "CDL Class B",
+    cdl_c: "CDL Class C",
+    class_e: "Class E (Non-Commercial)",
   };
 
   return typeMap[type] || type;

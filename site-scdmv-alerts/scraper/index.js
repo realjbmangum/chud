@@ -1,178 +1,134 @@
 /**
- * SC DMV Appointment Scraper
+ * SC DMV Road Test Appointment Scraper
  *
- * Monitors public.scscheduler.com for available appointments
+ * Monitors publicwebsiteapi.scscheduler.com for available road test appointments
  * and sends results to our API for notification dispatch.
  *
- * Run on a schedule (every 5-10 minutes) via:
- * - Railway cron
- * - Render cron
- * - GitHub Actions
- * - Or any Node.js hosting with cron support
+ * Run on a schedule (every 5-10 minutes) via cron.
  */
-
-import { chromium } from 'playwright';
 
 // Configuration
 const CONFIG = {
-  schedulerUrl: 'https://public.scscheduler.com/',
-  apiEndpoint: process.env.API_ENDPOINT || 'http://localhost:4321/api/scraper-results',
-  apiSecret: process.env.API_SECRET || 'dev-secret',
-  headless: process.env.HEADLESS !== 'false',
-  timeout: 60000,
+  apiBaseUrl: 'https://publicwebsiteapi.scscheduler.com/api',
+  notifyEndpoint: process.env.API_ENDPOINT || 'https://scdmv-alerts.pages.dev/api/scraper-results',
+  apiSecret: process.env.SCRAPER_API_SECRET || 'dev-secret',
 };
 
-// Appointment types we're looking for
-const APPOINTMENT_TYPES = [
-  'drivers_license',
-  'real_id',
-  'road_test',
-  'motorcycle_test',
-  'cdl',
-  'state_id',
+// SC regions with representative zip codes
+const REGIONS = {
+  greenville: ['29601', '29607', '29615'],
+  columbia: ['29201', '29205', '29210'],
+  charleston: ['29401', '29405', '29407'],
+  myrtle_beach: ['29572', '29577', '29582'],
+  spartanburg: ['29301', '29303', '29306'],
+  florence: ['29501', '29505'],
+  rock_hill: ['29730', '29732'],
+  aiken: ['29801', '29803'],
+};
+
+// Test types from SiteData
+const TEST_TYPES = [
+  { id: 1, name: 'Automobile (Class D)', code: 'road_test' },
+  { id: 2, name: 'Motorcycle', code: 'motorcycle_test' },
+  { id: 3, name: 'Non CDL Class E', code: 'cdl' },
+  { id: 4, name: 'Non CDL Class F', code: 'cdl' },
+  { id: 5, name: 'Class A', code: 'cdl' },
+  { id: 6, name: 'Class B', code: 'cdl' },
+  { id: 7, name: 'Class C', code: 'cdl' },
 ];
 
-async function scrape() {
-  console.log(`[${new Date().toISOString()}] Starting SC DMV scraper...`);
-
-  const browser = await chromium.launch({
-    headless: CONFIG.headless,
-  });
-
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  });
-
-  const page = await context.newPage();
-
-  // Capture API requests to discover endpoints
-  const apiCalls = [];
-  page.on('request', (request) => {
-    const url = request.url();
-    if (url.includes('api') || url.includes('schedule') || url.includes('slot') || url.includes('appoint')) {
-      apiCalls.push({
-        url,
-        method: request.method(),
-        headers: request.headers(),
-      });
-    }
-  });
-
-  page.on('response', async (response) => {
-    const url = response.url();
-    if (url.includes('api') || url.includes('schedule') || url.includes('slot') || url.includes('appoint')) {
-      try {
-        const body = await response.json().catch(() => null);
-        if (body) {
-          console.log(`[API Response] ${url}`, JSON.stringify(body).slice(0, 200));
-        }
-      } catch (e) {
-        // Ignore non-JSON responses
-      }
-    }
-  });
-
+async function fetchAvailability(typeId, zipCode) {
   try {
-    console.log(`Navigating to ${CONFIG.schedulerUrl}...`);
-    await page.goto(CONFIG.schedulerUrl, {
-      waitUntil: 'networkidle',
-      timeout: CONFIG.timeout,
+    const response = await fetch(`${CONFIG.apiBaseUrl}/AvailableLocation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ typeId, zipCode }),
     });
 
-    // Wait for the page to fully load
-    await page.waitForTimeout(3000);
-
-    // Take a screenshot for debugging
-    await page.screenshot({ path: 'scraper/debug-screenshot.png', fullPage: true });
-    console.log('Screenshot saved to scraper/debug-screenshot.png');
-
-    // Log page title and URL
-    console.log(`Page title: ${await page.title()}`);
-    console.log(`Current URL: ${page.url()}`);
-
-    // Log any discovered API calls
-    if (apiCalls.length > 0) {
-      console.log('\n=== Discovered API Endpoints ===');
-      apiCalls.forEach((call, i) => {
-        console.log(`${i + 1}. ${call.method} ${call.url}`);
-      });
+    if (!response.ok) {
+      console.error(`API error for zip ${zipCode}: ${response.status}`);
+      return [];
     }
 
-    // Try to find appointment-related elements
-    const appointments = await extractAppointments(page);
-
-    if (appointments.length > 0) {
-      console.log(`Found ${appointments.length} available appointments`);
-      await sendResults(appointments);
-    } else {
-      console.log('No appointments found in this scan');
-    }
-
-    // Log page content structure for debugging
-    const bodyText = await page.textContent('body');
-    console.log('\n=== Page Content Preview ===');
-    console.log(bodyText?.slice(0, 500) || 'No content');
-
+    return await response.json();
   } catch (error) {
-    console.error('Scraper error:', error);
-  } finally {
-    await browser.close();
-    console.log(`[${new Date().toISOString()}] Scraper finished`);
+    console.error(`Fetch error for zip ${zipCode}:`, error.message);
+    return [];
   }
 }
 
-async function extractAppointments(page) {
+function extractAppointments(locations, testType, region) {
   const appointments = [];
 
-  // This is a placeholder - we need to discover the actual page structure
-  // by running the scraper and examining the screenshot + console output
+  for (const location of locations) {
+    if (!location.Availability?.LocationAvailabilityDates) continue;
 
-  // Common patterns to look for:
-  // 1. Calendar grids with clickable dates
-  // 2. Time slot buttons
-  // 3. Location dropdowns
-  // 4. Service type selection
-
-  // Try to find any elements that might indicate available slots
-  const possibleSlotSelectors = [
-    '[class*="available"]',
-    '[class*="slot"]',
-    '[class*="time"]',
-    '[class*="appointment"]',
-    'button:has-text("Book")',
-    'button:has-text("Schedule")',
-    'a:has-text("Book")',
-    '.calendar-day:not(.disabled)',
-  ];
-
-  for (const selector of possibleSlotSelectors) {
-    try {
-      const elements = await page.$$(selector);
-      if (elements.length > 0) {
-        console.log(`Found ${elements.length} elements matching: ${selector}`);
-
-        for (const el of elements.slice(0, 10)) {
-          const text = await el.textContent();
-          if (text) {
-            appointments.push({
-              selector,
-              text: text.trim(),
-              timestamp: new Date().toISOString(),
-            });
-          }
-        }
+    for (const dateInfo of location.Availability.LocationAvailabilityDates) {
+      for (const slot of dateInfo.AvailableTimeSlots || []) {
+        appointments.push({
+          type: testType.code,
+          typeName: testType.name,
+          location: location.Name,
+          address: location.Address,
+          region: region,
+          date: dateInfo.FormattedAvailabilityDate,
+          dayOfWeek: dateInfo.DayOfWeek,
+          time: slot.FormattedTime,
+          slotId: slot.SlotId,
+          bookingUrl: 'https://public.scscheduler.com/',
+        });
       }
-    } catch (e) {
-      // Selector didn't match, continue
     }
   }
 
   return appointments;
 }
 
+async function scrape() {
+  const startTime = Date.now();
+  console.log(`[${new Date().toISOString()}] Starting SC DMV scraper...`);
+
+  const allAppointments = [];
+  const seenSlots = new Set();
+
+  // Query each region for each test type
+  for (const [region, zipCodes] of Object.entries(REGIONS)) {
+    for (const testType of TEST_TYPES) {
+      // Only check first zip per region to avoid duplicate locations
+      const zipCode = zipCodes[0];
+
+      console.log(`Checking ${testType.name} near ${zipCode} (${region})...`);
+
+      const locations = await fetchAvailability(testType.id, zipCode);
+      const appointments = extractAppointments(locations, testType, region);
+
+      // Dedupe by slotId
+      for (const apt of appointments) {
+        if (!seenSlots.has(apt.slotId)) {
+          seenSlots.add(apt.slotId);
+          allAppointments.push(apt);
+        }
+      }
+
+      // Small delay to be nice to the API
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+  }
+
+  console.log(`Found ${allAppointments.length} unique appointments`);
+
+  // Send to our notification API
+  if (allAppointments.length > 0) {
+    await sendResults(allAppointments);
+  }
+
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+  console.log(`[${new Date().toISOString()}] Scraper finished in ${elapsed}s`);
+}
+
 async function sendResults(appointments) {
   try {
-    const response = await fetch(CONFIG.apiEndpoint, {
+    const response = await fetch(CONFIG.notifyEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,13 +141,15 @@ async function sendResults(appointments) {
       }),
     });
 
+    const result = await response.json();
+
     if (response.ok) {
-      console.log('Results sent to API successfully');
+      console.log('Results sent successfully:', result);
     } else {
-      console.error('Failed to send results:', await response.text());
+      console.error('Failed to send results:', result);
     }
   } catch (error) {
-    console.error('Error sending results:', error);
+    console.error('Error sending results:', error.message);
   }
 }
 

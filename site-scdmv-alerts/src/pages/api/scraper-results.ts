@@ -77,6 +77,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     let emailsSent = 0;
     let smsSent = 0;
     let errors: string[] = [];
+    let skippedReasons: string[] = [];
+    let emailAttempts: string[] = [];
 
     for (const sub of subscribers.results) {
       // Reset daily counter if it's a new day
@@ -89,10 +91,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
       // Check if subscriber can receive more alerts
       const tier = sub.tier as string;
-      const maxAlerts = tier === "paid" ? Infinity : 3;
+      const maxAlerts = tier === "paid" ? 3 : 1;
 
       if (alertsSentToday >= maxAlerts) {
-        continue; // Skip, already at daily limit
+        skippedReasons.push(`${sub.email}: daily limit reached (${alertsSentToday}/${maxAlerts})`);
+        continue;
       }
 
       // Filter appointments by subscriber preferences
@@ -115,7 +118,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
 
       if (matchingAppointments.length === 0) {
-        continue; // No matching appointments for this subscriber
+        skippedReasons.push(`${sub.email}: no matching appointments (type=${subType}, region=${subRegion})`);
+        continue;
       }
 
       const email = sub.email as string;
@@ -124,8 +128,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const unsubscribeUrl = `${siteUrl}/api/unsubscribe?token=${unsubscribeToken}`;
 
       // Send email to all subscribers
+      emailAttempts.push(`Attempting email to ${email} (${matchingAppointments.length} appointments)`);
       const emailResult = await sendEmail(
-        { apiKey: env.RESEND_API_KEY },
+        {
+          apiKey: env.SENDGRID_API_KEY,
+          fromEmail: env.SENDGRID_FROM_EMAIL || "alerts@scdmvappointments.com",
+          fromName: "SC DMV Alerts",
+        },
         {
           to: email,
           subject: `SC DMV: ${matchingAppointments.length} Appointment${matchingAppointments.length > 1 ? "s" : ""} Available`,
@@ -133,6 +142,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
           text: formatEmailText(matchingAppointments, unsubscribeUrl),
         }
       );
+
+      emailAttempts.push(`Result for ${email}: success=${emailResult.success}, error=${emailResult.error || 'none'}`);
 
       if (emailResult.success) {
         emailsSent++;
@@ -183,7 +194,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
         subscribersProcessed: subscribers.results.length,
         emailsSent,
         smsSent,
-        errors: errors.length > 0 ? errors : undefined,
+        errorsCount: errors.length,
+        skippedCount: skippedReasons.length,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );

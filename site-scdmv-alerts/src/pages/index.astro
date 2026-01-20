@@ -3,33 +3,60 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="SC DMV Alerts - Never Miss an Appointment">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-brand-600">SC DMV Alerts</a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
+          <a href="/guides/locations" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+          <a href="#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
   <!-- Hero -->
   <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <div class="text-center">
-        <div class="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-          </span>
-          Monitoring SC DMV 24/7
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700 mb-6">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+            </span>
+            Monitoring SC DMV 24/7
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
+            Get Instant Alerts When SC DMV Appointments Open Up
+          </h1>
+
+          <p class="mt-6 text-lg sm:text-xl text-gray-600">
+            Stop refreshing the DMV website. We monitor 24/7 and send you instant SMS and email alerts the moment appointments become available.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#pricing" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors">
+              Get Started Free
+            </a>
+            <a href="#how-it-works" class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+              How It Works
+            </a>
+          </div>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 max-w-4xl mx-auto">
-          Get Instant Alerts When SC DMV Appointments Open Up
-        </h1>
-
-        <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-          Stop refreshing the DMV website. We monitor 24/7 and send you instant SMS and email alerts the moment appointments become available.
-        </p>
-
-        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#pricing" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors">
-            Get Started Free
-          </a>
-          <a href="#how-it-works" class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
-            How It Works
-          </a>
+        <div class="relative">
+          <img
+            src="/home.jpg"
+            alt="Person receiving a DMV appointment notification on their phone"
+            class="w-full rounded-2xl shadow-2xl"
+          />
         </div>
       </div>
     </div>
@@ -72,35 +99,42 @@ import Layout from '../layouts/Layout.astro'
   <section class="py-16 sm:py-24 bg-gray-50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Supported Appointment Types</h2>
-        <p class="mt-4 text-lg text-gray-600">We monitor all major SC DMV services</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Road Test Appointments</h2>
+        <p class="mt-4 text-lg text-gray-600">We monitor SC DMV road test availability across all locations</p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">Driver's License</h3>
-          <p class="text-sm text-gray-600">First-time, renewal, or replacement</p>
-        </div>
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">REAL ID</h3>
-          <p class="text-sm text-gray-600">Upgrade to REAL ID compliant license</p>
-        </div>
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">Road Test</h3>
-          <p class="text-sm text-gray-600">Schedule your driving skills test</p>
+          <h3 class="font-semibold text-gray-900 mb-2">Road Test (Class D)</h3>
+          <p class="text-sm text-gray-600">Standard automobile driving skills test</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
           <h3 class="font-semibold text-gray-900 mb-2">Motorcycle Test</h3>
-          <p class="text-sm text-gray-600">Motorcycle skills test appointments</p>
+          <p class="text-sm text-gray-600">Motorcycle riding skills test</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">CDL</h3>
-          <p class="text-sm text-gray-600">Commercial Driver's License services</p>
+          <h3 class="font-semibold text-gray-900 mb-2">CDL Class A</h3>
+          <p class="text-sm text-gray-600">Tractor-trailers and combination vehicles</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">State ID</h3>
-          <p class="text-sm text-gray-600">Non-driver identification cards</p>
+          <h3 class="font-semibold text-gray-900 mb-2">CDL Class B</h3>
+          <p class="text-sm text-gray-600">Large single vehicles (buses, trucks)</p>
         </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">CDL Class C</h3>
+          <p class="text-sm text-gray-600">Vehicles with hazmat or 16+ passengers</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 class="font-semibold text-gray-900 mb-2">Class E (Non-Commercial)</h3>
+          <p class="text-sm text-gray-600">Large non-commercial vehicles</p>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+        <p class="text-blue-800">
+          <strong>Note:</strong> REAL ID, Driver's License renewals, and State ID services are walk-in only at SC DMV branches.
+          No appointment needed. <a href="https://dmv.sc.gov/Locations" target="_blank" class="underline hover:text-blue-600">Find a branch near you</a>.
+        </p>
       </div>
     </div>
   </section>
@@ -129,7 +163,7 @@ import Layout from '../layouts/Layout.astro'
               <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span class="text-gray-600">Up to 3 alerts per day</span>
+              <span class="text-gray-600">1 daily email alert</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,7 +211,7 @@ import Layout from '../layouts/Layout.astro'
               <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span class="text-white">Unlimited alerts</span>
+              <span class="text-white">Up to 3 alerts per day</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -258,15 +292,15 @@ import Layout from '../layouts/Layout.astro'
               id="appointment_type"
               name="appointment_type"
               required
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="">Select appointment type...</option>
-              <option value="drivers_license">Driver's License</option>
-              <option value="real_id">REAL ID</option>
-              <option value="road_test">Road Test</option>
+              <option value="road_test">Road Test (Class D)</option>
               <option value="motorcycle_test">Motorcycle Test</option>
-              <option value="cdl">CDL</option>
-              <option value="state_id">State ID</option>
+              <option value="cdl_a">CDL Class A</option>
+              <option value="cdl_b">CDL Class B</option>
+              <option value="cdl_c">CDL Class C</option>
+              <option value="class_e">Class E (Non-Commercial)</option>
             </select>
           </div>
 
@@ -277,7 +311,7 @@ import Layout from '../layouts/Layout.astro'
               id="region"
               name="region"
               required
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="any">Any location in SC</option>
               <option value="charleston">Charleston Area</option>
@@ -291,13 +325,13 @@ import Layout from '../layouts/Layout.astro'
 
         <button
           type="submit"
-          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           Start Free Alerts
         </button>
 
         <p class="mt-4 text-center text-sm text-gray-500">
-          Want unlimited SMS alerts? <a href="#signup-pro" class="text-brand-600 hover:text-brand-700 font-medium">Upgrade to Pro</a>
+          Want SMS alerts + 3x daily notifications? <a href="#signup-pro" class="text-brand-600 hover:text-brand-700 font-medium">Upgrade to Pro</a>
         </p>
         <!-- Status message -->
         <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-sm"></div>
@@ -310,7 +344,7 @@ import Layout from '../layouts/Layout.astro'
     <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="text-3xl font-bold text-white">Get Pro - $5.99/month</h2>
-        <p class="mt-4 text-brand-100">Unlimited SMS + email alerts. Cancel anytime.</p>
+        <p class="mt-4 text-brand-100">Up to 3 SMS + email alerts daily. Cancel anytime.</p>
       </div>
 
       <form action="/api/checkout" method="POST" class="bg-white rounded-2xl p-8 shadow-lg">
@@ -348,15 +382,15 @@ import Layout from '../layouts/Layout.astro'
               id="pro-appointment_type"
               name="appointment_type"
               required
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="">Select appointment type...</option>
-              <option value="drivers_license">Driver's License</option>
-              <option value="real_id">REAL ID</option>
-              <option value="road_test">Road Test</option>
+              <option value="road_test">Road Test (Class D)</option>
               <option value="motorcycle_test">Motorcycle Test</option>
-              <option value="cdl">CDL</option>
-              <option value="state_id">State ID</option>
+              <option value="cdl_a">CDL Class A</option>
+              <option value="cdl_b">CDL Class B</option>
+              <option value="cdl_c">CDL Class C</option>
+              <option value="class_e">Class E (Non-Commercial)</option>
             </select>
           </div>
 
@@ -367,7 +401,7 @@ import Layout from '../layouts/Layout.astro'
               id="pro-region"
               name="region"
               required
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="any">Any location in SC</option>
               <option value="charleston">Charleston Area</option>
@@ -381,7 +415,7 @@ import Layout from '../layouts/Layout.astro'
 
         <button
           type="submit"
-          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+          class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           Continue to Payment
         </button>
@@ -422,8 +456,8 @@ import Layout from '../layouts/Layout.astro'
         </div>
 
         <div>
-          <h3 class="text-lg font-semibold text-gray-900">Why only 3 alerts per day on free?</h3>
-          <p class="mt-2 text-gray-600">SMS costs money to send, and we want to keep the free tier sustainable. 3 alerts is usually enough to catch an opening, but Pro users get unlimited for the best chance of booking.</p>
+          <h3 class="text-lg font-semibold text-gray-900">Why only 1 alert per day on free?</h3>
+          <p class="mt-2 text-gray-600">We want to keep the free tier sustainable while still being useful. One daily alert lets you know when appointments are available. Pro users get 3 alerts per day plus SMS for the best chance of booking.</p>
         </div>
       </div>
     </div>
@@ -437,9 +471,11 @@ import Layout from '../layouts/Layout.astro'
           &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
         </div>
         <div class="flex gap-6 text-sm">
-          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-          <a href="mailto:support@scdmvalerts.com" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
         </div>
       </div>
     </div>

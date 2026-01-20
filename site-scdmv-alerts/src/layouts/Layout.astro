@@ -7,6 +7,11 @@ interface Props {
 }
 
 const { title, description = "Get instant alerts when SC DMV appointments become available. Stop refreshing - we'll notify you." } = Astro.props
+
+// Get Mapbox token from Cloudflare runtime environment
+// In SSR mode, runtime env vars are accessed via Astro.locals.runtime.env
+const runtime = Astro.locals.runtime
+const mapboxToken = runtime?.env?.PUBLIC_MAPBOX_ACCESS_TOKEN || runtime?.env?.MAPBOX_ACCESS_TOKEN || ''
 ---
 
 <!doctype html>
@@ -27,6 +32,9 @@ const { title, description = "Get instant alerts when SC DMV appointments become
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Mapbox Token (for locations map) -->
+    {mapboxToken && <meta name="mapbox-token" content={mapboxToken} />}
   </head>
   <body class="min-h-screen bg-white text-gray-900 font-sans antialiased">
     <slot />
