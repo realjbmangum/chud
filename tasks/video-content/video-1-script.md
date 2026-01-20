@@ -1,0 +1,224 @@
+# Video 1 Script: How to Read Pet Medication Labels
+
+**Target length:** 1,350 words (approximately 6-7 minutes)
+
+---
+
+## HOOK (10 seconds)
+
+[VISUAL: Close-up of confused pet owner holding prescription bottle, looking at label]
+
+Your vet just prescribed medication for your pet, but the label looks like it's written in another language.
+
+In the next seven minutes, I'll decode every part of that label so you know exactly what you're giving, when to give it, and what to watch for.
+
+All information is sourced from VCA Animal Hospitals, the FDA, and PetMD. Let's break it down.
+
+---
+
+## INTRO (30 seconds)
+
+[VISUAL: Switch to AI presenter]
+
+Medication confusion is one of the most common reasons pet owners call their vet after a visit. Sometimes it's confusing dosing schedules. Sometimes it's not understanding storage requirements. And sometimes the label just has too much information packed into a tiny space.
+
+Here's what we'll cover today:
+- How to read dosage instructions correctly
+- What all those label components actually mean
+- Why storage and expiration dates matter more than you think
+- Warning labels explained
+- And when you should call your vet with questions
+
+Before we start: This is educational content to help you understand your vet's advice. It's not a substitute for veterinary care. Always follow your vet's specific instructions for your pet.
+
+---
+
+## MAIN CONTENT
+
+### Point 1: Understanding Dosage Instructions (1.5 minutes)
+
+[VISUAL: Close-up of medication label highlighting dosage section]
+
+Let's start with the most critical part of the label: dosage instructions.
+
+You'll typically see something like "Give one tablet by mouth every twelve hours." This seems straightforward, but there's more to it than you might think.
+
+[PAUSE]
+
+Here's what this actually means: One tablet - not crushed or split unless your vet specifically says so. By mouth means the tablet goes directly in your pet's mouth, not necessarily hidden in food unless specified. And every twelve hours means exactly that - twelve hours apart, not just twice a day whenever it's convenient.
+
+[B-ROLL CUE: Calendar/clock visual showing 8 AM to 8 PM - exactly 12 hours]
+
+Here's the most common mistake pet owners make: They think "morning and night" means the same as "every twelve hours." But if morning is seven AM and night is eleven PM, that's actually sixteen hours apart, not twelve. Your pet's body processes medication at a steady rate, and consistent timing keeps the medication at therapeutic levels.
+
+[ON-SCREEN TEXT: "Use phone alarms for consistent timing"]
+
+Use a phone alarm to keep it consistent. If you give the first dose at eight AM, set your alarm for eight PM for the next dose.
+
+[PAUSE]
+
+And here's what to do if you miss a dose: Skip it. Never double up. If you miss a dose, skip it and resume your regular schedule. Giving two doses too close together can be dangerous.
+
+---
+
+### Point 2: What's Actually On The Label (1.5 minutes)
+
+[VISUAL: Medication bottle rotating to show different parts of label]
+
+Now let's talk about what's actually required to be on that prescription label.
+
+Every veterinary prescription must include: your veterinarian's name and contact information, your pet's name, the drug name - which includes both the active ingredient and brand name - the dosage amount and frequency, the expiration date, storage requirements, and this warning: "Caution: Federal law restricts this drug to use by or on the order of a licensed veterinarian."
+
+[B-ROLL CUE: Close-up of each label component being highlighted]
+
+Why does the label show both a brand name and an active ingredient? The brand name is just who makes it - like Tylenol. The active ingredient is what actually treats your pet - like acetaminophen. Knowing the active ingredient helps your vet find alternatives if you ever need a refill and the specific brand isn't available.
+
+[PAUSE]
+
+Here's a practical tip: If you have multiple pets, highlight your pet's name on each prescription bottle. This prevents dangerous mix-ups. A medication safe for your dog might be toxic to your cat, even if they have similar symptoms.
+
+[ON-SCREEN TEXT: "Highlight pet's name for multi-pet households"]
+
+And keep the pharmacy information and prescription number readable. If the label gets wet or worn, don't write over it. Instead, rewrite the instructions on a separate piece of paper and tape it to the bottle.
+
+---
+
+### Point 3: Storage Requirements Matter (1 minute)
+
+[VISUAL: Split screen - refrigerator vs bathroom medicine cabinet]
+
+Storage requirements are easy to overlook, but they can make the difference between medication that works and medication that doesn't.
+
+Some medications need refrigeration - that means between thirty-six and forty-six degrees Fahrenheit, and never frozen unless the label specifically says so. Room temperature medications should be stored in a cool, dry place.
+
+[PAUSE]
+
+And here's what most people get wrong: They store medications in the bathroom medicine cabinet. Don't do this. Bathrooms have humidity fluctuations from showers that can degrade medications. Your pantry is actually a better choice.
+
+[B-ROLL CUE: Person moving medication from bathroom to pantry]
+
+Never leave medications in a hot car or in direct sunlight. Temperature extremes can alter medication effectiveness significantly.
+
+[ON-SCREEN TEXT: "Store in pantry, NOT bathroom"]
+
+And here's something specific you need to know: Eye drops expire twenty-eight days after opening, even if the bottle's expiration date is months away. Mark the date you opened them, and throw them out after four weeks. They can become contaminated and cause infections.
+
+---
+
+### Point 4: Expiration Dates - When They Actually Matter (1 minute)
+
+[VISUAL: Close-up of expiration date on medication bottle]
+
+Let's talk about expiration dates. The FDA defines the expiration date as the point when ten percent of the active pharmaceutical ingredient has decomposed. After this date, the medication may not be safe or effective.
+
+Here's a practical system: Check your pet's medication expiration dates twice a year when the clocks change for daylight saving time. Use that reminder to discard expired medications and request refills from your vet.
+
+[B-ROLL CUE: Person checking multiple medication bottles, throwing expired ones in disposal bag]
+
+Why does this matter? Expired medications become less effective. And injectable medications can actually harbor bacteria after expiration, which can cause infections.
+
+[PAUSE]
+
+For compounded medications - those are the ones the pharmacy mixes specifically for your pet - they usually have even shorter expiration dates. Often just one month after mixing. Pay extra attention to those dates.
+
+---
+
+### Point 5: Warning Labels and When to Call Your Vet (1.5 minutes)
+
+[VISUAL: AI presenter]
+
+Now let's decode those warning labels, because they're there for important reasons.
+
+"For animal use only" means exactly that - do not take your pet's medication yourself, even if you think you have the same condition. "Keep out of reach of children" is critical. Approximately sixty thousand children visit emergency rooms every year from accidentally accessing medications. Many pet medications are flavored to smell like candy or chocolate, making them especially attractive to kids.
+
+[B-ROLL CUE: Parent securing medication in high, locked cabinet]
+
+"Shake well" means the ingredients have settled and you need to mix them for proper dosing. And "Do not use if pregnant" is usually meant for the person handling the medication, because some medications can be absorbed through your skin.
+
+[PAUSE]
+
+Here's when you should call your vet:
+- If you miss multiple doses and don't know how to resume safely
+- If your pet has side effects like vomiting, diarrhea, lethargy, or behavior changes
+- If the label becomes illegible and you're confused about instructions
+- If your pet consistently refuses the medication
+- Or if you're thinking about using leftover medication for a new issue
+
+[ON-SCREEN TEXT: "Never reuse medication without vet approval"]
+
+That last one is really important. Never reuse leftover medication without your vet's approval. Even if your pet seems to have the same symptoms as before, it could be a different condition, and giving the wrong medication can be harmful and delay proper diagnosis.
+
+---
+
+## COMMON MISTAKES SECTION (45 seconds)
+
+[VISUAL: AI presenter]
+
+Before we wrap up, let's clear up some common mistakes pet owners make.
+
+**Mistake number one:** "I can stop the medication when my pet feels better."
+Not true. Unless your vet specifically says otherwise, complete the full course. This is especially important for antibiotics. Stopping early can lead to relapse or antibiotic resistance.
+
+**Mistake number two:** "I can split tablets to save money or adjust the dosage."
+Only if your vet specifically approves it AND the tablet is scored for splitting. Some medications have special coatings that break down in specific parts of the digestive system. Crushing them makes them ineffective or can cause stomach upset.
+
+**Mistake number three:** "The bathroom medicine cabinet is a good storage spot."
+We covered this earlier, but it's worth repeating. The humidity from showers can degrade your pet's medications. Use your pantry instead.
+
+---
+
+## RECAP & CALL TO ACTION (30 seconds)
+
+[VISUAL: AI presenter]
+
+So to recap:
+- Dosage timing matters - use phone alarms for exact twelve-hour spacing
+- Highlight your pet's name on bottles in multi-pet households
+- Store medications in cool, dry places - pantry beats bathroom
+- Check expiration dates twice a year
+- And never hesitate to call your vet with questions
+
+You now know how to read every part of that prescription label. More importantly, you know what questions to ask if anything is unclear.
+
+If this video helped you understand your pet's medication better, give it a thumbs up so other confused pet owners can find it. And drop a comment with your biggest medication question - I read every one and they help me know what videos to make next.
+
+Thanks for watching. And remember, when in doubt, call your vet.
+
+[END]
+
+---
+
+## PRODUCTION NOTES
+
+**Total word count:** 1,383 words (approximately 6.5-7 minutes at 200 wpm)
+
+**Voiceover notes:**
+- [PAUSE] = natural breath point, 1-2 second pause
+- Emphasize numbers (twelve hours, twenty-eight days, sixty thousand)
+- Warm, conversational tone throughout
+- Slow down slightly for critical safety information
+
+**B-roll needed:**
+- Confused pet owner with prescription bottle
+- Close-ups of medication labels (various angles)
+- Calendar/clock showing 12-hour spacing
+- Multi-pet household (highlighting name on bottle)
+- Storage locations: pantry (good), bathroom (bad), hot car (bad)
+- Eye drops being opened (mark date)
+- Expiration date close-ups
+- Person setting phone alarm
+- Pet receiving medication
+- High cabinet/locked storage for safety
+- Person disposing of expired medication properly
+
+**On-screen text moments:**
+- "Use phone alarms for consistent timing"
+- "Highlight pet's name for multi-pet households"
+- "Store in pantry, NOT bathroom"
+- "Never reuse medication without vet approval"
+
+**Readability check:**
+- Average sentence length: 15-18 words ✓
+- Conversational tone: Yes ✓
+- Technical terms explained: Yes ✓
+- 8th grade reading level: Yes ✓
