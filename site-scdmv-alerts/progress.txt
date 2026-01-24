@@ -1,0 +1,338 @@
+# SC DMV Alerts - Progress Tracking
+
+## Codebase Patterns
+
+### Architecture
+- **Frontend:** Astro + Tailwind CSS on Cloudflare Pages
+- **Database:** Cloudflare D1 (SQLite) - binding named `DB`
+- **Scraper:** Separate Cloudflare Worker (`scraper-worker/`) runs every 5 min
+- **Email:** SendGrid (production, 50k/month)
+- **Env vars in Cloudflare:** Use `Astro.locals.runtime.env` not `import.meta.env`
+
+### Data Flow
+1. Scraper Worker fetches from SC DMV API (`publicwebsiteapi.scscheduler.com`)
+2. Posts results to `/api/scraper-results` on main site
+3. Main site filters by subscriber preferences, sends emails
+
+### Key Gotchas
+- Cloudflare Pages SSR requires `Astro.locals.runtime.env` for env vars
+- REAL ID, license renewals, State ID are **walk-in only** - no appointments available
+- SC DMV API returns ~750 appointments per scrape
+
+### Business Model (3-Tier Pricing)
+- **Free:** 1 email alert/day, road test & motorcycle only
+- **Pro:** $5.99/mo, 3 alerts/day, SMS + email, no CDL
+- **CDL Pro:** $19.99/mo, 5 alerts/day, SMS + email, CDL A/B/C only
+
+---
+
+## Session - January 23, 2026
+
+**Completed:**
+- Functional testing: scraper finding ~733 appointments, emails sending, 4 active subscribers
+- Compared features with NC DMV appointments site (ncdmvappointments.com)
+- Implemented 3-tier pricing (Free, Pro $5.99, CDL Pro $19.99)
+- Added compressed promo video (289KB) under "How It Works" section
+- Fixed tier logic bug - code was checking `tier === "paid"` but tiers are "free", "pro", "cdl"
+- Fixed checkout.ts to read tier field and use different Stripe price IDs
+- Fixed webhook.ts to set tier from Stripe metadata
+- Fixed subscribe.ts with correct appointment types
+- Created LAUNCH-CHECKLIST.md with all launch tasks
+
+**Stripe Setup (Complete):**
+- Created Pro ($5.99) and CDL Pro ($19.99) products in Stripe
+- All 4 env vars configured in Cloudflare:
+  - `STRIPE_SECRET_KEY` ✓
+  - `STRIPE_PRICE_ID` (Pro $5.99) ✓
+  - `STRIPE_CDL_PRICE_ID` (CDL $19.99) ✓
+  - `STRIPE_WEBHOOK_SECRET` ✓
+- Webhook configured and working
+- Pro checkout tested and working - payment processed successfully
+
+**Twilio Setup (Complete):**
+- Account created with $50 credits
+- Toll-free number: +1 855-506-7008
+- Trust Hub verification submitted (Sole Proprietor using LIGHTHOUSE 27 LLC)
+- Toll-free verification submitted - pending approval
+- All 3 env vars configured in Cloudflare:
+  - `TWILIO_ACCOUNT_SID` ✓
+  - `TWILIO_AUTH_TOKEN` ✓
+  - `TWILIO_PHONE_NUMBER` ✓
+- SMS sending works (API accepts messages) - delivery pending toll-free verification
+
+**Database Migration:**
+- Migrated subscribers table to allow 'pro' and 'cdl' tier values (was only 'free'/'paid')
+- Added `last_alert_at` column for cooldown tracking
+
+**Alert Rate Limiting (New):**
+- Added 3-hour cooldown between alerts per subscriber
+- Added 6am-6pm ET notification window (no alerts outside business hours)
+- Daily limits: Free=1, Pro=3, CDL=5
+
+**Site Updates:**
+- Added cute car/calendar logo to header (`scdmvappt-logo.png`)
+- Updated header text to "SC DMV APPOINTMENTS" in #85ccfa blue
+- Logo and branding updated across all pages
+
+**Files Changed:**
+- `src/pages/api/scraper-results.ts` - Tier limits, SMS, 3-hour cooldown, 6am-6pm window
+- `src/pages/api/checkout.ts` - Tier field, different price IDs, error logging
+- `src/pages/api/webhook.ts` - Read tier from Stripe metadata
+- `src/pages/api/subscribe.ts` - Updated valid appointment types
+- `src/pages/index.astro` - Logo, branding, 3-column pricing
+- `src/pages/faq.astro` - Logo update
+- `src/pages/guides/*.astro` - Logo update (all 7 guide pages)
+- `public/scdmvappt-logo.png` - New site logo
+- `public/promo.mp4` - Compressed video (289KB)
+- `LAUNCH-CHECKLIST.md` - Comprehensive launch checklist
+
+**Commits:**
+- `feat: Add 3-tier pricing and fix tier logic for Pro/CDL`
+- `feat: Add site logo and fix 3-tier pricing`
+- `style: Update header to SC DMV APPOINTMENTS with #85ccfa color`
+- `feat: Add 3-hour cooldown and 6am-6pm notification window`
+
+**Next Steps:**
+- [ ] Wait for Twilio toll-free verification (SMS delivery will work after)
+- [ ] Buy separate local number for LoveNotes
+- [ ] Execute marketing launch (see checklist below)
+- [ ] Monitor first real Pro subscriber billing cycle
+
+---
+
+## Session - January 23, 2026 (Evening) - Marketing Plan
+
+**Completed:**
+- Created reusable marketing-plan skill for future product launches
+- Built comprehensive marketing plan for SC DMV Alerts
+- Researched competitor (ncdmvappointments.com) - they got 2,000+ users via local news coverage
+- Identified SC Reddit communities: r/southcarolina, r/greenville, r/charleston, r/ColumbiYEAH, r/MyrtleBeach
+- Created full launch kit with copy/paste content for all platforms
+
+**Marketing Strategy:**
+- Budget: $0 (organic only)
+- Time: 5+ hours/week
+- Goal: 1,000 free users + $500 MRR in 90 days (50-80 paid subscribers)
+- Approach: Hyperlocal community presence + SEO + press outreach
+
+**Files Created:**
+- `skills/business/marketing-plan.md` - Reusable GTM skill (added to SKILL-INDEX.md)
+- `tasks/marketing-plan-scdmv-alerts.md` - Full strategy doc
+- `tasks/scdmv-marketing-launch-kit.md` - Detailed execution guide
+- `tasks/scdmv-launch-checklist.tsv` - 40-task checklist for Google Sheets
+- `tasks/scdmv-content-reference.txt` - Copy/paste content for all platforms
+
+**Key Channels:**
+1. TikTok/Reels/Shorts - Promo video ready, teens are primary audience
+2. Reddit - r/southcarolina first, then city subs
+3. Facebook Groups - SC community groups (warm up before promoting)
+4. Local Press - WLTX, WYFF, Live 5 (replicate NC competitor's PR success)
+5. Driving Schools - Partnership outreach
+
+**Content Ready:**
+- Twitter launch thread (6 tweets)
+- Reddit post for r/southcarolina
+- Nextdoor post
+- Driving school outreach email
+- Press pitch email
+- TikTok captions
+- Reply templates for comments
+
+**Learnings:**
+- NC competitor got traction primarily through local TV news coverage
+- Skills in Claude Code can be markdown files OR Skill tool configs (two systems)
+- TSV format better than CSV when content has commas
+
+**Next Steps:**
+- [ ] Import checklist to Google Sheets
+- [ ] Day 1: Create social accounts + post promo video
+- [ ] Day 2: Post to r/southcarolina
+- [ ] Days 3-7: Engagement + outreach
+- [ ] Week 2: Press pitches + expand to more subreddits
+
+---
+
+## Session - January 22, 2026
+
+**Completed:**
+- Created promotional video using Remotion (React-based video framework)
+- Built 4 video style variations: Premium SC, Minimalist, Bold, Warm
+- Selected Premium SC style with South Carolina theming (palmetto, crescent moon, state colors)
+- Added hero image from homepage with Ken Burns zoom effect
+- Added friendly ukulele background music with fade in/out
+- Rendered both vertical (1080x1920) and wide (1920x1080) versions
+
+**Files Created:**
+- `promo-video/` - New Remotion project
+- `promo-video/src/SCDMVPromo.tsx` - Main premium video (6 scenes)
+- `promo-video/src/styles/MinimalistStyle.tsx` - Apple-inspired minimal
+- `promo-video/src/styles/BoldStyle.tsx` - High energy startup vibe
+- `promo-video/src/styles/WarmStyle.tsx` - Friendly approachable style
+- `promo-video/out/scdmv-promo-vertical.mp4` - TikTok/Reels/Shorts ready
+- `promo-video/out/scdmv-promo-wide.mp4` - YouTube/Facebook ready
+
+**Video Scenes (Premium SC):**
+1. Opening - Hero image + SC flag elements + website URL
+2. Problem - "DMV appointments book appointments fast" + spinning clock
+3. Solution - SC DMV Alerts logo reveal
+4. How It Works - 3-step process (Monitor → Alert → Book)
+5. Features - 65+ locations, all test types, instant alerts, free
+6. CTA - "Sign Up Free" + scdmvappointments.com
+
+**Learnings:**
+- Remotion uses React components for video scenes
+- `staticFile()` for assets in public folder
+- `spring()` for natural animations, `interpolate()` for linear
+- Audio component with volume interpolation for fade in/out
+
+---
+
+## Session - January 19, 2026 (Evening)
+
+**Completed:**
+- Created FAQ page (`/faq`) with comprehensive categories
+- Updated site navigation (header/footer) across all pages
+- Fixed guide icons (road test: map icon, motorcycle: motorcycle icon)
+
+**Files Changed:**
+- `src/pages/faq.astro` - New FAQ page
+- `src/pages/index.astro` - Updated nav
+- `src/pages/guides/*.astro` - Updated nav on all 7 guide pages
+
+**Decisions:**
+- REAL ID standalone site not viable (walk-in only services = no alert model)
+- Existing REAL ID guide on this site covers the use case
+
+**Next Steps:**
+- [ ] Stripe setup for Pro tier payments
+- [ ] Twilio SMS setup for Pro tier alerts
+
+---
+
+## Session - January 19, 2026 (Earlier)
+
+**Completed:**
+- Fixed Mapbox map display (was showing "unavailable")
+- Rebuilt locations page with official SC DMV data (65 offices)
+- Added 3 SCDMV Express kiosk locations
+- Added search box and collapsible regions to locations page
+
+**Files Changed:**
+- `src/pages/guides/locations.astro` - Complete rebuild with official data
+- `src/layouts/Layout.astro` - Fixed Mapbox token access for Cloudflare
+- `src/pages/api/debug-env.ts` - Added env key listing
+
+**Learnings:**
+- SC DMV official API: `https://dmv.sc.gov/scdmv/get-locations`
+- Kiosk info from: `https://scdmvexpress.com`
+- Mapbox token must be checked via both `PUBLIC_MAPBOX_ACCESS_TOKEN` and `MAPBOX_ACCESS_TOKEN`
+
+**Commits:**
+- `d1141d0` - feat: Rebuild locations page with official SC DMV data
+- `bca8ce1` - feat: Add SCDMV Express kiosk locations to map
+- `488e20a` - feat: Improve locations page UX with collapsible regions and search
+
+---
+
+## Session - January 18, 2026 (Evening)
+
+**Completed:**
+- Email alerts via SendGrid working (production)
+- Domain authenticated: scdmvappointments.com verified in SendGrid
+- Created 6 comprehensive guides:
+  - Road Test, Motorcycle Test, REAL ID, License Renewal, CDL, Locations
+- Interactive Mapbox map with filters
+- Subscriber signup with preferences
+- Daily alert limits (Free: 1/day, Pro: 3/day)
+- Unsubscribe links in emails
+
+**Files Changed:**
+- `src/pages/guides/index.astro` - Guide listing
+- `src/pages/guides/road-test.astro`
+- `src/pages/guides/motorcycle-test.astro`
+- `src/pages/guides/real-id.astro`
+- `src/pages/guides/license-renewal.astro`
+- `src/pages/guides/cdl.astro`
+- `src/pages/guides/locations.astro`
+- `src/layouts/Layout.astro` - Mapbox token meta tag
+
+---
+
+## Remaining Tasks
+
+### 1. Stripe Integration - COMPLETE ✓
+- [x] Create Stripe account and get API keys
+- [x] Set up Stripe products (Pro $5.99, CDL Pro $19.99)
+- [x] Implement `/api/checkout` endpoint with tier support
+- [x] Implement `/api/webhook` endpoint with tier metadata
+- [x] Add Stripe env vars to Cloudflare Pages
+
+### 2. Twilio SMS - IN PROGRESS
+- [x] Create Twilio account ($50 credits added)
+- [x] Get phone number (toll-free: +1 855-506-7008)
+- [ ] Complete Trust Hub verification
+- [ ] Add Twilio env vars to Cloudflare
+- [ ] Test SMS delivery
+- [ ] Buy local number for LoveNotes (separate project)
+
+### 3. Testing & QA
+- [x] Scraper running on schedule (~733 appointments found)
+- [x] Email delivery working (4 active subscribers receiving alerts)
+- [ ] Test full Pro checkout flow
+- [ ] Test full CDL checkout flow
+- [ ] Test SMS delivery to Pro/CDL subscribers
+
+### 4. Go-To-Market Strategy for South Carolina
+
+#### Phase 1: Organic Social (Week 1)
+- [ ] Post promo video to TikTok (create account if needed)
+- [ ] Post to Instagram Reels
+- [ ] Post to YouTube Shorts
+- [ ] Post to Facebook (personal + any SC groups)
+- [ ] Post to Twitter/X with SC DMV hashtags
+- [ ] Create Reddit posts in r/southcarolina, r/charleston, r/greenville, r/columbia
+
+#### Phase 2: Local Community Outreach (Week 1-2)
+- [ ] Join SC Facebook groups (Charleston, Columbia, Greenville community groups)
+- [ ] Find driving school Facebook pages/groups - offer to share
+- [ ] Reach out to SC driving instructors on Instagram
+- [ ] Post in Nextdoor (if available in SC areas)
+- [ ] Find SC parent groups (teens getting licenses)
+
+#### Phase 3: SEO & Content (Ongoing)
+- [ ] Submit sitemap to Google Search Console
+- [ ] Create blog posts targeting "SC DMV road test tips"
+- [ ] Target keywords: "SC DMV appointment", "South Carolina road test", "DMV wait times SC"
+- [ ] Add schema markup to guide pages
+- [ ] Build backlinks from SC local directories
+
+#### Phase 4: Paid Advertising (Week 2+, after Stripe working)
+- [ ] Set up Google Ads campaign targeting SC DMV keywords
+- [ ] Facebook/Instagram ads targeting SC, ages 16-25
+- [ ] Set daily budget ($10-20/day to start)
+- [ ] A/B test ad creative (video vs static image)
+
+#### Phase 5: Partnerships (Week 3+)
+- [ ] Contact SC driving schools for referral partnerships
+- [ ] Reach out to SC DMV-related blogs/sites for guest posts
+- [ ] Consider affiliate program for driving instructors
+
+### 4. Twilio SMS Setup - IN PROGRESS
+- [x] Create Twilio account
+- [x] Get phone number (+1 855-506-7008 toll-free)
+- [x] SMS sending already implemented in notifications.ts
+- [ ] Complete Trust Hub verification (using LIGHTHOUSE 27 LLC as Sole Prop)
+- [ ] Add Twilio env vars to Cloudflare
+- [ ] Test SMS delivery
+
+---
+
+## Pending Work (Backlog)
+
+### Future Ideas
+- Analytics dashboard for subscribers
+- More granular location preferences
+- Appointment type filtering in alerts
+- Push notifications via web push
+- Mobile app (React Native)
+- Expand to other states (NC, GA, FL)

@@ -1,0 +1,41 @@
+Status	Day	Category	Task	Time	Content
+FALSE	1	Setup	Create TikTok account	10 min	Username: @scdmvappointments - Switch to Business Account - Bio: Free SC DMV appointment alerts. Get texted when road test slots open. Link below.
+FALSE	1	Setup	Create Twitter account	10 min	Handle: @SCDMVAlerts - Bio: Free SC DMV appointment alerts. Get notified instantly when road test or CDL slots open up across South Carolina.
+FALSE	1	Setup	Create Instagram account	10 min	Username: @scdmvappointments - Switch to Professional Account - Bio: Free SC DMV Appointment Alerts. Get notified when road test slots open. All 65 SC locations monitored.
+FALSE	1	Setup	Create YouTube channel	10 min	Channel name: SC DMV Appointments - Add logo and description
+FALSE	1	Content	Upload TikTok video	15 min	Upload promo-video/out/scdmv-promo-vertical.mp4 - Caption: POV You have been refreshing the SC DMV website for 2 weeks. I built a free tool that does the refreshing for you and texts you when appointments open up. Link in bio. Hashtags: scdmv southcarolina roadtest dmv drivingtest
+FALSE	1	Content	Post Instagram Reel	10 min	Same video - Caption: Stop refreshing the SC DMV website. I built a free tool that monitors all 65 locations and sends you an alert when an appointment opens up. Link in bio.
+FALSE	1	Content	Post YouTube Short	10 min	Same video - Title: I Built a Free SC DMV Appointment Alert Tool
+FALSE	1	Content	Post Twitter thread	20 min	See THREAD section below - Pin first tweet after posting
+FALSE	1	Technical	Set up Google Search Console	15 min	Go to search.google.com/search-console - Add property - Verify via Cloudflare DNS
+FALSE	1	Technical	Submit sitemap	5 min	In Search Console go to Sitemaps - Enter sitemap.xml - Submit
+FALSE	1	Technical	Request indexing	5 min	URL Inspection - Enter homepage URL - Request Indexing
+FALSE	1	Engage	Respond to comments	30 min	Check all platforms evening of day 1
+FALSE	2	Content	Post to r/southcarolina	30 min	See REDDIT section below
+FALSE	2	Engage	Reply to Reddit comments	2 hrs	Stay online - Reply to every comment genuinely
+FALSE	2	Setup	Join 5 Facebook groups	20 min	Search: South Carolina Community - Greenville SC - Charleston SC - Columbia SC - SC Parents - DO NOT POST YET
+FALSE	2	Technical	Index guide pages	15 min	Request indexing for /guides/road-test and /guides/cdl and /guides/motorcycle-test and /guides/locations
+FALSE	3	Content	Post to Nextdoor	10 min	See NEXTDOOR section below
+FALSE	3	Engage	Check Reddit comments	30 min	Reply to any new comments on your post
+FALSE	3	Engage	Comment in Facebook groups	20 min	Be helpful on 3 posts - Do not promote yet
+FALSE	3	Engage	Check all social comments	20 min	Reply to everything
+FALSE	4	Content	Post 2nd TikTok	30 min	Topic: 3 things they dont tell you about the SC road test - Use tips from your guide
+FALSE	4	Outreach	Research driving schools	30 min	Google driving school Greenville SC etc - Find contact info
+FALSE	4	Outreach	Email 3 driving schools	30 min	See DRIVING SCHOOL EMAIL section below
+FALSE	5	Content	Post to r/greenville	30 min	Adapt Reddit post for Greenville - Only if r/southcarolina went well
+FALSE	5	Engage	Facebook group engagement	20 min	Keep commenting helpfully
+FALSE	5	Outreach	Prep press pitch	20 min	See PRESS PITCH section below
+FALSE	6	Outreach	Email WLTX Columbia	10 min	Use press pitch - Submit via wltx.com/contact-us
+FALSE	6	Outreach	Email WYFF Greenville	10 min	Use press pitch - Submit via wyff4.com/contact
+FALSE	6	Outreach	Email Live 5 Charleston	10 min	Use press pitch - Submit via live5news.com/contact
+FALSE	6	Content	Post 3rd TikTok	30 min	Topic: The SC DMV appointment hack OR Day 47 of trying to get an appointment
+FALSE	7	Review	Check metrics	20 min	TikTok views - Reddit upvotes - Website visitors - Signups
+FALSE	7	Review	Count signups	10 min	Check database or Stripe dashboard
+FALSE	7	Plan	Plan week 2	30 min	Double down on what worked
+FALSE	8-14	Content	Post to r/charleston	30 min	Adapt Reddit post
+FALSE	8-14	Content	Post to r/ColumbiYEAH	30 min	Adapt Reddit post
+FALSE	8-14	Content	Post 2-3 more TikToks	1 hr	Keep momentum
+FALSE	8-14	Outreach	Email 5 more driving schools	30 min	Same template
+FALSE	8-14	Outreach	Follow up with press	20 min	One polite follow-up if no response after 5 days
+FALSE	8-14	Engage	Soft promote in Facebook	30 min	Only if rules allow - Answer DMV questions and mention tool
+FALSE	8-14	Outreach	Email newspapers	30 min	The State and Post and Courier

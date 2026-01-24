@@ -1,0 +1,215 @@
+SC DMV ALERTS - CONTENT REFERENCE
+===================================
+
+Copy/paste content for marketing launch.
+Referenced by checklist tasks.
+
+
+---
+TWITTER THREAD (6 tweets)
+---
+
+TWEET 1 (post first, then reply chain):
+I built a free tool to help South Carolinians get DMV appointments faster.
+
+scdmvappointments.com monitors all 65 SC DMV locations 24/7 and sends you an alert the instant a road test slot opens up.
+
+Stop refreshing. Start driving.
+
+Thread below:
+
+TWEET 2:
+The problem:
+
+SC DMV road test appointments book out 3-4 weeks.
+
+Your only option? Refresh the website constantly hoping someone cancels.
+
+Waste of time. Frustrating. Easy to miss openings.
+
+TWEET 3:
+The solution:
+
+I built a system that checks for new appointments every 5 minutes - even at 3am when cancellations often drop.
+
+When a slot opens, you get an instant email (or text with Pro).
+
+TWEET 4:
+What it covers:
+
+- Road tests (Class D)
+- Motorcycle tests
+- CDL (Class A, B, C)
+
+All 65 SC DMV locations across 8 regions:
+Greenville, Columbia, Charleston, Myrtle Beach, Spartanburg, Florence, Rock Hill, Aiken
+
+TWEET 5:
+The free tier gets you 1 alert per day.
+
+Pro ($5.99/mo) = 3 alerts + SMS
+CDL Pro ($19.99/mo) = 5 alerts + SMS + CDL types
+
+Most people just need the free version.
+
+TWEET 6:
+I am not affiliated with the DMV - just a developer who got tired of the refresh game.
+
+Check it out: scdmvappointments.com
+
+And if you have feedback or ideas, reply here. Always improving it.
+
+
+---
+REDDIT POST (r/southcarolina)
+---
+
+TITLE:
+I built a free tool to help South Carolinians get DMV road test appointments faster
+
+BODY:
+Hey r/southcarolina,
+
+Like a lot of you, I got frustrated trying to book a DMV appointment. The official site shows everything booked out for weeks, and the only option is to keep refreshing and hope for a cancellation.
+
+So I built scdmvappointments.com - it monitors all 65 SC DMV locations every few minutes and sends you a free email alert the moment an appointment opens up.
+
+What it covers:
+- Road tests (Class D)
+- Motorcycle tests
+- CDL (Class A, B, C)
+- All 8 regions: Greenville, Columbia, Charleston, Myrtle Beach, Spartanburg, Florence, Rock Hill, Aiken
+
+How it works:
+1. Sign up with your email
+2. Pick your region and test type
+3. Get an alert when a slot opens
+4. Book it on the official DMV site before anyone else
+
+The free tier gets you 1 alert per day - that is enough for most people. There is a paid option for more alerts plus SMS if you are in a hurry.
+
+I am not affiliated with the DMV at all - just a developer who got tired of the refresh game.
+
+Link: https://scdmvappointments.com
+
+Would love feedback if you try it. And if you have tips for getting appointments faster, drop them below.
+
+
+---
+NEXTDOOR POST
+---
+
+Free tool for SC DMV appointments
+
+If anyone here is trying to book a road test at the DMV and keeps finding everything booked out for weeks - I built a free service that might help.
+
+scdmvappointments.com monitors all the SC DMV locations and sends you an email alert when appointment slots open up.
+
+It is free and I am not affiliated with the DMV - just a local developer who got frustrated with the refresh game.
+
+Hope it helps someone.
+
+
+---
+DRIVING SCHOOL EMAIL
+---
+
+SUBJECT:
+Free tool for your driving students - SC DMV appointment alerts
+
+BODY:
+Hi,
+
+I am a local developer and I built a free tool that helps people get SC DMV road test appointments faster. I thought it might be useful for your students.
+
+scdmvappointments.com monitors all 65 SC DMV locations and sends instant alerts when appointments open up. Your students sign up, pick their preferred location, and get notified when slots become available.
+
+It is completely free to use.
+
+Would you be open to sharing this with your students? Happy to answer any questions about how it works.
+
+Thanks,
+[Your Name]
+
+
+---
+PRESS PITCH EMAIL
+---
+
+SUBJECT:
+Local Developer Creates Free Tool to Help SC Residents Get DMV Appointments Faster
+
+BODY:
+Hi,
+
+South Carolina DMV appointments often book out 3-4 weeks, leaving residents stuck refreshing the website hoping for cancellations.
+
+I built scdmvappointments.com - a free service that monitors all 65 SC DMV locations 24/7 and sends instant alerts when appointments open up.
+
+A similar service in North Carolina was recently featured on WCNC and has helped over 2,000 residents book appointments faster. I wanted to offer the same solution for South Carolina.
+
+Would you be interested in a quick story? I am happy to provide:
+- Screenshots and a demo of how it works
+- Data on appointment availability across SC
+- A brief interview about why I built it
+
+The service is free and I am not affiliated with the DMV - just a developer who got frustrated with the system.
+
+Thank you for your time.
+
+[Your Name]
+[Phone]
+[Email]
+scdmvappointments.com
+
+
+---
+TIKTOK CAPTIONS
+---
+
+VIDEO 1 (promo video):
+POV You have been refreshing the SC DMV website for 2 weeks straight
+
+I built a free tool that does the refreshing for you and texts you when appointments open up.
+
+Link in bio
+
+#scdmv #southcarolina #roadtest #dmv #drivingtest #newdriver #greenvillesc #charlestonsc #columbiasc
+
+VIDEO 2 (tips):
+3 things they do not tell you about the SC road test
+
+Save this for your test day
+
+#scdmv #roadtest #drivingtips #southcarolina #dmvtest
+
+VIDEO 3 (hack):
+The SC DMV appointment hack nobody talks about
+
+Free alerts when slots open up
+
+Link in bio
+
+#scdmv #dmv #lifehack #southcarolina
+
+
+---
+REPLY TEMPLATES
+---
+
+POSITIVE COMMENT:
+Thanks! Hope it helps you get an appointment faster. Let me know if you have any issues.
+
+SKEPTICAL COMMENT:
+Totally understand the skepticism. It is a side project I built - not affiliated with the DMV at all. The free tier is actually free with no credit card required.
+
+BUG REPORT:
+Oh no, sorry about that. Can you DM me the details? I will fix it ASAP. Thanks for letting me know.
+
+MOD QUESTION:
+Happy to take this down if it is against the rules - just wanted to share something I thought might help folks here. Let me know.
+
+
+---
+END OF REFERENCE
+---
