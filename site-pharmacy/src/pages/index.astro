@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBar from '../components/SearchBar.astro';
+import PharmacyCard from '../components/PharmacyCard.astro';
+
+// For MVP mockup, we'll use static data
+// In production, fetch from D1: const db = context.env.DB;
+const featuredPharmacies = [
+  {
+    id: 1,
+    business_name: "Smith's Family Pharmacy",
+    slug: "smiths-family-pharmacy",
+    city: "Denver",
+    state: "CO",
+    phone: "(303) 555-0123",
+    website: "https://smithsfamilyrx.com",
+    ownership_type: "independent",
+    ownership_verified: 1,
+    services_offered: JSON.stringify(["compounding", "delivery", "immunizations"]),
+    verified: 1,
+    featured: 1,
+  },
+  {
+    id: 2,
+    business_name: "Main Street Pharmacy",
+    slug: "main-street-pharmacy",
+    city: "Austin",
+    state: "TX",
+    phone: "(512) 555-0456",
+    website: "https://mainstreetrx.com",
+    ownership_type: "independent",
+    ownership_verified: 1,
+    services_offered: JSON.stringify(["24-hour", "delivery"]),
+    verified: 1,
+    featured: 1,
+  },
+  {
+    id: 3,
+    business_name: "Riverside Pharmacy",
+    slug: "riverside-pharmacy",
+    city: "Portland",
+    state: "OR",
+    phone: "(503) 555-0789",
+    website: "https://riversiderx.com",
+    ownership_type: "independent",
+    ownership_verified: 1,
+    services_offered: JSON.stringify(["compounding", "pet_medications"]),
+    verified: 1,
+    featured: 0,
+  },
+];
+
+const stats = {
+  totalPharmacies: 21683,
+  states: 50,
+  verified: 4521,
+};
+---
+
+<BaseLayout title="Indie Pharmacy - Find Independent Pharmacies Near You">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-primary-50 to-stone-50 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-accent-600 font-semibold tracking-wide uppercase text-sm mb-3">Skip the chain. Find your pharmacist.</p>
+        <h1 class="text-4xl md:text-6xl font-bold text-stone-900 mb-6">
+          Your pharmacy.<br />
+          <span class="text-primary-600">Your people.</span>
+        </h1>
+        <p class="text-xl text-stone-600 max-w-2xl mx-auto">
+          Discover independent pharmacies not owned by CVS, Walgreens, or corporate chains.
+          Real pharmacists who know your name, not your shareholder value.
+        </p>
+      </div>
+
+      <SearchBar />
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-4xl font-bold text-primary-600">{stats.totalPharmacies.toLocaleString()}</div>
+          <div class="text-stone-600 mt-2">Independent Pharmacies</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-primary-600">{stats.states}</div>
+          <div class="text-stone-600 mt-2">States Covered</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-primary-600">{stats.verified.toLocaleString()}</div>
+          <div class="text-stone-600 mt-2">Verified Listings</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Independent Section -->
+  <section class="py-16 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-stone-900 mb-4">Why go indie?</h2>
+        <p class="text-lg text-stone-600 max-w-2xl mx-auto">
+          Independent pharmacies put your health first. No insurance company shareholders to answer to.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+          <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-stone-900 mb-2">They know your name</h3>
+          <p class="text-stone-600">
+            Not your prescription number. Real pharmacists who give you time, answer questions, and actually care about your health.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+          <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-stone-900 mb-2">No corporate strings</h3>
+          <p class="text-stone-600">
+            CVS owns Aetna. That's a conflict of interest. Independent pharmacies work for you, not insurance shareholders.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+          <div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-stone-900 mb-2">Money stays local</h3>
+          <p class="text-stone-600">
+            Your dollars support your neighbor, not a corporate HQ in Rhode Island. That matters.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/why-independent" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
+          The full story on why independent matters
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Pharmacies -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-stone-900 mb-4">Featured indie pharmacies</h2>
+        <p class="text-lg text-stone-600">
+          Verified independent. No chains. No corporate parents.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredPharmacies.map((pharmacy) => (
+          <PharmacyCard pharmacy={pharmacy} />
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/browse" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+          Browse All Pharmacies
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- IndiePro CTA -->
+  <section class="py-16 bg-stone-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block bg-accent-500 text-stone-900 text-sm font-bold px-3 py-1 rounded-full mb-4">FOR PHARMACY OWNERS</span>
+      <h2 class="text-3xl font-bold mb-4">Run your pharmacy like a boss</h2>
+      <p class="text-xl text-stone-300 mb-4">
+        Your listing is always free. But if you want the tools to grow your business &mdash;
+        CRM, automated follow-ups, review management, and more &mdash; IndiePro has your back.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <a href="/submit" class="inline-block bg-white text-stone-900 hover:bg-stone-100 px-8 py-3 rounded-lg font-semibold transition">
+          List Free
+        </a>
+        <a href="/pro" class="inline-block bg-accent-500 text-stone-900 hover:bg-accent-400 px-8 py-3 rounded-lg font-semibold transition">
+          See IndiePro Plans
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,12 @@
+name = "site-pharmacy"
+compatibility_date = "2024-01-01"
+
+pages_build_output_dir = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pharmacy-db"
+database_id = "50ab8f11-8103-46cb-b59a-3a4cc1b52bf8"
+
+# Environment variables (set in Cloudflare Pages dashboard)
+# - No sensitive data needed for MVP (all public data)

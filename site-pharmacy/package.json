@@ -1,0 +1,26 @@
+{
+  "name": "site-pharmacy",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "db:migrate:local": "wrangler d1 migrations apply pharmacy-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply pharmacy-db --remote",
+    "db:create": "wrangler d1 create pharmacy-db"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^11.1.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.18",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "wrangler": "^3.103.0"
+  }
+}

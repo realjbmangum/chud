@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Mock state data - in production, fetch from D1
+const states = [
+  { code: 'AL', name: 'Alabama', count: 234 },
+  { code: 'AK', name: 'Alaska', count: 45 },
+  { code: 'AZ', name: 'Arizona', count: 412 },
+  { code: 'AR', name: 'Arkansas', count: 189 },
+  { code: 'CA', name: 'California', count: 2156 },
+  { code: 'CO', name: 'Colorado', count: 378 },
+  { code: 'CT', name: 'Connecticut', count: 198 },
+  { code: 'DE', name: 'Delaware', count: 67 },
+  { code: 'FL', name: 'Florida', count: 1543 },
+  { code: 'GA', name: 'Georgia', count: 678 },
+  { code: 'HI', name: 'Hawaii', count: 89 },
+  { code: 'ID', name: 'Idaho', count: 134 },
+  { code: 'IL', name: 'Illinois', count: 892 },
+  { code: 'IN', name: 'Indiana', count: 445 },
+  { code: 'IA', name: 'Iowa', count: 312 },
+  { code: 'KS', name: 'Kansas', count: 267 },
+  { code: 'KY', name: 'Kentucky', count: 389 },
+  { code: 'LA', name: 'Louisiana', count: 423 },
+  { code: 'ME', name: 'Maine', count: 123 },
+  { code: 'MD', name: 'Maryland', count: 345 },
+  { code: 'MA', name: 'Massachusetts', count: 456 },
+  { code: 'MI', name: 'Michigan', count: 734 },
+  { code: 'MN', name: 'Minnesota', count: 489 },
+  { code: 'MS', name: 'Mississippi', count: 234 },
+  { code: 'MO', name: 'Missouri', count: 512 },
+  { code: 'MT', name: 'Montana', count: 98 },
+  { code: 'NE', name: 'Nebraska', count: 178 },
+  { code: 'NV', name: 'Nevada', count: 234 },
+  { code: 'NH', name: 'New Hampshire', count: 112 },
+  { code: 'NJ', name: 'New Jersey', count: 567 },
+  { code: 'NM', name: 'New Mexico', count: 156 },
+  { code: 'NY', name: 'New York', count: 1234 },
+  { code: 'NC', name: 'North Carolina', count: 723 },
+  { code: 'ND', name: 'North Dakota', count: 87 },
+  { code: 'OH', name: 'Ohio', count: 834 },
+  { code: 'OK', name: 'Oklahoma', count: 367 },
+  { code: 'OR', name: 'Oregon', count: 312 },
+  { code: 'PA', name: 'Pennsylvania', count: 923 },
+  { code: 'RI', name: 'Rhode Island', count: 78 },
+  { code: 'SC', name: 'South Carolina', count: 401 },
+  { code: 'SD', name: 'South Dakota', count: 91 },
+  { code: 'TN', name: 'Tennessee', count: 534 },
+  { code: 'TX', name: 'Texas', count: 1987 },
+  { code: 'UT', name: 'Utah', count: 267 },
+  { code: 'VT', name: 'Vermont', count: 67 },
+  { code: 'VA', name: 'Virginia', count: 612 },
+  { code: 'WA', name: 'Washington', count: 501 },
+  { code: 'WV', name: 'West Virginia', count: 178 },
+  { code: 'WI', name: 'Wisconsin', count: 478 },
+  { code: 'WY', name: 'Wyoming', count: 54 },
+];
+---
+
+<BaseLayout title="Browse Independent Pharmacies by State | Indie Pharmacy">
+  <section class="py-12 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-stone-900 mb-4">Browse by State</h1>
+        <p class="text-lg text-stone-600">
+          Find independent pharmacies in your state
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {states.map((state) => (
+          <a
+            href={`/state/${state.code.toLowerCase()}`}
+            class="bg-white hover:bg-primary-50 border-2 border-stone-200 hover:border-primary-300 rounded-xl p-4 transition group"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-semibold text-stone-900 group-hover:text-primary-600 transition">
+                  {state.name}
+                </h3>
+                <p class="text-sm text-stone-500 mt-1">
+                  {state.count} {state.count === 1 ? 'pharmacy' : 'pharmacies'}
+                </p>
+              </div>
+              <svg class="w-5 h-5 text-stone-400 group-hover:text-primary-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
