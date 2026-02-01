@@ -85,6 +85,7 @@ CREATE TABLE pharmacy_submissions (
 
     -- Services
     services_offered TEXT, -- JSON array
+    accreditation TEXT, -- e.g. NCPDP, NBMTM, NCPA
     description TEXT,
 
     -- Status
