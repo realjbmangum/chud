@@ -41,6 +41,9 @@ CREATE TABLE pharmacies (
     wheelchair_accessible INTEGER,
     languages_spoken TEXT, -- JSON array: ["Spanish", "Mandarin"]
 
+    -- Accreditation
+    accreditation TEXT, -- e.g. NCPDP, NBMTM, NCPA
+
     -- Content
     description TEXT,
     ai_description TEXT,

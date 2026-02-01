@@ -1,0 +1,375 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const stateNames: Record<string, string> = {
+  AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California',
+  CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', DC: 'District of Columbia',
+  FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois',
+  IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana',
+  ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota',
+  MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada',
+  NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York',
+  NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon',
+  PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota',
+  TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia',
+  WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming',
+};
+
+const stateCode = (Astro.params.state || '').toUpperCase();
+const stateName = stateNames[stateCode];
+
+if (!stateName) {
+  return Astro.redirect('/browse');
+}
+
+const db = Astro.locals.runtime.env.DB;
+
+// Get initial pharmacies (unfiltered)
+const url = Astro.url;
+const service = url.searchParams.getAll('service');
+const accreditation = url.searchParams.get('accreditation') || '';
+const ownership = url.searchParams.get('ownership') || '';
+const acceptsGoodrx = url.searchParams.get('accepts_goodrx') || '';
+const wheelchairAccessible = url.searchParams.get('wheelchair_accessible') || '';
+const language = url.searchParams.get('language') || '';
+const search = url.searchParams.get('q') || '';
+const page = parseInt(url.searchParams.get('page') || '1');
+const limit = 24;
+const offset = (page - 1) * limit;
+
+const conditions: string[] = ['state = ?'];
+const bindings: any[] = [stateCode];
+
+if (search) {
+  conditions.push('(LOWER(business_name) LIKE LOWER(?) OR LOWER(city) LIKE LOWER(?))');
+  bindings.push(`%${search}%`, `%${search}%`);
+}
+
+for (const svc of service) {
+  conditions.push("services_offered LIKE ?");
+  bindings.push(`%"${svc}"%`);
+}
+
+if (accreditation) {
+  conditions.push('accreditation = ?');
+  bindings.push(accreditation);
+}
+
+if (ownership) {
+  conditions.push('ownership_type = ?');
+  bindings.push(ownership);
+}
+
+if (acceptsGoodrx === '1') {
+  conditions.push('accepts_goodrx = 1');
+}
+
+if (wheelchairAccessible === '1') {
+  conditions.push('wheelchair_accessible = 1');
+}
+
+if (language) {
+  conditions.push("languages_spoken LIKE ?");
+  bindings.push(`%"${language}"%`);
+}
+
+const where = `WHERE ${conditions.join(' AND ')}`;
+
+const countResult = await db
+  .prepare(`SELECT COUNT(*) as total FROM pharmacies ${where}`)
+  .bind(...bindings)
+  .first() as any;
+const total = countResult?.total || 0;
+const totalPages = Math.ceil(total / limit);
+
+const result = await db
+  .prepare(`SELECT * FROM pharmacies ${where} ORDER BY featured DESC, business_name ASC LIMIT ? OFFSET ?`)
+  .bind(...bindings, limit, offset)
+  .all();
+const pharmacies = (result.results || []) as any[];
+
+// Get cities for this state (for city filter)
+const citiesResult = await db
+  .prepare('SELECT city, COUNT(*) as count FROM pharmacies WHERE state = ? GROUP BY city ORDER BY count DESC LIMIT 30')
+  .bind(stateCode)
+  .all();
+const cities = (citiesResult.results || []) as any[];
+
+// Check if any filters are active
+const hasFilters = service.length > 0 || accreditation || ownership || acceptsGoodrx || wheelchairAccessible || language || search;
+
+// Build current filter params for pagination
+const filterParams = new URLSearchParams();
+if (search) filterParams.set('q', search);
+for (const s of service) filterParams.append('service', s);
+if (accreditation) filterParams.set('accreditation', accreditation);
+if (ownership) filterParams.set('ownership', ownership);
+if (acceptsGoodrx) filterParams.set('accepts_goodrx', acceptsGoodrx);
+if (wheelchairAccessible) filterParams.set('wheelchair_accessible', wheelchairAccessible);
+if (language) filterParams.set('language', language);
+const filterString = filterParams.toString();
+---
+
+<BaseLayout
+  title={`Independent Pharmacies in ${stateName} | Indie Pharmacy`}
+  description={`Find ${total} independent pharmacies in ${stateName}. Filter by services, accreditation, and more.`}
+>
+  <section class="py-8 bg-[#FFFDF7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <nav class="text-sm text-stone-500 mb-3">
+          <a href="/" class="hover:text-primary-600">Home</a>
+          <span class="mx-2">/</span>
+          <a href="/browse" class="hover:text-primary-600">Browse</a>
+          <span class="mx-2">/</span>
+          <span class="text-stone-900">{stateName}</span>
+        </nav>
+        <h1 class="text-3xl font-bold text-stone-900">Independent Pharmacies in {stateName}</h1>
+        <p class="text-stone-600 mt-2">{total} {total === 1 ? 'pharmacy' : 'pharmacies'} found</p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Filter Sidebar -->
+        <aside class="lg:w-72 shrink-0">
+          <form method="GET" action={`/state/${stateCode.toLowerCase()}`} id="filterForm">
+            <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-5 space-y-6 sticky top-24">
+              <div class="flex items-center justify-between">
+                <h2 class="font-semibold text-stone-900 text-lg">Filters</h2>
+                {hasFilters && (
+                  <a href={`/state/${stateCode.toLowerCase()}`} class="text-sm text-primary-600 hover:text-primary-700">Clear all</a>
+                )}
+              </div>
+
+              <!-- Search -->
+              <div>
+                <label for="q" class="block text-sm font-medium text-stone-700 mb-1">Search</label>
+                <input
+                  type="text"
+                  id="q"
+                  name="q"
+                  value={search}
+                  placeholder="Name or city..."
+                  class="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                />
+              </div>
+
+              <!-- Services -->
+              <div>
+                <h3 class="text-sm font-semibold text-stone-700 mb-2">Services</h3>
+                <div class="space-y-2">
+                  {[
+                    { value: 'compounding', label: 'Compounding' },
+                    { value: 'delivery', label: 'Home Delivery' },
+                    { value: '24-hour', label: '24-Hour' },
+                    { value: 'immunizations', label: 'Immunizations' },
+                    { value: 'dme', label: 'DME' },
+                    { value: 'pet_medications', label: 'Pet Medications' },
+                  ].map(svc => (
+                    <label class="flex items-center text-sm">
+                      <input
+                        type="checkbox"
+                        name="service"
+                        value={svc.value}
+                        checked={service.includes(svc.value)}
+                        class="mr-2 text-primary-600 rounded"
+                      />
+                      <span class="text-stone-700">{svc.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Accreditation -->
+              <div>
+                <h3 class="text-sm font-semibold text-stone-700 mb-2">Accreditation</h3>
+                <select
+                  name="accreditation"
+                  class="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                >
+                  <option value="">Any</option>
+                  <option value="NCPDP" selected={accreditation === 'NCPDP'}>NCPDP</option>
+                  <option value="NBMTM" selected={accreditation === 'NBMTM'}>Natl Board of Medication Therapy Mgmt</option>
+                  <option value="NCPA" selected={accreditation === 'NCPA'}>NCPA</option>
+                </select>
+              </div>
+
+              <!-- Ownership Type -->
+              <div>
+                <h3 class="text-sm font-semibold text-stone-700 mb-2">Ownership</h3>
+                <select
+                  name="ownership"
+                  class="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                >
+                  <option value="">Any</option>
+                  <option value="independent" selected={ownership === 'independent'}>Independent</option>
+                  <option value="small_chain" selected={ownership === 'small_chain'}>Small Chain (2-5 locations)</option>
+                  <option value="franchise" selected={ownership === 'franchise'}>Franchise</option>
+                </select>
+              </div>
+
+              <!-- Features -->
+              <div>
+                <h3 class="text-sm font-semibold text-stone-700 mb-2">Features</h3>
+                <div class="space-y-2">
+                  <label class="flex items-center text-sm">
+                    <input
+                      type="checkbox"
+                      name="accepts_goodrx"
+                      value="1"
+                      checked={acceptsGoodrx === '1'}
+                      class="mr-2 text-primary-600 rounded"
+                    />
+                    <span class="text-stone-700">Accepts GoodRx</span>
+                  </label>
+                  <label class="flex items-center text-sm">
+                    <input
+                      type="checkbox"
+                      name="wheelchair_accessible"
+                      value="1"
+                      checked={wheelchairAccessible === '1'}
+                      class="mr-2 text-primary-600 rounded"
+                    />
+                    <span class="text-stone-700">Wheelchair Accessible</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Language -->
+              <div>
+                <h3 class="text-sm font-semibold text-stone-700 mb-2">Language</h3>
+                <select
+                  name="language"
+                  class="w-full px-3 py-2 text-sm border border-stone-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                >
+                  <option value="">Any</option>
+                  <option value="Spanish" selected={language === 'Spanish'}>Spanish</option>
+                  <option value="Mandarin" selected={language === 'Mandarin'}>Mandarin</option>
+                  <option value="Vietnamese" selected={language === 'Vietnamese'}>Vietnamese</option>
+                  <option value="Korean" selected={language === 'Korean'}>Korean</option>
+                  <option value="Arabic" selected={language === 'Arabic'}>Arabic</option>
+                  <option value="French" selected={language === 'French'}>French</option>
+                  <option value="Portuguese" selected={language === 'Portuguese'}>Portuguese</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold py-2.5 rounded-lg transition"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </form>
+        </aside>
+
+        <!-- Results -->
+        <div class="flex-1 min-w-0">
+          <!-- Top Cities Quick Links -->
+          {cities.length > 1 && (
+            <div class="mb-6 flex flex-wrap gap-2">
+              {cities.slice(0, 12).map((c: any) => (
+                <a
+                  href={`/state/${stateCode.toLowerCase()}?q=${encodeURIComponent(c.city)}`}
+                  class="text-sm px-3 py-1 bg-white border border-stone-200 rounded-full hover:border-primary-300 hover:text-primary-600 transition"
+                >
+                  {c.city} ({c.count})
+                </a>
+              ))}
+            </div>
+          )}
+
+          {pharmacies.length === 0 ? (
+            <div class="bg-white rounded-xl border border-stone-200 p-12 text-center">
+              <p class="text-stone-600 text-lg mb-2">No pharmacies found matching your filters.</p>
+              <p class="text-stone-500 text-sm mb-4">Try adjusting your search or clearing filters.</p>
+              <a href={`/state/${stateCode.toLowerCase()}`} class="text-primary-600 hover:text-primary-700 font-semibold">Clear all filters</a>
+            </div>
+          ) : (
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {pharmacies.map((p: any) => {
+                const services = (() => {
+                  try { return JSON.parse(p.services_offered || '[]'); } catch { return []; }
+                })();
+                return (
+                  <div class="bg-white rounded-xl border border-stone-200 hover:border-primary-300 hover:shadow-md transition p-5 flex flex-col">
+                    <div class="flex items-start justify-between mb-2">
+                      <h3 class="font-semibold text-stone-900 leading-tight">
+                        {p.business_name}
+                      </h3>
+                      {p.featured === 1 && (
+                        <span class="shrink-0 ml-2 text-xs font-semibold bg-accent-100 text-accent-700 px-2 py-0.5 rounded-full">Featured</span>
+                      )}
+                    </div>
+
+                    <p class="text-sm text-stone-500 mb-1">
+                      {[p.street_address, p.city, p.state].filter(Boolean).join(', ')} {p.postal_code || ''}
+                    </p>
+
+                    {p.phone && (
+                      <a href={`tel:${p.phone}`} class="text-sm text-primary-600 hover:text-primary-700 mb-2">{p.phone}</a>
+                    )}
+
+                    {p.accreditation && (
+                      <span class="inline-block text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded mb-2 w-fit">{p.accreditation}</span>
+                    )}
+
+                    {services.length > 0 && (
+                      <div class="flex flex-wrap gap-1 mt-auto pt-3">
+                        {services.slice(0, 4).map((s: string) => (
+                          <span class="text-xs bg-stone-100 text-stone-600 px-2 py-0.5 rounded">{s}</span>
+                        ))}
+                        {services.length > 4 && (
+                          <span class="text-xs text-stone-400">+{services.length - 4} more</span>
+                        )}
+                      </div>
+                    )}
+
+                    <div class="flex items-center gap-3 mt-3 pt-3 border-t border-stone-100">
+                      {p.website && (
+                        <a href={p.website} target="_blank" rel="noopener" class="text-xs text-primary-600 hover:text-primary-700 font-medium">Website</a>
+                      )}
+                      {p.accepts_goodrx === 1 && (
+                        <span class="text-xs text-green-600 font-medium">GoodRx</span>
+                      )}
+                      {p.wheelchair_accessible === 1 && (
+                        <span class="text-xs text-stone-500" title="Wheelchair Accessible">&#9855; Accessible</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          <!-- Pagination -->
+          {totalPages > 1 && (
+            <nav class="flex items-center justify-center gap-2 mt-8">
+              {page > 1 && (
+                <a
+                  href={`/state/${stateCode.toLowerCase()}?page=${page - 1}${filterString ? '&' + filterString : ''}`}
+                  class="px-4 py-2 text-sm bg-white border border-stone-200 rounded-lg hover:border-primary-300 transition"
+                >
+                  Previous
+                </a>
+              )}
+              <span class="text-sm text-stone-600">
+                Page {page} of {totalPages}
+              </span>
+              {page < totalPages && (
+                <a
+                  href={`/state/${stateCode.toLowerCase()}?page=${page + 1}${filterString ? '&' + filterString : ''}`}
+                  class="px-4 py-2 text-sm bg-white border border-stone-200 rounded-lg hover:border-primary-300 transition"
+                >
+                  Next
+                </a>
+              )}
+            </nav>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
