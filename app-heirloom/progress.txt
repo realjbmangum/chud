@@ -1,5 +1,38 @@
 # Heirloom Progress Log
 
+## Session - 2026-02-02 (continued)
+
+**Completed:**
+- Transcribed and analyzed Brian & Oliver call from Jan 27
+- Created detailed call notes at `notes/call-2026-01-27.md`
+- Rewrote `NEXT-STEPS.md` as current co-founder roadmap with strategic direction, phased next steps, resolved/open questions
+- Updated `planning/MVP-FEATURES.md` with all finalized product decisions
+- Composed follow-up email to Oliver with progress, call recap, and action items
+
+**Files Changed:**
+- `notes/call-2026-01-27.md` - New: full call transcript summary with decisions, strategy, action items
+- `NEXT-STEPS.md` - Rewritten: roles, strategic direction, what's done/next, open questions
+- `planning/MVP-FEATURES.md` - Updated: resolved questions, new community/flywheel section, dependencies marked complete
+
+**Key Decisions Captured from Call:**
+- Consumer first, enterprise second
+- Community = flywheel (public profiles, family tree, tagging, groupings)
+- S-corp in opportunity zone (no capital gains on exit)
+- 50/50 ownership, Brian = tech, Oliver = face/networker
+- Build-to-sell exit strategy
+- Enterprise verticals: financial advisors, funeral homes, churches, estate planners
+- Oliver handles Launchpad, Brian joins for key meetings
+
+**Next Steps:**
+- [ ] Oliver: log into theheirloom.site and give feedback
+- [ ] Oliver: entity formation through opportunity zone
+- [ ] Brian: implement Supabase auth
+- [ ] Brian: connect app to real database
+- [ ] Brian: build recording functionality (5-min max, record to device)
+- [ ] Both: discuss handling deceased family members in vault
+
+---
+
 ## Session - 2026-02-02
 
 **Completed:**
