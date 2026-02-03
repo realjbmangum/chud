@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heirloom App Mockup - Recording Screen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #F8F5EE;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #000;
+      border-radius: 55px;
+      padding: 12px;
+      box-shadow:
+        0 50px 100px rgba(12, 59, 46, 0.15),
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 2px #333;
+      position: relative;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #F8F5EE;
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 47px;
+      padding: 14px 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: #0C3B2E;
+    }
+
+    .status-time {
+      font-size: 15px;
+      font-weight: 600;
+      color: #F8F5EE;
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .status-icons svg {
+      width: 18px;
+      height: 18px;
+      fill: #F8F5EE;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 34px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+    }
+
+    /* Header */
+    .header {
+      background: #0C3B2E;
+      padding: 12px 24px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-back {
+      font-size: 14px;
+      color: #F8F5EE;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-back svg {
+      width: 20px;
+      height: 20px;
+      fill: #F8F5EE;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recording-indicator {
+      width: 10px;
+      height: 10px;
+      background: #E53935;
+      border-radius: 50%;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .header-title span {
+      font-size: 16px;
+      color: #F8F5EE;
+      font-weight: 500;
+    }
+
+    .header-spacer {
+      width: 60px;
+    }
+
+    /* Main Content */
+    .content {
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100% - 150px);
+    }
+
+    /* Timer */
+    .timer {
+      font-size: 64px;
+      font-weight: 500;
+      color: #2A2A2A;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .timer-label {
+      font-size: 14px;
+      color: #2A2A2A;
+      opacity: 0.5;
+      margin-bottom: 48px;
+    }
+
+    /* Prompt reminder */
+    .prompt-reminder {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      max-width: 280px;
+      text-align: center;
+    }
+
+    .prompt-reminder-label {
+      font-size: 11px;
+      color: #C4A464;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .prompt-reminder-text {
+      font-size: 15px;
+      color: #2A2A2A;
+      line-height: 1.4;
+    }
+
+    /* Waveform */
+    .waveform-container {
+      width: 100%;
+      max-width: 300px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      margin-bottom: 48px;
+    }
+
+    .waveform-bar {
+      width: 4px;
+      background: #0C3B2E;
+      border-radius: 2px;
+      animation: wave 0.8s ease-in-out infinite;
+    }
+
+    .waveform-bar:nth-child(odd) {
+      animation-delay: 0s;
+    }
+
+    .waveform-bar:nth-child(even) {
+      animation-delay: 0.2s;
+    }
+
+    .waveform-bar:nth-child(3n) {
+      animation-delay: 0.4s;
+    }
+
+    .waveform-bar:nth-child(4n) {
+      animation-delay: 0.1s;
+    }
+
+    .waveform-bar:nth-child(5n) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes wave {
+      0%, 100% { height: 20px; }
+      50% { height: var(--max-height, 60px); }
+    }
+
+    /* Stop Button */
+    .stop-button {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(145deg, #C4A464, #B8986A);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 8px 24px rgba(196, 164, 100, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+    }
+
+    .stop-button-inner {
+      width: 24px;
+      height: 24px;
+      background: #FFFFFF;
+      border-radius: 4px;
+    }
+
+    .stop-label {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #2A2A2A;
+      font-weight: 500;
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: #2A2A2A;
+      border-radius: 3px;
+      opacity: 0.2;
+    }
+
+    /* Export info */
+    .export-info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #0C3B2E;
+      color: #F8F5EE;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .export-info strong {
+      color: #C4A464;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="phone-screen">
+      <div class="dynamic-island"></div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.46 3 3.34 4.78.29 7.67c-.18.18-.29.43-.29.71 0 .28.11.53.29.71l11 11c.18.18.43.29.71.29.28 0 .53-.11.71-.29l11-11c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71C20.66 4.78 16.54 3 12 3z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4zm-4 16h-2v-2h2v2zm0-4h-2V9h2v7z"/></svg>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="header-back">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          Cancel
+        </div>
+        <div class="header-title">
+          <div class="recording-indicator"></div>
+          <span>Recording</span>
+        </div>
+        <div class="header-spacer"></div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="content">
+        <!-- Timer -->
+        <div class="timer">00:03</div>
+        <div class="timer-label">Recording audio</div>
+
+        <!-- Prompt Reminder -->
+        <div class="prompt-reminder">
+          <div class="prompt-reminder-label">Your Prompt</div>
+          <div class="prompt-reminder-text">What is your favorite childhood memory?</div>
+        </div>
+
+        <!-- Waveform -->
+        <div class="waveform-container">
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+          <div class="waveform-bar" style="--max-height: 60px;"></div>
+          <div class="waveform-bar" style="--max-height: 35px;"></div>
+          <div class="waveform-bar" style="--max-height: 70px;"></div>
+          <div class="waveform-bar" style="--max-height: 50px;"></div>
+          <div class="waveform-bar" style="--max-height: 40px;"></div>
+          <div class="waveform-bar" style="--max-height: 65px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+          <div class="waveform-bar" style="--max-height: 70px;"></div>
+          <div class="waveform-bar" style="--max-height: 60px;"></div>
+          <div class="waveform-bar" style="--max-height: 40px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 75px;"></div>
+          <div class="waveform-bar" style="--max-height: 50px;"></div>
+          <div class="waveform-bar" style="--max-height: 65px;"></div>
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 70px;"></div>
+          <div class="waveform-bar" style="--max-height: 40px;"></div>
+          <div class="waveform-bar" style="--max-height: 60px;"></div>
+          <div class="waveform-bar" style="--max-height: 50px;"></div>
+          <div class="waveform-bar" style="--max-height: 75px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+          <div class="waveform-bar" style="--max-height: 65px;"></div>
+          <div class="waveform-bar" style="--max-height: 50px;"></div>
+          <div class="waveform-bar" style="--max-height: 70px;"></div>
+          <div class="waveform-bar" style="--max-height: 40px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 60px;"></div>
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+          <div class="waveform-bar" style="--max-height: 75px;"></div>
+          <div class="waveform-bar" style="--max-height: 50px;"></div>
+          <div class="waveform-bar" style="--max-height: 65px;"></div>
+          <div class="waveform-bar" style="--max-height: 55px;"></div>
+          <div class="waveform-bar" style="--max-height: 40px;"></div>
+          <div class="waveform-bar" style="--max-height: 70px;"></div>
+          <div class="waveform-bar" style="--max-height: 60px;"></div>
+          <div class="waveform-bar" style="--max-height: 45px;"></div>
+        </div>
+
+        <!-- Stop Button -->
+        <div class="stop-button">
+          <div class="stop-button-inner"></div>
+        </div>
+        <div class="stop-label">Tap to Stop</div>
+      </div>
+
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+
+  <div class="export-info">
+    <strong>Recording Screen</strong><br>
+    Animated waveform + timer<br>
+    Use as Frame 2 reference
+  </div>
+</body>
+</html>

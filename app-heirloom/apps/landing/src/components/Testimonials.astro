@@ -1,0 +1,70 @@
+---
+const testimonials = [
+  {
+    quote: "I never knew my grandfather's voice. I'm making sure my grandchildren won't have the same regret.",
+    author: 'Sarah M.',
+    role: 'Mother of 3',
+  },
+  {
+    quote: "The prompts helped me remember stories I hadn't thought about in decades. My kids are fascinated.",
+    author: 'Robert K.',
+    role: 'Grandfather',
+  },
+  {
+    quote: "Finally, a way to preserve Dad's stories before it's too late. This is the app I've been searching for.",
+    author: 'Jennifer L.',
+    role: 'Caregiver',
+  },
+];
+---
+
+<section class="section-padding bg-white">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <p class="text-heirloom-gold font-medium tracking-wide uppercase text-sm mb-4">
+        Testimonials
+      </p>
+      <h2 class="font-serif text-3xl md:text-4xl text-heritage-green mb-4">
+        Stories From Our Community
+      </h2>
+      <p class="text-charcoal-ink/60 text-lg max-w-2xl mx-auto">
+        Families are already preserving what matters most.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      {testimonials.map((testimonial) => (
+        <div class="bg-ivory-linen rounded-lg p-8 relative">
+          <!-- Quote Mark -->
+          <div class="text-heirloom-gold/30 font-serif text-6xl absolute top-4 left-6">
+            &ldquo;
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="relative z-10 pt-8">
+            <p class="text-charcoal-ink/80 text-lg leading-relaxed mb-6 italic">
+              {testimonial.quote}
+            </p>
+
+            <!-- Author -->
+            <footer>
+              <p class="font-medium text-heritage-green">
+                {testimonial.author}
+              </p>
+              <p class="text-sm text-charcoal-ink/50">
+                {testimonial.role}
+              </p>
+            </footer>
+          </blockquote>
+        </div>
+      ))}
+    </div>
+
+    <!-- Note about testimonials -->
+    <p class="text-center text-charcoal-ink/40 text-xs mt-10">
+      * Testimonials from beta users and early adopters
+    </p>
+  </div>
+</section>

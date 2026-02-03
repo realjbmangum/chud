@@ -1,0 +1,101 @@
+---
+// Waitlist CTA section with email form
+// Uses client-side JS for form handling, connects to Supabase
+---
+
+<section id="waitlist" class="section-padding bg-gradient-to-br from-heritage-green to-heritage-green/90">
+  <div class="max-w-3xl mx-auto text-center">
+    <!-- Main Message -->
+    <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl text-ivory-linen mb-6 leading-tight">
+      Your life is a story worth telling<br />
+      <span class="text-heirloom-gold italic">and preserving for generations.</span>
+    </h2>
+
+    <p class="text-ivory-linen/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
+      Join the waitlist and be the first to start building your family's legacy.
+    </p>
+
+    <!-- Success State (hidden by default) -->
+    <div id="success-message" class="hidden bg-ivory-linen/10 rounded-lg p-8 backdrop-blur-sm">
+      <div class="w-16 h-16 rounded-full bg-heirloom-gold/20 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-heirloom-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 class="font-serif text-2xl text-ivory-linen mb-2">You're on the list!</h3>
+      <p class="text-ivory-linen/70">
+        We'll be in touch soon with early access to Heirloom.
+      </p>
+    </div>
+
+    <!-- Email Signup Form -->
+    <form id="waitlist-form" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+      <input
+        type="email"
+        name="email"
+        id="email-input"
+        placeholder="Enter your email"
+        required
+        class="flex-1 px-6 py-4 rounded-sm bg-ivory-linen text-charcoal-ink placeholder-charcoal-ink/50 focus:outline-none focus:ring-2 focus:ring-heirloom-gold"
+      />
+      <button
+        type="submit"
+        id="submit-btn"
+        class="px-8 py-4 bg-heirloom-gold text-heritage-green font-medium rounded-sm hover:bg-heirloom-gold/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
+      >
+        Join Waitlist
+      </button>
+    </form>
+
+    <!-- Error Message -->
+    <p id="error-message" class="hidden text-red-300 text-sm mt-4">
+      Something went wrong. Please try again.
+    </p>
+
+    <!-- Privacy Note -->
+    <p class="text-ivory-linen/50 text-sm mt-6">
+      No spam, ever. We respect your privacy.
+    </p>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('waitlist-form') as HTMLFormElement;
+  const emailInput = document.getElementById('email-input') as HTMLInputElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value;
+    if (!email) return;
+
+    // Disable button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+    errorMessage?.classList.add('hidden');
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        // Show success message, hide form
+        form.classList.add('hidden');
+        successMessage?.classList.remove('hidden');
+      } else {
+        throw new Error('Failed to join waitlist');
+      }
+    } catch (error) {
+      // Show error
+      errorMessage?.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join Waitlist';
+    }
+  });
+</script>

@@ -1,0 +1,56 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Create Your Account',
+    description: 'Sign up in seconds. No credit card required to start preserving your memories.',
+  },
+  {
+    number: '02',
+    title: 'Record Your Stories',
+    description: 'Answer guided prompts with voice, video, or photos. Just tap and share what matters.',
+  },
+  {
+    number: '03',
+    title: 'Share With Family',
+    description: 'Invite loved ones to view, contribute, and build your family legacy together.',
+  },
+];
+---
+
+<section id="how-it-works" class="section-padding bg-heritage-green">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <p class="text-heirloom-gold font-medium tracking-wide uppercase text-sm mb-4">
+        How It Works
+      </p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ivory-linen mb-4">
+        Start in Minutes, Not Hours
+      </h2>
+      <p class="text-ivory-linen/70 text-lg max-w-2xl mx-auto">
+        We've made preserving your legacy as simple as having a conversation.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-16">
+      {steps.map((step) => (
+        <div class="text-center">
+          <!-- Step Number -->
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full border-2 border-heirloom-gold text-heirloom-gold font-display text-2xl mb-6">
+            {step.number}
+          </div>
+
+          <!-- Step Content -->
+          <h3 class="font-serif text-xl text-ivory-linen mb-3">
+            {step.title}
+          </h3>
+          <p class="text-ivory-linen/70 leading-relaxed">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

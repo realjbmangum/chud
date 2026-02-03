@@ -1,0 +1,97 @@
+const features = [
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    title: 'Guided Prompts',
+    description: 'Daily questions designed to spark meaningful stories and memories you might otherwise forget to share.',
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+    ),
+    title: 'Secure Private Storage',
+    description: 'Your memories belong to you. Bank-level encryption ensures only your family can access your stories.',
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+      </svg>
+    ),
+    title: 'Your Family Vault',
+    description: 'A beautifully organized archive of voices, videos, and photos—searchable and preserved forever.',
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    title: 'Time Capsules',
+    description: 'Record messages to be revealed on future birthdays, graduations, or any moment you choose.',
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+    title: 'Family Sharing',
+    description: 'Invite parents, grandparents, and children to contribute and experience your shared family history.',
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+      </svg>
+    ),
+    title: 'Effortless Recording',
+    description: 'Just tap and talk. No complicated setup—capture a memory in under five minutes.',
+  },
+]
+
+export default function Features() {
+  return (
+    <section id="features" className="section-padding bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <p className="text-heirloom-gold font-medium tracking-wide uppercase text-sm mb-4">
+            Features
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl text-heritage-green mb-4">
+            Everything You Need to Preserve Your Legacy
+          </h2>
+          <p className="text-charcoal-ink/60 text-lg max-w-2xl mx-auto">
+            Simple tools designed for storytelling, not technology.
+          </p>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="group p-6 rounded-lg hover:bg-ivory-linen transition-colors duration-300"
+            >
+              <div className="w-12 h-12 rounded-full bg-heritage-green/10 text-heritage-green flex items-center justify-center mb-5 group-hover:bg-heritage-green group-hover:text-ivory-linen transition-colors duration-300">
+                {feature.icon}
+              </div>
+              <h3 className="font-serif text-xl text-heritage-green mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-charcoal-ink/60 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

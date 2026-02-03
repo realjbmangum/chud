@@ -1,0 +1,53 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About | Heirloom">
+  <Header />
+  <main class="pt-32 pb-20 px-6 lg:px-12">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-heirloom-gold font-medium tracking-wide uppercase text-sm mb-4 text-center">
+        Our Story
+      </p>
+      <h1 class="font-serif text-4xl md:text-5xl text-heritage-green mb-8 text-center">
+        Why We Built Heirloom
+      </h1>
+
+      <div class="text-charcoal-ink/70 space-y-6 text-lg leading-relaxed">
+        <p>
+          Every family has stories worth preserving. The way your grandmother laughed. The advice your father gave on your wedding day. The bedtime stories that shaped your childhood.
+        </p>
+
+        <p>
+          Too often, these precious moments live only in memory—and when those who lived them are gone, the stories go with them.
+        </p>
+
+        <p>
+          We built Heirloom because we believe every voice deserves to be heard by future generations. Every story deserves to be preserved. Every family deserves a legacy.
+        </p>
+
+        <p>
+          Heirloom makes it effortless to capture, preserve, and share the stories that make your family unique. With guided prompts, secure storage, and seamless sharing, we're helping families build their legacy—one story at a time.
+        </p>
+
+        <div class="bg-ivory-linen rounded-lg p-8 mt-12">
+          <h2 class="font-serif text-2xl text-heritage-green mb-4">Our Mission</h2>
+          <p class="text-charcoal-ink/80 italic">
+            To ensure that no family story is ever lost. To give every voice the chance to echo through generations. To make preserving your legacy as natural as having a conversation.
+          </p>
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="#waitlist" class="btn-primary text-lg px-10 py-4">
+            Join Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

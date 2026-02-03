@@ -1,0 +1,54 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Privacy Policy | Heirloom">
+  <Header />
+  <main class="pt-32 pb-20 px-6 lg:px-12">
+    <div class="max-w-3xl mx-auto prose prose-heritage-green">
+      <h1 class="font-serif text-4xl text-heritage-green mb-8">Privacy Policy</h1>
+
+      <p class="text-charcoal-ink/70 mb-6">
+        <strong>Last Updated:</strong> December 2025
+      </p>
+
+      <p class="text-charcoal-ink/70 mb-6">
+        At Heirloom, we take your privacy seriously. Your family's stories and memories are deeply personal, and we're committed to protecting them.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Information We Collect</h2>
+      <p class="text-charcoal-ink/70 mb-4">
+        We collect information you provide directly to us, including:
+      </p>
+      <ul class="text-charcoal-ink/70 mb-6 list-disc pl-6 space-y-2">
+        <li>Account information (email, name)</li>
+        <li>Content you create (recordings, photos, stories)</li>
+        <li>Usage data to improve our service</li>
+      </ul>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">How We Use Your Information</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        Your information is used solely to provide and improve the Heirloom service. We never sell your personal data or family content to third parties.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Data Security</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        We use bank-level encryption to protect your data both in transit and at rest. Your family's content is stored securely and accessible only to you and the family members you choose to share with.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Contact Us</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@theheirloom.site" class="text-heritage-green hover:text-heirloom-gold">privacy@theheirloom.site</a>.
+      </p>
+
+      <p class="text-charcoal-ink/50 text-sm mt-12 italic">
+        This is a placeholder privacy policy. A complete policy will be published before the app launches.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>

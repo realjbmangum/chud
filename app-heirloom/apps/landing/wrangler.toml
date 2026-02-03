@@ -1,0 +1,11 @@
+name = "heirloom-landing"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "./dist"
+
+[vars]
+# Add any non-secret environment variables here
+# Secrets should be added via: wrangler secret put SUPABASE_URL
+
+# [env.production]
+# Add production-specific config here if needed

@@ -1,0 +1,77 @@
+# Heirloom Progress Log
+
+## Session - 2025-01-22
+
+**Completed:**
+- Reviewed full task list and project status
+- Created Zoom/Teams background image prompt aligned with brand identity
+
+**Zoom Background Prompt (Final):**
+```
+Minimal elegant video call background. Soft ivory linen fabric texture filling
+the frame. Gentle golden-hour light washing across from the upper left, creating
+subtle warmth and soft shadows in the fabric folds. In the lower right corner,
+a small curated arrangement rests on the linen: a vintage photograph with softly
+curled edges, an antique brass pocket watch, and a classic film camera - all
+beautifully blurred and soft focus. Muted palette: ivory cream (#F8F5EE), whisper
+of heritage green in the shadows, warm gold in the light. Calm, quiet, refined.
+The stillness of a Sunday morning. 16:9 aspect ratio.
+```
+
+**Current Project Status:**
+
+| Layer | Status |
+|-------|--------|
+| Brand Identity | Complete |
+| MVP Feature Spec | Complete |
+| Tech Stack | Decided (Next.js + React Native + Supabase) |
+| Database Schema | Deployed to Supabase |
+| Mobile App UI | Polished mockup complete |
+| Web Landing Page | Scaffolded, needs polish |
+| Authentication | Not implemented |
+| Real Data Integration | Not implemented |
+| Recording Functionality | Not implemented |
+
+**Next Steps (Priority Order):**
+1. [ ] Implement Supabase authentication flow
+2. [ ] Connect mobile app to real database (replace mock data)
+3. [ ] Build recording functionality with expo-av
+4. [ ] Add file upload to Supabase Storage
+5. [ ] Polish and deploy landing page
+6. [ ] Family invite flow
+
+**Decisions Made:**
+- Zoom background should be minimal: linen texture, soft golden light, subtle trinkets (photo, pocket watch, camera)
+- Brand visual style: documentary warmth, not corporate/stock
+
+**Gotchas:**
+- Mobile app path is `apps/mobile` (React Native/Expo)
+- Web app path is `apps/web` (Next.js)
+- Supabase migrations in `supabase/migrations/`
+
+---
+
+## Session - 2025-12-02
+
+**Completed:**
+- Database schema deployed to Supabase
+- Mobile app UI polished with animations
+- Created StoryCard, PromptCard, TimeCapsuleCard components
+- Added mock data for testing
+
+**Files Changed:**
+- `supabase/migrations/001_initial_schema.sql`
+- `apps/mobile/` - Multiple screen and component updates
+
+See `SESSION-SUMMARY-2025-12-02.md` for full details.
+
+---
+
+## Session - 2025-12-01
+
+**Completed:**
+- MVP feature specification drafted
+- Tech stack decided
+- Security architecture documented
+
+See `SESSION-SUMMARY-2025-12-01.md` for full details.

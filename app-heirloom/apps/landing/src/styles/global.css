@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory-linen text-charcoal-ink;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-heritage-green text-ivory-linen px-8 py-3 rounded-sm font-sans font-medium
+           hover:bg-opacity-90 transition-all duration-200 inline-block;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-heritage-green text-heritage-green px-8 py-3 rounded-sm font-sans font-medium
+           hover:bg-heritage-green hover:text-ivory-linen transition-all duration-200 inline-block;
+  }
+
+  .section-padding {
+    @apply px-6 py-20 md:px-12 lg:px-24 lg:py-28;
+  }
+}

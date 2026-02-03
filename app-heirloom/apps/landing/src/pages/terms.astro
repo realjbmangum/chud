@@ -1,0 +1,54 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Terms of Service | Heirloom">
+  <Header />
+  <main class="pt-32 pb-20 px-6 lg:px-12">
+    <div class="max-w-3xl mx-auto prose prose-heritage-green">
+      <h1 class="font-serif text-4xl text-heritage-green mb-8">Terms of Service</h1>
+
+      <p class="text-charcoal-ink/70 mb-6">
+        <strong>Last Updated:</strong> December 2025
+      </p>
+
+      <p class="text-charcoal-ink/70 mb-6">
+        Welcome to Heirloom. By using our service, you agree to these terms.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Your Content</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        You retain full ownership of all content you create and upload to Heirloom. We never claim ownership of your family's stories, recordings, or photos.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Acceptable Use</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        Heirloom is designed for preserving family memories and stories. You agree to use the service only for its intended purpose and in compliance with all applicable laws.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Service Availability</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        We strive to maintain high availability of the Heirloom service. However, we may occasionally need to perform maintenance or updates that temporarily affect service availability.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Data Retention</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        Your content is preserved for as long as you maintain an active account. We believe family memories should last forever, and we're committed to providing long-term storage for your legacy.
+      </p>
+
+      <h2 class="font-serif text-2xl text-heritage-green mt-10 mb-4">Contact Us</h2>
+      <p class="text-charcoal-ink/70 mb-6">
+        If you have any questions about these Terms of Service, please contact us at <a href="mailto:legal@theheirloom.site" class="text-heritage-green hover:text-heirloom-gold">legal@theheirloom.site</a>.
+      </p>
+
+      <p class="text-charcoal-ink/50 text-sm mt-12 italic">
+        This is a placeholder terms of service. Complete terms will be published before the app launches.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
