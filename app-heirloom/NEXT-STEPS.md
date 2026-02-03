@@ -1,333 +1,138 @@
-# Heirloom - Technical Co-Founder Next Steps
+# Heirloom - Co-Founder Roadmap
 
-**Last Updated:** November 24, 2025
-**Co-Founders:** Brian McCullough (Tech) & Oliver Lollis (SWITCH)
-**Status:** Brand Foundation Complete → Moving to Product Definition
-
----
-
-## ✅ What We Have (Brand Foundation Complete)
-
-### Documentation
-- **The Heirloom Manifesto** - Core mission and emotional foundation
-- **One Page Narrative** - Product vision, purpose, and positioning
-- **Tone-of-Voice Guidelines** - Complete communication standards
-- **Brand Identity Direction** - Visual system (colors, mood, references)
-- **Typography System** - Font hierarchy and usage guidelines
-
-### Brand Assets Defined
-- **Color Palette:** Heritage Green (#0C3B2E), Heirloom Gold (#C4A464), Ivory Linen (#F8F5EE), Memory Blue (#91A8C0), Charcoal Ink (#2A2A2A)
-- **Typography:** Cormorant Garamond (serif/emotion), Inter (sans/function), Playfair Display (luxury accents)
-- **Voice:** Warm, eternal, trustworthy, human
-- **Visual Style:** Documentary warmth, golden-hour tones, crafted elegance
-
-### Target Audience Defined
-- **Primary:** Families (parents, grandparents, children seeking generational connection)
-- **B2B (HaaS):** Financial advisors, estate planners, faith leaders, caregivers
+**Last Updated:** February 2, 2026
+**Co-Founders:** Brian Mangum (Tech) & Oliver Lollis (Business/SWITCH)
+**Status:** MVP ~50% Complete → Building Consumer Product
 
 ---
 
-## ❌ What We Need (Technical & Product Definition)
+## Roles & Ownership
 
-### Phase 1: Product Definition (URGENT - NEXT 2 WEEKS)
-
-#### 1. MVP Feature Specification
-**Priority:** CRITICAL
-**Owner:** Brian + Oliver
-**Deliverable:** `planning/MVP-FEATURES.md`
-
-Define exactly what the MVP includes:
-- [ ] Core user flows (onboarding, recording, vault access, sharing)
-- [ ] Feature list with Must-Have / Nice-to-Have / Future tiers
-- [ ] User stories for each persona (parent, grandparent, child, advisor)
-- [ ] Success metrics and KPIs
-
-**Questions to Answer:**
-- What can users do in V1?
-- What gets pushed to V2/V3?
-- How does the 5-minute experience actually work?
-- What does "zero-knowledge encryption" mean technically?
+- **Brian:** Tech co-founder, builder, product development
+- **Oliver:** Business co-founder, face of Heirloom, networking, business development
+- **Ownership:** 50/50
+- **Communication:** Weekly Monday calls + async as needed
+- **Launchpad:** Oliver handles Wednesday calls, pulls Brian in for key meetings
 
 ---
 
-#### 2. Technical Architecture
-**Priority:** CRITICAL
-**Owner:** Brian
-**Deliverable:** `planning/TECH-STACK.md`
+## Strategic Direction (Decided Jan 2026)
 
-Define the technology foundation:
-- [ ] Frontend framework (React Native? Flutter? Progressive Web App?)
-- [ ] Backend stack (Node.js, Python, Go?)
-- [ ] Database (PostgreSQL, MongoDB, Firebase?)
-- [ ] File storage (AWS S3, Cloudflare R2, encrypted vault solution?)
-- [ ] Authentication (Auth0, Supabase Auth, custom?)
-- [ ] Encryption strategy (E2E encryption, key management, zero-knowledge architecture)
-- [ ] Hosting/Infrastructure (AWS, Google Cloud, Vercel, Railway?)
-- [ ] CI/CD pipeline
+### Business Model Priority
+1. **Consumer platform FIRST** — nail the user experience
+2. **Enterprise / HaaS SECOND** — only after consumer product is proven
 
-**Questions to Answer:**
-- Mobile-first or web-first?
-- Self-hosted or cloud-managed services?
-- How do we implement zero-knowledge encryption without losing data if users lose keys?
-- What's the data retention/backup strategy?
+### Enterprise Verticals (Future)
+- Financial advisors / wealth planners (Atlanta capital firm already interested)
+- Funeral homes
+- Churches (community legacy preservation)
+- Estate planners
+- Health/caregiving (CaringBridge-style use case)
 
----
+### Flywheel
+**Community is the growth engine.** Public profiles, family tree discovery, tagging people, shared stories — users drive growth organically. Build the house, let families make it their own.
 
-#### 3. Security & Privacy Architecture
-**Priority:** CRITICAL
-**Owner:** Brian (research + design)
-**Deliverable:** `planning/SECURITY-ARCHITECTURE.md`
+### Exit Strategy
+Both aligned on build-to-sell. No specific number yet — agreed to develop this further.
 
-Detail the zero-knowledge encryption implementation:
-- [ ] Key generation and management (how do users access across devices?)
-- [ ] Encryption at rest and in transit
-- [ ] Multi-device synchronization without server-side decryption
-- [ ] Family vault sharing mechanism (encrypted shares?)
-- [ ] Password recovery without compromising zero-knowledge promise
-- [ ] GDPR/CCPA compliance
-- [ ] Data deletion and right-to-be-forgotten
-
-**Questions to Answer:**
-- How does zero-knowledge encryption work with family sharing?
-- What happens if a user forgets their master password?
-- How do we prove we can't access user data (trust model)?
+### Competitive Positioning
+- Most competitors sell digital versions of physical products (books, prints)
+- Heirloom is a digital platform — "Facebook for families that never dies"
+- Enterprise angle (HaaS) is unique — no one else is doing it
+- TAM: everyone with a family story to tell
 
 ---
 
-#### 4. Database Schema & Data Model
-**Priority:** HIGH
-**Owner:** Brian
-**Deliverable:** `planning/DATABASE-SCHEMA.md`
+## ✅ What's Done
 
-Design the data structure:
-- [ ] User/Account model (individuals, families, organizations)
-- [ ] Vault model (family vaults, personal vaults, shared vaults)
-- [ ] Content model (voice notes, videos, photos, letters, stories)
-- [ ] Metadata structure (tags, dates, people, relationships)
-- [ ] Permissions model (who can view/edit/share what)
-- [ ] Timeline/chronology system
-- [ ] Encryption key storage (if applicable)
-
-**Questions to Answer:**
-- How do we model family relationships?
-- What metadata is searchable vs. private?
-- How do we handle large media files efficiently?
+| Layer | Status |
+|-------|--------|
+| Brand Identity | Complete (manifesto, tone, typography, colors, visual direction) |
+| MVP Feature Spec | Complete — decisions finalized Feb 2026 |
+| Tech Stack | Decided (Next.js + React Native + Supabase) |
+| Security Architecture | Documented (zero-knowledge encryption, Option C) |
+| Database Schema | Deployed to Supabase (9 tables with RLS) |
+| Prompt Library | ~300-400 prompts created |
+| Mobile App UI | Polished mockup with animations |
+| Web Landing Page | Live at theheirloom.site — reviewed and hardened |
+| Waitlist | Collecting emails via Supabase |
 
 ---
 
-#### 5. UI/UX Wireframes & User Flows
-**Priority:** HIGH
-**Owner:** Brian + Oliver (or hire designer?)
-**Deliverable:** `designs/wireframes/` folder
+## ❌ What's Next
 
-Create low-fidelity wireframes:
-- [ ] Onboarding flow (account creation, vault setup)
-- [ ] Recording experience (voice note, video, photo upload)
-- [ ] Vault browsing (timeline view, search, filters)
-- [ ] Sharing flow (invite family, set permissions)
-- [ ] Settings (security, account, notifications)
-- [ ] HaaS advisor dashboard (if needed for MVP)
+### Phase 1: Ship Consumer MVP
 
-**Tools:** Figma, Sketch, or hand-drawn → digitized
+#### For Brian (Tech)
+1. [ ] Implement Supabase authentication (email + password)
+2. [ ] Connect app to real database (replace mock data)
+3. [ ] Build recording functionality (audio + video, 5-min max)
+4. [ ] Record to device, upload when ready
+5. [ ] Add wifi-only upload setting
+6. [ ] On-device video compression before upload
+7. [ ] 5 GB storage limit per user
+8. [ ] Family invite flow (email invites)
+9. [ ] Upgrade Supabase to Pro plan ($25/mo) before production
 
----
+#### For Oliver (Business)
+1. [ ] Log into theheirloom.site and test — give Brian feedback
+2. [ ] Continue Launchpad Wednesday calls, relay key info
+3. [ ] Explore entity formation: S-corp in opportunity zone
+4. [ ] Follow up with Atlanta capital firm on enterprise interest
+5. [ ] Validate HaaS opportunity with 3-5 advisors/planners
 
-### Phase 2: Business Model & GTM (NEXT 30 DAYS)
+### Phase 2: Entity Formation & Legal
+- [ ] File S-corp in opportunity zone (Launchpad guidance)
+- [ ] Open business bank account under entity
+- [ ] Set up Stripe for payments
+- [ ] Trademark "Heirloom"
+- [ ] Co-founder agreement (equity, vesting, IP assignment)
 
-#### 6. Pricing & Business Model
-**Priority:** HIGH
-**Owner:** Oliver + Brian
-**Deliverable:** `planning/BUSINESS-MODEL.md`
-
-Define revenue streams:
-- [ ] Consumer pricing tiers (free tier? freemium? subscription?)
-- [ ] HaaS (Heirloom as a Service) pricing for advisors
-- [ ] Storage limits per tier
-- [ ] Feature gating strategy
-- [ ] Lifetime vs. subscription debate
-- [ ] Enterprise/white-label options
-
-**Questions to Answer:**
-- What's the sustainable pricing model?
-- How much does storage/encryption infrastructure cost per user?
-- What's the unit economics?
-
----
-
-#### 7. Go-to-Market Strategy
-**Priority:** MEDIUM
-**Owner:** Oliver (lead) + Brian (support)
-**Deliverable:** `planning/GTM-STRATEGY.md`
-
-Plan the launch:
-- [ ] Beta testing strategy (who, how many, timeline)
-- [ ] Launch channels (Product Hunt, social, advisors network)
-- [ ] Partnership strategy (financial advisors, estate planners)
-- [ ] Content marketing plan (blog, LinkedIn, storytelling)
-- [ ] Paid acquisition strategy (if any)
-- [ ] Referral/viral loop design
+### Phase 3: Enterprise / HaaS (After Consumer MVP)
+- [ ] Advisor dashboard (separate interface from consumer)
+- [ ] Client vault management
+- [ ] White-label options
+- [ ] Reporting/analytics for advisors
+- [ ] Enterprise pricing model
 
 ---
 
-#### 8. Roadmap & Timeline
-**Priority:** HIGH
-**Owner:** Brian + Oliver
-**Deliverable:** `planning/PRODUCT-ROADMAP.md`
+## Open Questions
 
-Create a realistic timeline:
-- [ ] MVP feature set + launch date target
-- [ ] Development milestones (alpha, beta, launch)
-- [ ] Post-launch feature releases (V1.1, V1.2, V2.0)
-- [ ] Resource needs (hiring, contractors, tools)
-- [ ] Budget allocation
+### Still Need to Discuss
+1. How do we handle deceased family members in the vault?
+2. Exit strategy — develop specific targets/numbers
+3. Oliver's capacity: part-time vs full-time?
+4. SWITCH resources available for Heirloom?
+5. Video transcoding strategy (deferred from MVP, need plan for scale)
 
----
-
-### Phase 3: Legal & Compliance (NEXT 60 DAYS)
-
-#### 9. Legal Foundation
-**Priority:** MEDIUM
-**Owner:** Oliver + Brian (consult lawyer)
-**Deliverable:** Legal documents folder
-
-Set up legal structure:
-- [ ] Company formation (LLC, C-Corp, Delaware vs. other?)
-- [ ] Co-founder agreement (equity split, vesting, IP assignment)
-- [ ] Terms of Service
-- [ ] Privacy Policy (GDPR, CCPA compliant)
-- [ ] Data Processing Agreement (for HaaS clients)
-- [ ] Trademark application for "Heirloom" (check availability)
+### Resolved
+- Prompts: ~300-400 at launch ✅
+- Recording length: 5 min max ✅
+- Categories: optional ✅
+- Offline: record to device, upload when ready ✅
+- Wifi-only upload setting ✅
+- Storage: 5 GB per user ✅
+- Pricing: everything free in MVP ✅
+- Plan: individual only, no family plan at launch ✅
+- Entity: S-corp in opportunity zone (pending formation) ✅
+- Ownership: 50/50 ✅
+- Roles: Brian = tech, Oliver = business/face ✅
 
 ---
 
-### Phase 4: Development Setup (WEEK 1-2)
+## Key References
 
-#### 10. Development Environment
-**Priority:** HIGH (once tech stack decided)
-**Owner:** Brian
-**Deliverable:** Working dev environment
-
-Set up infrastructure:
-- [ ] GitHub repository structure (monorepo vs. separate repos?)
-- [ ] Local development environment setup guide
-- [ ] CI/CD pipeline (GitHub Actions, CircleCI?)
-- [ ] Staging environment
-- [ ] Code quality tools (linting, formatting, testing)
-- [ ] Documentation standards
-
----
-
-## 🎯 Immediate Action Items (This Week)
-
-### For Brian (Tech Co-Founder)
-1. **Schedule co-founder alignment meeting with Oliver**
-   - Review brand docs together
-   - Align on MVP vision
-   - Agree on decision-making process
-
-2. **Research zero-knowledge encryption solutions**
-   - Evaluate: Keybase architecture, Signal Protocol, Etebase, E3DB
-   - Document pros/cons for family sharing use case
-   - Prototype concept if needed
-
-3. **Draft MVP feature spec**
-   - Start with user stories
-   - Prioritize ruthlessly (what's truly minimum?)
-   - Share with Oliver for feedback
-
-4. **Evaluate tech stack options**
-   - Research: Supabase, Firebase, AWS Amplify for backend
-   - Mobile: React Native vs. Flutter vs. PWA
-   - Create comparison doc
-
-### For Oliver (Business Co-Founder)
-1. **Validate HaaS opportunity**
-   - Interview 3-5 financial advisors/estate planners
-   - Understand their pain points with legacy planning
-   - Validate willingness to pay for Heirloom
-
-2. **Define pricing strategy**
-   - Research competitors (FamilySearch, StoryWorth, Legacy.com)
-   - Survey potential users on willingness to pay
-   - Draft initial pricing tiers
-
-3. **Create go-to-market hypothesis**
-   - Who's the earliest adopter segment?
-   - What's the MVP launch channel?
-   - How do we get first 100 users?
-
----
-
-## 📊 Success Metrics (Define Together)
-
-### Product Metrics (TBD)
-- Time to first recording
-- Recording completion rate
-- Vault revisit frequency
-- Family member invites sent
-- Content uploaded per user
-
-### Business Metrics (TBD)
-- CAC (Customer Acquisition Cost)
-- LTV (Lifetime Value)
-- Conversion rate (free → paid)
-- Churn rate
-- HaaS partner acquisition rate
-
----
-
-## 🚨 Risks & Open Questions
-
-### Technical Risks
-- **Zero-knowledge encryption complexity:** Can we deliver on this promise without making UX terrible?
-- **Storage costs:** How do we make unlimited generational storage economically viable?
-- **Platform decision:** Mobile-first vs. web-first significantly impacts development timeline
-
-### Business Risks
-- **Market validation:** Is the pain point strong enough for people to pay?
-- **Competition:** How do we differentiate from free solutions (Google Photos, iCloud)?
-- **HaaS adoption:** Will advisors actually integrate this into their practice?
-
-### Open Questions for Oliver
-1. What's your vision for V1 launch date?
-2. Do we have any funding? Bootstrap vs. raise?
-3. What's your capacity/role (part-time vs. full-time)?
-4. What resources can SWITCH provide (network, marketing, etc.)?
-
-### Open Questions for Brian
-1. What's your capacity/timeline (full-time vs. nights/weekends)?
-2. Do we build, buy, or partner for encryption infrastructure?
-3. What's the technical complexity level you're comfortable with?
-
----
-
-## 📚 Resources & Research
-
-### Competitor Analysis Needed
-- **StoryWorth** - Prompts + book printing
-- **Legacy.com** - Obituaries + memorials
-- **FamilySearch** - Genealogy + stories
-- **1Password Families** - Shared vault concept (different use case but similar UX)
-- **Signal** - Zero-knowledge messaging (technical reference)
-
-### Technologies to Evaluate
-- **Encryption:** Etebase, E3DB, Keybase architecture
-- **Backend:** Supabase, Firebase, AWS Amplify
-- **Mobile:** React Native, Flutter, Ionic
-- **Storage:** Cloudflare R2, Wasabi, AWS S3 + Glacier
-- **Auth:** Supabase Auth, Auth0, Firebase Auth
-
----
-
-## 📞 Next Meeting Agenda
-
-**Suggested Topics:**
-1. Review brand docs together (Oliver's reaction?)
-2. Align on MVP vision (what's in, what's out)
-3. Discuss co-founder equity and roles
-4. Set timeline expectations (launch target?)
-5. Decide on funding approach (bootstrap, friends/family, accelerator?)
-6. Assign first week action items
+| Document | Path |
+|----------|------|
+| Call Notes (Jan 27) | `notes/call-2026-01-27.md` |
+| MVP Features | `planning/MVP-FEATURES.md` |
+| Tech Stack | `planning/TECH-STACK.md` |
+| Security Architecture | `planning/SECURITY-ARCHITECTURE.md` |
+| Database Schema | `planning/DATABASE-SCHEMA.md` |
+| Brand Identity | `docs/Brand-Identity-Direction.md` |
+| Manifesto | `docs/The-Heirloom-Manifesto.md` |
+| Progress Log | `progress.txt` |
 
 ---
 
