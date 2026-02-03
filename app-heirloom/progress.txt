@@ -1,5 +1,74 @@
 # Heirloom Progress Log
 
+## Session - 2026-02-02
+
+**Completed:**
+- Ran design review and security review on web landing page
+- Fixed all critical and major design issues (7 fixes)
+- Fixed all security issues (7 fixes)
+- Removed inner `.git` directory and committed full app-heirloom to monorepo
+- Pushed to main
+
+**Design Fixes:**
+- Added `relative` to HowItWorks step container (broken connector lines)
+- Added video poster attribute and fallback text in Hero
+- Added accessible `<label>` for waitlist email input
+- Added error state feedback on waitlist form
+- Added global `focus-visible` ring styles for all interactive elements
+- Changed pricing card `scale-105` to `md:scale-105` (tablet overflow)
+- Added `display: 'swap'` to all fonts, reduced Cormorant weights from 4 to 2
+
+**Security Fixes:**
+- Added in-memory rate limiting on `/api/waitlist` (5 req/hr per IP)
+- Replaced weak email validation with proper regex
+- Added security headers in `next.config.js` (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+- Created RLS migration for waitlist table (insert-only for anon)
+- Replaced non-null assertions with explicit env var validation in `supabase.ts`
+- Suppressed error logging in production (`route.ts`)
+- Removed unused error variable in catch block
+
+**Files Changed:**
+- `apps/web/src/components/HowItWorks.tsx` - Added relative positioning
+- `apps/web/src/components/Hero.tsx` - Video poster + fallback
+- `apps/web/src/components/CTA.tsx` - Accessible label + error state
+- `apps/web/src/components/Pricing.tsx` - Responsive scale fix
+- `apps/web/src/app/globals.css` - Focus-visible styles
+- `apps/web/src/app/layout.tsx` - Font display swap + reduced weights
+- `apps/web/src/app/api/waitlist/route.ts` - Rate limiting, email validation, sanitized logging
+- `apps/web/src/lib/supabase.ts` - Env var validation
+- `apps/web/next.config.js` - Security headers
+- `supabase/migrations/20260202_waitlist_rls.sql` - New RLS migration
+
+**Current Project Status:**
+
+| Layer | Status |
+|-------|--------|
+| Brand Identity | Complete |
+| MVP Feature Spec | Complete |
+| Tech Stack | Decided (Next.js + React Native + Supabase) |
+| Database Schema | Deployed to Supabase |
+| Mobile App UI | Polished mockup complete |
+| Web Landing Page | Complete (reviewed & hardened) |
+| Authentication | Not implemented |
+| Real Data Integration | Not implemented |
+| Recording Functionality | Not implemented |
+
+**Next Steps (Priority Order):**
+1. [ ] Rotate Supabase anon key (exposed during security review)
+2. [ ] Run waitlist RLS migration on Supabase (`20260202_waitlist_rls.sql`)
+3. [ ] Add poster image at `apps/web/public/heirloom-poster.jpg`
+4. [ ] Run `npm audit` in `apps/web` to check dependencies
+5. [ ] Implement Supabase authentication flow
+6. [ ] Connect mobile app to real database (replace mock data)
+7. [ ] Build recording functionality
+8. [ ] Family invite flow
+
+**Gotchas:**
+- `app-heirloom/` had its own `.git` — removed it so it's regular files in the monorepo now
+- Also has `apps/landing` (Astro) and `apps/pwa` (Vite/React) in addition to `apps/web` (Next.js)
+
+---
+
 ## Session - 2025-01-22
 
 **Completed:**
