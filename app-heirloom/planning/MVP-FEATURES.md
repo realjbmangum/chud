@@ -1,7 +1,7 @@
 # Heirloom MVP Feature Specification
 
-**Last Updated:** December 1, 2025
-**Status:** Draft
+**Last Updated:** February 2, 2026
+**Status:** Decisions Finalized
 **Owners:** Brian + Oliver
 
 ---
@@ -32,10 +32,13 @@ The MVP must prove:
 - [ ] Daily prompted question on home screen
 - [ ] Audio recording (primary)
 - [ ] Video recording (primary)
+- [ ] **Max recording length: 5 minutes**
 - [ ] Media upload from device (photos, existing videos)
-- [ ] Category selection (Childhood, Career, Family, Faith, Legacy)
+- [ ] Category selection — **optional** (Childhood, Career, Family, Faith, Legacy)
 - [ ] Title/name the memory
 - [ ] "Choose another prompt" - refresh prompt
+- [ ] **Record to device, upload when ready** (no background sync)
+- [ ] **Wifi-only upload setting** in user preferences
 
 #### Personal Vault (My Vault)
 - [ ] View all personal recordings
@@ -122,7 +125,16 @@ The MVP must prove:
 - [ ] Desktop app
 - [ ] Smart TV viewing app
 - [ ] Voice assistant integration (Alexa, Google)
-- [ ] Offline recording with sync
+
+#### Media Processing
+- [ ] Video transcoding (compress server-side to reduce storage costs)
+
+#### Community & Discovery (Potential Flywheel)
+- [ ] Public profiles (opt-in)
+- [ ] Search/tag people by name
+- [ ] Family tree browsing and connections
+- [ ] Groupings (by family, region, heritage)
+- [ ] Community feed of public stories
 
 ---
 
@@ -199,40 +211,42 @@ Scroll/Browse Cards → Tap Card → Playback →
 
 ---
 
-## Open Questions
+## Resolved Questions (Feb 2, 2026)
 
 ### Product
-1. How many prompts do we need at launch? (100? 500?)
-2. What's the max recording length? (5 min? 15 min? Unlimited?)
-3. Do we require category selection or make it optional?
-4. How do we handle deceased family members in the vault?
+1. **Prompts at launch:** ~300-400 prompts already created ✅
+2. **Max recording length:** 5 minutes for MVP ✅
+3. **Category selection:** Optional for MVP ✅
+4. **Deceased family members:** Still needs discussion with Oliver ⚠️
 
 ### Technical
-1. What's the storage limit per user for MVP?
-2. How do we handle large video files on mobile upload?
-3. Do we transcode videos or store originals?
-4. What happens if someone records without internet?
+1. **Storage limit per user:** 5 GB for MVP. Note: Supabase Free plan only includes 1 GB total with 50 MB max file size. Will need Pro plan ($25/mo) for production — gives 100 GB storage. ✅
+2. **Large video files:** Record to device, upload when ready. Wifi-only upload setting available. Compress on-device where possible. ✅
+3. **Transcoding:** Store originals for MVP. Server-side transcoding deferred to future feature. ✅
+4. **Offline recording:** Record to device locally, user uploads manually when ready. No background sync for MVP. ✅
 
 ### Business
-1. What's free vs. paid in MVP?
-2. Do we launch with Family Plan or just individual?
-3. Is there a trial period?
+1. **Free vs. paid:** Everything free in MVP ✅
+2. **Launch plan:** Individual plan only, no Family Plan at launch ✅
+3. **Trial period:** No trial — all free ✅
 
 ---
 
 ## Dependencies
 
-- **Tech Stack Decision** → Needed to estimate build time
-- **Security Architecture** → Needed before storing user content
-- **Brand Assets** → Needed for UI design (logo, colors, fonts)
-- **Prompt Library** → Needed for recording experience
+- ~~**Tech Stack Decision**~~ ✅ Decided: Next.js + React Native + Supabase
+- ~~**Security Architecture**~~ ✅ Documented (zero-knowledge encryption, Option C)
+- ~~**Brand Assets**~~ ✅ Complete (colors, fonts, tone, identity)
+- ~~**Prompt Library**~~ ✅ 300-400 prompts created
 
 ---
 
 ## Next Steps
 
-1. [ ] Review with Oliver - align on feature priorities
-2. [ ] Answer open questions
-3. [ ] Create detailed user flow diagrams
-4. [ ] Draft technical architecture
-5. [ ] Estimate development timeline
+1. [x] Review with Oliver - align on feature priorities
+2. [x] Answer open questions (1 remaining: deceased family members)
+3. [ ] Discuss with Oliver: handling deceased family members in vault
+4. [ ] Create detailed user flow diagrams
+5. [ ] Draft technical architecture
+6. [ ] Upgrade Supabase to Pro plan before production launch
+7. [ ] Implement on-device compression for video recordings
