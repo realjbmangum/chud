@@ -1,16 +1,55 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+// Homepage-specific schema
+const homepageSchema = {
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "SC DMV Alerts",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "description": "Appointment monitoring and alert service for South Carolina DMV road tests. Get email alerts when appointments become available.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "1 email alert per day for road test and motorcycle appointments"
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro",
+          "price": "5.99",
+          "priceCurrency": "USD",
+          "description": "3 email alerts per day for road test and motorcycle appointments"
+        },
+        {
+          "@type": "Offer",
+          "name": "CDL Pro",
+          "price": "19.99",
+          "priceCurrency": "USD",
+          "description": "5 email alerts per day for CDL appointments"
+        }
+      ]
+    }
+  ]
+}
 ---
 
-<Layout title="SC DMV Alerts - Never Miss an Appointment">
+<Layout title="SC DMV Alerts - Never Miss an Appointment" schema={homepageSchema}>
   <!-- Header -->
   <header class="bg-white border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex items-center justify-between">
-        <a href="/" class="text-xl font-bold text-brand-600">SC DMV Alerts</a>
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;">
+          <img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />
+          SC DMV APPOINTMENTS
+        </a>
         <nav class="flex items-center gap-6">
           <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
-          <a href="/guides/locations" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/dmv" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
           <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
           <a href="#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
             Get Alerts
@@ -30,20 +69,28 @@ import Layout from '../layouts/Layout.astro'
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
             </span>
-            Monitoring SC DMV 24/7
+            Monitoring 65 SC DMV Locations Around the Clock
           </div>
 
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-            Get Instant Alerts When SC DMV Appointments Open Up
+            Stop Waiting Months for Your SC Road Test
           </h1>
 
           <p class="mt-6 text-lg sm:text-xl text-gray-600">
-            Stop refreshing the DMV website. We monitor 24/7 and send you instant SMS and email alerts the moment appointments become available.
+            Stop refreshing the DMV website. We monitor all 65 SC locations and send you email alerts when appointments become available.
+          </p>
+
+          <!-- Social proof -->
+          <p class="mt-4 text-sm text-gray-500">
+            <span class="inline-flex items-center gap-2">
+              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Actively monitoring — last alert sent minutes ago
+            </span>
           </p>
 
           <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a href="#pricing" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors">
-              Get Started Free
+              Get My Free Alerts
             </a>
             <a href="#how-it-works" class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
               How It Works
@@ -75,7 +122,7 @@ import Layout from '../layouts/Layout.astro'
         <div class="text-center">
           <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-100 text-brand-600 text-2xl font-bold mb-6">1</div>
           <h3 class="text-xl font-semibold text-gray-900 mb-3">Sign Up</h3>
-          <p class="text-gray-600">Enter your email and phone number. Select your appointment type and preferred locations.</p>
+          <p class="text-gray-600">Enter your email. Select your appointment type and preferred locations.</p>
         </div>
 
         <!-- Step 2 -->
@@ -89,8 +136,22 @@ import Layout from '../layouts/Layout.astro'
         <div class="text-center">
           <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-100 text-brand-600 text-2xl font-bold mb-6">3</div>
           <h3 class="text-xl font-semibold text-gray-900 mb-3">Get Notified Instantly</h3>
-          <p class="text-gray-600">Receive an instant SMS or email with a direct link to book before the slot fills up.</p>
+          <p class="text-gray-600">Receive an email with a direct link to book before the slot fills up.</p>
         </div>
+      </div>
+
+      <!-- Promo Video -->
+      <div class="mt-16 max-w-4xl mx-auto">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="/home.jpg"
+          class="w-full rounded-2xl shadow-2xl"
+        >
+          <source src="/promo.mp4" type="video/mp4" />
+        </video>
       </div>
     </div>
   </section>
@@ -105,8 +166,8 @@ import Layout from '../layouts/Layout.astro'
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 class="font-semibold text-gray-900 mb-2">Road Test (Class D)</h3>
-          <p class="text-sm text-gray-600">Standard automobile driving skills test</p>
+          <h3 class="font-semibold text-gray-900 mb-2">Teen & Adult Road Test</h3>
+          <p class="text-sm text-gray-600">Class D automobile driving skills test</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
           <h3 class="font-semibold text-gray-900 mb-2">Motorcycle Test</h3>
@@ -147,7 +208,7 @@ import Layout from '../layouts/Layout.astro'
         <p class="mt-4 text-lg text-gray-600">Start free, upgrade when you need more</p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <!-- Free Tier -->
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
           <h3 class="text-lg font-semibold text-gray-900">Free</h3>
@@ -169,19 +230,13 @@ import Layout from '../layouts/Layout.astro'
               <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span class="text-gray-600">Email notifications</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span class="text-gray-600">All appointment types</span>
+              <span class="text-gray-600">Road test & motorcycle</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
-              <span class="text-gray-400">SMS notifications</span>
+              <span class="text-gray-400">CDL appointments</span>
             </li>
           </ul>
 
@@ -217,19 +272,19 @@ import Layout from '../layouts/Layout.astro'
               <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span class="text-white">Instant SMS notifications</span>
+              <span class="text-white">Email alerts</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span class="text-white">Email notifications</span>
+              <span class="text-white">Road test & motorcycle</span>
             </li>
             <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
-              <span class="text-white">All appointment types</span>
+              <span class="text-brand-200">CDL appointments</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-brand-200 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -241,6 +296,60 @@ import Layout from '../layouts/Layout.astro'
 
           <a href="#signup-pro" class="mt-8 block w-full rounded-lg bg-white px-4 py-3 text-center text-sm font-semibold text-brand-600 shadow-sm hover:bg-brand-50 transition-colors">
             Get Pro
+          </a>
+        </div>
+
+        <!-- CDL Tier -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm border-2 border-amber-500 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="inline-flex items-center rounded-full bg-amber-500 px-3 py-1 text-xs font-medium text-white">
+              Commercial
+            </span>
+          </div>
+
+          <h3 class="text-lg font-semibold text-gray-900">CDL Pro</h3>
+          <p class="mt-2 text-gray-600">For commercial drivers</p>
+
+          <div class="mt-6">
+            <span class="text-4xl font-bold text-gray-900">$19.99</span>
+            <span class="text-gray-600">/month</span>
+          </div>
+
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Up to 5 alerts per day</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Email alerts</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600"><strong>CDL Class A, B, C</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Priority support</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-gray-600">Cancel anytime</span>
+            </li>
+          </ul>
+
+          <a href="#signup-cdl" class="mt-8 block w-full rounded-lg bg-amber-500 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-amber-600 transition-colors">
+            Get CDL Pro
           </a>
         </div>
       </div>
@@ -270,21 +379,6 @@ import Layout from '../layouts/Layout.astro'
             />
           </div>
 
-          <!-- Phone (optional) -->
-          <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-              Phone number <span class="text-gray-400">(optional for free tier)</span>
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
-              placeholder="(555) 123-4567"
-            />
-            <p class="mt-1.5 text-xs text-gray-500">SMS alerts are instant. Email can take a few minutes.</p>
-          </div>
-
           <!-- Appointment Type -->
           <div>
             <label for="appointment_type" class="block text-sm font-medium text-gray-700 mb-2">Appointment type</label>
@@ -295,13 +389,11 @@ import Layout from '../layouts/Layout.astro'
               class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="">Select appointment type...</option>
-              <option value="road_test">Road Test (Class D)</option>
+              <option value="road_test">Teen & Adult Road Test</option>
               <option value="motorcycle_test">Motorcycle Test</option>
-              <option value="cdl_a">CDL Class A</option>
-              <option value="cdl_b">CDL Class B</option>
-              <option value="cdl_c">CDL Class C</option>
               <option value="class_e">Class E (Non-Commercial)</option>
             </select>
+            <p class="mt-1.5 text-xs text-gray-500">Need CDL appointments? <a href="#signup-cdl" class="text-brand-600 hover:underline">Get CDL Pro</a></p>
           </div>
 
           <!-- Region -->
@@ -314,11 +406,14 @@ import Layout from '../layouts/Layout.astro'
               class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="any">Any location in SC</option>
-              <option value="charleston">Charleston Area</option>
-              <option value="columbia">Columbia Area</option>
               <option value="greenville">Greenville Area</option>
+              <option value="columbia">Columbia Area</option>
+              <option value="charleston">Charleston Area</option>
               <option value="myrtle_beach">Myrtle Beach Area</option>
               <option value="spartanburg">Spartanburg Area</option>
+              <option value="florence">Florence Area</option>
+              <option value="rock_hill">Rock Hill Area</option>
+              <option value="aiken">Aiken Area</option>
             </select>
           </div>
         </div>
@@ -331,7 +426,7 @@ import Layout from '../layouts/Layout.astro'
         </button>
 
         <p class="mt-4 text-center text-sm text-gray-500">
-          Want SMS alerts + 3x daily notifications? <a href="#signup-pro" class="text-brand-600 hover:text-brand-700 font-medium">Upgrade to Pro</a>
+          Want 3x daily alerts? <a href="#signup-pro" class="text-brand-600 hover:text-brand-700 font-medium">Upgrade to Pro</a>
         </p>
         <!-- Status message -->
         <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-sm"></div>
@@ -344,10 +439,11 @@ import Layout from '../layouts/Layout.astro'
     <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="text-3xl font-bold text-white">Get Pro - $5.99/month</h2>
-        <p class="mt-4 text-brand-100">Up to 3 SMS + email alerts daily. Cancel anytime.</p>
+        <p class="mt-4 text-brand-100">Up to 3 email alerts daily. Cancel anytime.</p>
       </div>
 
       <form action="/api/checkout" method="POST" class="bg-white rounded-2xl p-8 shadow-lg">
+        <input type="hidden" name="tier" value="pro" />
         <div class="space-y-6">
           <!-- Email -->
           <div>
@@ -362,19 +458,6 @@ import Layout from '../layouts/Layout.astro'
             />
           </div>
 
-          <!-- Phone -->
-          <div>
-            <label for="pro-phone" class="block text-sm font-medium text-gray-700 mb-2">Phone number for SMS</label>
-            <input
-              type="tel"
-              id="pro-phone"
-              name="phone"
-              required
-              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
-              placeholder="(555) 123-4567"
-            />
-          </div>
-
           <!-- Appointment Type -->
           <div>
             <label for="pro-appointment_type" class="block text-sm font-medium text-gray-700 mb-2">Appointment type</label>
@@ -385,13 +468,11 @@ import Layout from '../layouts/Layout.astro'
               class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="">Select appointment type...</option>
-              <option value="road_test">Road Test (Class D)</option>
+              <option value="road_test">Teen & Adult Road Test</option>
               <option value="motorcycle_test">Motorcycle Test</option>
-              <option value="cdl_a">CDL Class A</option>
-              <option value="cdl_b">CDL Class B</option>
-              <option value="cdl_c">CDL Class C</option>
               <option value="class_e">Class E (Non-Commercial)</option>
             </select>
+            <p class="mt-1.5 text-xs text-gray-500">Need CDL appointments? <a href="#signup-cdl" class="text-brand-600 hover:underline">Get CDL Pro</a></p>
           </div>
 
           <!-- Region -->
@@ -404,11 +485,14 @@ import Layout from '../layouts/Layout.astro'
               class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500 focus:ring-offset-0 transition-colors"
             >
               <option value="any">Any location in SC</option>
-              <option value="charleston">Charleston Area</option>
-              <option value="columbia">Columbia Area</option>
               <option value="greenville">Greenville Area</option>
+              <option value="columbia">Columbia Area</option>
+              <option value="charleston">Charleston Area</option>
               <option value="myrtle_beach">Myrtle Beach Area</option>
               <option value="spartanburg">Spartanburg Area</option>
+              <option value="florence">Florence Area</option>
+              <option value="rock_hill">Rock Hill Area</option>
+              <option value="aiken">Aiken Area</option>
             </select>
           </div>
         </div>
@@ -416,6 +500,82 @@ import Layout from '../layouts/Layout.astro'
         <button
           type="submit"
           class="mt-8 w-full rounded-lg bg-brand-600 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Continue to Payment
+        </button>
+
+        <p class="mt-4 text-center text-sm text-gray-500">
+          Secure checkout powered by Stripe. Cancel anytime.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- CDL Signup Form -->
+  <section id="signup-cdl" class="py-16 sm:py-24 bg-amber-500">
+    <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-white">CDL Pro - $19.99/month</h2>
+        <p class="mt-4 text-amber-100">Priority CDL appointment alerts. Up to 5 email alerts daily.</p>
+      </div>
+
+      <form action="/api/checkout" method="POST" class="bg-white rounded-2xl p-8 shadow-lg">
+        <input type="hidden" name="tier" value="cdl" />
+        <div class="space-y-6">
+          <!-- Email -->
+          <div>
+            <label for="cdl-email" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+            <input
+              type="email"
+              id="cdl-email"
+              name="email"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-offset-0 transition-colors"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <!-- CDL Type -->
+          <div>
+            <label for="cdl-appointment_type" class="block text-sm font-medium text-gray-700 mb-2">CDL Class</label>
+            <select
+              id="cdl-appointment_type"
+              name="appointment_type"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="">Select CDL class...</option>
+              <option value="cdl_a">CDL Class A (Tractor-trailers)</option>
+              <option value="cdl_b">CDL Class B (Buses, trucks)</option>
+              <option value="cdl_c">CDL Class C (Hazmat, 16+ passengers)</option>
+            </select>
+          </div>
+
+          <!-- Region -->
+          <div>
+            <label for="cdl-region" class="block text-sm font-medium text-gray-700 mb-2">Preferred region</label>
+            <select
+              id="cdl-region"
+              name="region"
+              required
+              class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-offset-0 transition-colors"
+            >
+              <option value="any">Any location in SC</option>
+              <option value="greenville">Greenville Area</option>
+              <option value="columbia">Columbia Area</option>
+              <option value="charleston">Charleston Area</option>
+              <option value="myrtle_beach">Myrtle Beach Area</option>
+              <option value="spartanburg">Spartanburg Area</option>
+              <option value="florence">Florence Area</option>
+              <option value="rock_hill">Rock Hill Area</option>
+              <option value="aiken">Aiken Area</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-8 w-full rounded-lg bg-amber-500 px-4 py-3 text-base font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           Continue to Payment
         </button>
@@ -437,7 +597,7 @@ import Layout from '../layouts/Layout.astro'
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900">How fast will I get notified?</h3>
-          <p class="mt-2 text-gray-600">We check for new appointments every 5-10 minutes. When a slot opens up, SMS alerts go out instantly. Email typically arrives within 1-2 minutes.</p>
+          <p class="mt-2 text-gray-600">We check for new appointments every hour. When new slots open up, you'll get an email alert with a direct link to book.</p>
         </div>
 
         <div>
@@ -457,7 +617,12 @@ import Layout from '../layouts/Layout.astro'
 
         <div>
           <h3 class="text-lg font-semibold text-gray-900">Why only 1 alert per day on free?</h3>
-          <p class="mt-2 text-gray-600">We want to keep the free tier sustainable while still being useful. One daily alert lets you know when appointments are available. Pro users get 3 alerts per day plus SMS for the best chance of booking.</p>
+          <p class="mt-2 text-gray-600">We want to keep the free tier sustainable while still being useful. One daily alert lets you know when appointments are available. Pro users get up to 3 alerts per day for the best chance of booking.</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">How likely am I to get an appointment?</h3>
+          <p class="mt-2 text-gray-600">Very likely! We see hundreds of appointments open up every day across SC. Most of our Pro users find an appointment within 1-2 weeks. The key is acting fast when you get the alert—slots fill up within minutes.</p>
         </div>
       </div>
     </div>
@@ -472,7 +637,7 @@ import Layout from '../layouts/Layout.astro'
         </div>
         <div class="flex gap-6 text-sm">
           <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
-          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/dmv" class="text-gray-400 hover:text-white transition-colors">Locations</a>
           <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
           <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
           <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>

@@ -1,0 +1,279 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { regions, regionSlugs } from '../../data/regions'
+
+export function getStaticPaths() {
+  return regionSlugs.map(slug => ({
+    params: { region: slug }
+  }))
+}
+
+const { region } = Astro.params
+const data = regions[region]
+
+if (!data) {
+  return Astro.redirect('/dmv/')
+}
+
+const title = `${data.name} SC DMV Appointments - Road Test Alert Service`
+const description = `Get instant alerts when DMV road test appointments open in ${data.name}, South Carolina. We monitor ${data.offices.length} locations in ${data.description}.`
+
+// Page-specific schema
+const pageSchema = {
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": `${data.name} SC DMV Appointments`,
+      "description": description,
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://scdmvappointments.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "DMV Locations",
+            "item": "https://scdmvappointments.com/dmv"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": data.name,
+            "item": `https://scdmvappointments.com/dmv/${region}`
+          }
+        ]
+      }
+    }
+  ]
+}
+---
+
+<Layout title={title} description={description} schema={pageSchema}>
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;">
+          <img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />
+          SC DMV APPOINTMENTS
+        </a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
+          <a href="/guides/locations" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+          <a href="/#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <nav class="bg-gray-50 border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex items-center gap-2 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-gray-700">Home</a></li>
+        <li>/</li>
+        <li><a href="/dmv/" class="hover:text-gray-700">DMV Locations</a></li>
+        <li>/</li>
+        <li class="text-gray-900 font-medium">{data.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <!-- Hero -->
+      <div class="text-center">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900">
+          {data.name} SC DMV Appointments
+        </h1>
+        <p class="mt-4 text-lg text-gray-600">
+          Get instant alerts when road test appointments open at DMV offices in {data.description}.
+          We monitor {data.offices.length} locations serving {data.population} residents.
+        </p>
+        <div class="mt-8">
+          <a href="/#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get {data.name} DMV Alerts
+          </a>
+        </div>
+      </div>
+
+      <!-- DMV Offices -->
+      <section class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900">
+          DMV Offices in {data.name}
+        </h2>
+        <p class="mt-2 text-gray-600">
+          We monitor these locations for road test appointments:
+        </p>
+
+        <div class="mt-6 space-y-4">
+          {data.offices.map((office) => (
+            <div class="bg-gray-50 rounded-lg p-5 border border-gray-200">
+              <h3 class="font-semibold text-gray-900 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {office}
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                Road test, motorcycle test, and CDL appointments available
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p class="mt-6 text-sm text-gray-500">
+          For complete office details including addresses and hours, see our <a href="/guides/locations" class="text-brand-600 hover:underline">locations guide</a>.
+        </p>
+      </section>
+
+      <!-- How It Works -->
+      <section class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900">
+          How {data.name} DMV Alerts Work
+        </h2>
+
+        <ol class="mt-6 space-y-6">
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold">
+              1
+            </span>
+            <div>
+              <h3 class="font-semibold text-gray-900">Sign up with your email</h3>
+              <p class="mt-1 text-gray-600">
+                Select "{data.name} Area" as your preferred region when signing up.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold">
+              2
+            </span>
+            <div>
+              <h3 class="font-semibold text-gray-900">We monitor 24/7</h3>
+              <p class="mt-1 text-gray-600">
+                Our system checks {data.name} DMV offices every 5 minutes for new openings.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-bold">
+              3
+            </span>
+            <div>
+              <h3 class="font-semibold text-gray-900">Get notified instantly</h3>
+              <p class="mt-1 text-gray-600">
+                Receive an email alert the moment an appointment becomes available.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- FAQ -->
+      <section class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900">
+          {data.name} DMV Appointment FAQs
+        </h2>
+
+        <div class="mt-6 space-y-6">
+          <div>
+            <h3 class="font-semibold text-gray-900">
+              How far in advance can I book a {data.name} road test?
+            </h3>
+            <p class="mt-2 text-gray-600">
+              SC DMV typically opens appointments 2-4 weeks in advance. Slots fill up quickly,
+              which is why alerts are so valuable—you'll know the moment a spot opens.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900">
+              What if I'm willing to drive to nearby areas?
+            </h3>
+            <p class="mt-2 text-gray-600">
+              Select "Any location in SC" when signing up to get alerts for all regions.
+              You might find faster availability in nearby areas like
+              {data.nearbyRegions.slice(0, 2).map(r => regions[r]?.name).filter(Boolean).join(' or ')}.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900">
+              How likely am I to get an appointment in {data.name}?
+            </h3>
+            <p class="mt-2 text-gray-600">
+              Very likely! We see appointments open up daily across {data.name}. Most Pro users
+              find an appointment within 1-2 weeks. The key is acting fast when you get an alert.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Nearby Regions -->
+      <section class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900">
+          Nearby SC DMV Regions
+        </h2>
+        <p class="mt-2 text-gray-600">
+          Can't find availability in {data.name}? Check these nearby areas:
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          {data.nearbyRegions.map((nearby) => {
+            const nearbyRegion = regions[nearby]
+            return nearbyRegion ? (
+              <a
+                href={`/dmv/${nearby}/`}
+                class="px-4 py-3 bg-gray-100 rounded-lg text-gray-700 hover:bg-gray-200 hover:text-gray-900 transition-colors"
+              >
+                {nearbyRegion.name} DMV Appointments
+              </a>
+            ) : null
+          })}
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="mt-16 bg-brand-50 rounded-2xl p-8 text-center border border-brand-200">
+        <h2 class="text-2xl font-bold text-gray-900">
+          Ready to Get Your {data.name} Road Test?
+        </h2>
+        <p class="mt-2 text-gray-600">
+          Join other {data.name} residents getting instant DMV appointment alerts.
+        </p>
+        <a href="/#signup-free" class="mt-6 inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white hover:bg-brand-700 transition-colors">
+          Start Free Alerts
+        </a>
+        <p class="mt-4 text-sm text-gray-500">
+          Free forever. Upgrade to Pro for more daily alerts.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-gray-400 text-sm">
+          &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>

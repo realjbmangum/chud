@@ -4,19 +4,59 @@ import '../styles/global.css'
 interface Props {
   title: string
   description?: string
+  schema?: object
 }
 
-const { title, description = "Get instant alerts when SC DMV appointments become available. Stop refreshing - we'll notify you." } = Astro.props
+const { title, description = "Get email alerts when SC DMV appointments become available. Stop refreshing - we'll notify you.", schema } = Astro.props
 
 // Get Mapbox token from Cloudflare runtime environment
 // In SSR mode, runtime env vars are accessed via Astro.locals.runtime.env
 const runtime = Astro.locals.runtime
 const mapboxToken = runtime?.env?.PUBLIC_MAPBOX_ACCESS_TOKEN || runtime?.env?.MAPBOX_ACCESS_TOKEN || ''
+
+// Base organization schema (included on all pages)
+const baseSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://scdmvappointments.com/#organization",
+      "name": "SC DMV Alerts",
+      "url": "https://scdmvappointments.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://scdmvappointments.com/scdmvappt-logo.png"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://scdmvappointments.com/#website",
+      "url": "https://scdmvappointments.com",
+      "name": "SC DMV Appointments",
+      "description": "Get email alerts when SC DMV road test appointments become available",
+      "publisher": {
+        "@id": "https://scdmvappointments.com/#organization"
+      }
+    }
+  ]
+}
+
+// Merge page-specific schema if provided
+const finalSchema = schema ? { ...baseSchema, "@graph": [...baseSchema["@graph"], ...(schema["@graph"] || [schema])] } : baseSchema
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P08Q34CDTQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P08Q34CDTQ');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
@@ -35,6 +75,9 @@ const mapboxToken = runtime?.env?.PUBLIC_MAPBOX_ACCESS_TOKEN || runtime?.env?.MA
 
     <!-- Mapbox Token (for locations map) -->
     {mapboxToken && <meta name="mapbox-token" content={mapboxToken} />}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
   </head>
   <body class="min-h-screen bg-white text-gray-900 font-sans antialiased">
     <slot />

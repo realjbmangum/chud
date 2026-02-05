@@ -1,0 +1,303 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Terms of Service - SC DMV Alerts">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;">
+          <img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />
+          SC DMV APPOINTMENTS
+        </a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
+          <a href="/dmv" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+          <a href="/" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="bg-white py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Terms of Service</h1>
+      <p class="text-sm text-gray-500 mb-8">Last updated: January 30, 2026</p>
+
+      <div class="prose prose-gray max-w-none">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By accessing or using SC DMV Alerts ("the Service"), operated by LIGHTHOUSE 27 LLC, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use the Service.
+        </p>
+
+        <h2>2. Description of Service</h2>
+        <p>
+          SC DMV Alerts is an appointment monitoring and notification service that:
+        </p>
+        <ul>
+          <li>Monitors the South Carolina DMV appointment scheduler for available road test appointments</li>
+          <li>Sends email alerts when appointments matching your preferences become available</li>
+          <li>Provides informational guides about SC DMV processes</li>
+        </ul>
+        <p><strong>Important:</strong> We are an independent service and are <strong>not affiliated with or endorsed by</strong> the South Carolina Department of Motor Vehicles (SCDMV) or the State of South Carolina.</p>
+
+        <h2>3. Eligibility</h2>
+        <p>You must be at least 16 years old to use this Service. By using the Service, you represent that you meet this age requirement.</p>
+
+        <h2>4. Account Registration</h2>
+        <p>To use the Service, you must:</p>
+        <ul>
+          <li>Provide a valid email address</li>
+          <li>Select your appointment preferences (type and region)</li>
+        </ul>
+        <p>You are responsible for maintaining the confidentiality of your account information and for all activities under your account.</p>
+
+        <h2>5. Subscription Plans</h2>
+
+        <h3>5.1 Free Plan</h3>
+        <ul>
+          <li>1 email alert per day</li>
+          <li>Road test and motorcycle appointments only</li>
+          <li>No cost</li>
+        </ul>
+
+        <h3>5.2 Pro Plan ($5.99/month)</h3>
+        <ul>
+          <li>Up to 3 email alerts per day</li>
+          <li>Road test and motorcycle appointments only</li>
+          <li>3-hour cooldown between alerts</li>
+          <li>Billed monthly via Stripe</li>
+        </ul>
+
+        <h3>5.3 CDL Pro Plan ($19.99/month)</h3>
+        <ul>
+          <li>Up to 5 email alerts per day</li>
+          <li>CDL Class A, B, and C appointments only</li>
+          <li>3-hour cooldown between alerts</li>
+          <li>Billed monthly via Stripe</li>
+        </ul>
+
+        <h2>6. Payment and Billing</h2>
+        <ul>
+          <li>Paid subscriptions are billed monthly in advance</li>
+          <li>Payment is processed securely through Stripe</li>
+          <li>Subscriptions automatically renew unless canceled</li>
+          <li>You can cancel anytime - access continues until the end of your billing period</li>
+          <li>No refunds for partial months</li>
+          <li>Price changes will be communicated 30 days in advance</li>
+        </ul>
+
+        <h2>7. Service Limitations and Disclaimers</h2>
+
+        <h3>7.1 No Guarantee of Alerts</h3>
+        <p>
+          While we make every effort to monitor appointments reliably, we <strong>do not guarantee</strong>:
+        </p>
+        <ul>
+          <li>That you will receive an alert for every available appointment</li>
+          <li>That appointments will still be available when you receive an alert</li>
+          <li>That the Service will be uninterrupted or error-free</li>
+          <li>That all appointments will be detected by our monitoring system</li>
+        </ul>
+
+        <h3>7.2 Alert Timing</h3>
+        <ul>
+          <li>Alerts are sent during business hours (6 AM - 6 PM Eastern Time)</li>
+          <li>Monitoring runs every hour, but appointment availability changes rapidly</li>
+          <li>Email delivery times vary based on provider and network conditions</li>
+        </ul>
+
+        <h3>7.3 Third-Party Dependency</h3>
+        <p>
+          Our Service depends on:
+        </p>
+        <ul>
+          <li>The availability and accuracy of the SC DMV appointment system</li>
+          <li>Third-party services (SendGrid, Stripe, Cloudflare)</li>
+          <li>Internet connectivity and telecommunications networks</li>
+        </ul>
+        <p>We are not responsible for failures caused by third-party systems or services.</p>
+
+        <h2>8. User Responsibilities</h2>
+        <p>You agree to:</p>
+        <ul>
+          <li><strong>Use the Service legally:</strong> Do not use automated tools, bots, or scripts to interact with the Service</li>
+          <li><strong>Provide accurate information:</strong> Keep your contact information and preferences up to date</li>
+          <li><strong>Book appointments fairly:</strong> Do not abuse the Service to monopolize appointments or resell them</li>
+          <li><strong>Respect rate limits:</strong> Do not attempt to circumvent daily alert limits</li>
+          <li><strong>Comply with DMV policies:</strong> Follow all SCDMV rules when booking and attending appointments</li>
+        </ul>
+
+        <h2>9. Prohibited Uses</h2>
+        <p>You may not:</p>
+        <ul>
+          <li>Use the Service for any illegal purpose</li>
+          <li>Resell or redistribute alerts to others</li>
+          <li>Reverse engineer, decompile, or attempt to extract source code</li>
+          <li>Interfere with or disrupt the Service or servers</li>
+          <li>Use multiple accounts to circumvent plan limits</li>
+          <li>Impersonate others or provide false information</li>
+          <li>Spam, harass, or send unsolicited messages through our communication channels</li>
+        </ul>
+
+        <h2>10. Intellectual Property</h2>
+        <p>
+          All content, features, and functionality of the Service (including text, graphics, logos, and software) are owned by LIGHTHOUSE 27 LLC and are protected by copyright, trademark, and other intellectual property laws.
+        </p>
+        <p>
+          SC DMV data is provided by the State of South Carolina and is public information. We do not claim ownership of government data.
+        </p>
+
+        <h2>11. Termination</h2>
+
+        <h3>11.1 By You</h3>
+        <p>You may cancel your subscription at any time by:</p>
+        <ul>
+          <li>Clicking the unsubscribe link in any email</li>
+          <li>Contacting support at <a href="mailto:support@scdmvappointments.com" class="text-brand-600 hover:underline">support@scdmvappointments.com</a></li>
+        </ul>
+
+        <h3>11.2 By Us</h3>
+        <p>We may suspend or terminate your account if you:</p>
+        <ul>
+          <li>Violate these Terms of Service</li>
+          <li>Use the Service fraudulently or illegally</li>
+          <li>Fail to pay subscription fees</li>
+          <li>Abuse or misuse the Service</li>
+        </ul>
+
+        <h2>12. Disclaimers</h2>
+        <p>
+          THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+        </p>
+        <p>
+          WE DO NOT WARRANT THAT:
+        </p>
+        <ul>
+          <li>The Service will meet your requirements</li>
+          <li>The Service will be uninterrupted, timely, secure, or error-free</li>
+          <li>The results obtained from using the Service will be accurate or reliable</li>
+          <li>Any errors in the Service will be corrected</li>
+        </ul>
+
+        <h2>13. Limitation of Liability</h2>
+        <p>
+          TO THE MAXIMUM EXTENT PERMITTED BY LAW, LIGHTHOUSE 27 LLC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:
+        </p>
+        <ul>
+          <li>Your use or inability to use the Service</li>
+          <li>Missed appointments or alerts</li>
+          <li>Errors or omissions in the Service</li>
+          <li>Unauthorized access to your account</li>
+          <li>Third-party conduct or content</li>
+        </ul>
+        <p>
+          OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID US IN THE 12 MONTHS PRECEDING THE CLAIM, OR $100, WHICHEVER IS LESS.
+        </p>
+
+        <h2>14. Indemnification</h2>
+        <p>
+          You agree to indemnify and hold harmless LIGHTHOUSE 27 LLC and its officers, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the Service or violation of these Terms.
+        </p>
+
+        <h2>15. Changes to Terms</h2>
+        <p>
+          We reserve the right to modify these Terms at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of the Service after changes constitutes acceptance of the updated Terms.
+        </p>
+        <p>
+          Material changes will be communicated via email to active subscribers.
+        </p>
+
+        <h2>16. Governing Law</h2>
+        <p>
+          These Terms are governed by the laws of the State of South Carolina, without regard to conflict of law principles. Any disputes shall be resolved in the courts of South Carolina.
+        </p>
+
+        <h2>17. Severability</h2>
+        <p>
+          If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.
+        </p>
+
+        <h2>18. Contact Information</h2>
+        <p>
+          For questions about these Terms of Service, contact us at:
+        </p>
+        <p>
+          Email: <a href="mailto:support@scdmvappointments.com" class="text-brand-600 hover:underline">support@scdmvappointments.com</a><br>
+          Business: LIGHTHOUSE 27 LLC
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-sm">&copy; 2026 SC DMV Alerts. All rights reserved.</p>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/dmv" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    color: #374151;
+  }
+
+  .prose ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.75;
+    color: #374151;
+  }
+
+  .prose a {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    color: #1d4ed8;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: #111827;
+  }
+</style>

@@ -1,0 +1,287 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+// FAQ page schema for rich snippets
+const faqSchema = {
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is SC DMV Alerts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SC DMV Alerts is a notification service that monitors the South Carolina DMV appointment system and sends you email alerts when appointments become available in your preferred location. Instead of constantly refreshing the DMV website, we do the monitoring for you 24/7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this affiliated with SC DMV?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This is an independent monitoring service. We check the public SC DMV scheduler website and notify you when appointments are available. You still book directly through the official DMV site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast will I get notified?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We check for new appointments every hour around the clock. When new slots open up, you'll get an email alert with a direct link to book. Email typically arrives within a few minutes depending on your provider."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What appointment types do you monitor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We monitor all road test appointment types: Road Test (Class D), Motorcycle Test, CDL Class A, CDL Class B, CDL Class C, and Class E appointments across all 65 SC DMV locations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What regions do you cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cover all of South Carolina including Charleston, Columbia, Greenville, Myrtle Beach, Spartanburg, Florence, Rock Hill, and Aiken areas - all 8 SC DMV regions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I cancel anytime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Pro subscriptions can be cancelled at any time with no fees or penalties. Your alerts will continue until the end of your billing period. Free tier users can unsubscribe at any time using the link in any alert email."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Free and Pro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free tier includes 1 email alert per day for road test and motorcycle appointments. Pro tier ($5.99/month) includes up to 3 email alerts per day. CDL Pro ($19.99/month) includes up to 5 email alerts per day for CDL appointments."
+      }
+    }
+  ]
+}
+---
+
+<Layout title="FAQ - SC DMV Alerts" description="Frequently asked questions about SC DMV Alerts appointment notification service." schema={faqSchema}>
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;"><img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />SC DMV APPOINTMENTS</a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
+          <a href="/guides/locations" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-brand-600">FAQ</a>
+          <a href="/#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-brand-50 to-white py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900">
+        Frequently Asked Questions
+      </h1>
+      <p class="mt-4 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+        Everything you need to know about SC DMV Alerts
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Content -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+
+      <!-- About the Service -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+          About the Service
+        </h2>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What is SC DMV Alerts?</h3>
+            <p class="mt-2 text-gray-600">SC DMV Alerts is a notification service that monitors the South Carolina DMV appointment system and sends you email alerts when appointments become available in your preferred location. Instead of constantly refreshing the DMV website, we do the monitoring for you 24/7.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Is this affiliated with SC DMV?</h3>
+            <p class="mt-2 text-gray-600">No. This is an independent monitoring service. We check the public SC DMV scheduler website and notify you when appointments are available. You still book directly through the official DMV site at <a href="https://public.scscheduler.com" target="_blank" class="text-brand-600 hover:text-brand-700">public.scscheduler.com</a>.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">How fast will I get notified?</h3>
+            <p class="mt-2 text-gray-600">We check for new appointments every hour around the clock. When new slots open up, you'll get an email alert with a direct link to book. Email typically arrives within a few minutes depending on your provider.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What appointment types do you monitor?</h3>
+            <p class="mt-2 text-gray-600">We monitor all road test appointment types available through the SC DMV scheduler:</p>
+            <ul class="mt-3 space-y-2 text-gray-600">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Road Test (Class D) - Standard car driving test
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Motorcycle Test - Motorcycle skills test
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                CDL Class A - Tractor-trailers, combination vehicles
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                CDL Class B - Large single vehicles (buses, trucks)
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                CDL Class C - Hazmat or 16+ passenger vehicles
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                Class E - Large non-commercial vehicles
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What about REAL ID, license renewals, or State ID?</h3>
+            <p class="mt-2 text-gray-600">These services are <strong>walk-in only</strong> at SC DMV branches - no appointment needed or available through the scheduler. Visit any DMV office during business hours. Check our <a href="/guides/locations" class="text-brand-600 hover:text-brand-700">locations guide</a> to find one near you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing & Billing -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+          Pricing & Billing
+        </h2>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What's the difference between Free and Pro?</h3>
+            <div class="mt-3 grid sm:grid-cols-2 gap-4">
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h4 class="font-semibold text-gray-900">Free - $0/month</h4>
+                <ul class="mt-2 space-y-1 text-sm text-gray-600">
+                  <li>• 1 email alert per day</li>
+                  <li>• Email notifications only</li>
+                  <li>• All appointment types</li>
+                </ul>
+              </div>
+              <div class="bg-brand-50 rounded-lg p-4 border border-brand-200">
+                <h4 class="font-semibold text-brand-700">Pro - $5.99/month</h4>
+                <ul class="mt-2 space-y-1 text-sm text-gray-600">
+                  <li>• Up to 3 alerts per day</li>
+                  <li>• Up to 3 email alerts per day</li>
+                  <li>• Email notifications</li>
+                  <li>• All appointment types</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Why only 1 alert per day on Free?</h3>
+            <p class="mt-2 text-gray-600">We want to keep the free tier sustainable while still being useful. One daily alert lets you know when appointments are available in your area. Pro users get up to 3 alerts per day for the best chance of booking before slots fill up.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Can I cancel anytime?</h3>
+            <p class="mt-2 text-gray-600">Yes. Pro subscriptions can be cancelled at any time with no fees or penalties. Your alerts will continue until the end of your billing period. Free tier users can unsubscribe at any time using the link in any alert email.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What if I find an appointment on my own?</h3>
+            <p class="mt-2 text-gray-600">Great! Just unsubscribe from alerts using the link in any notification email, or cancel your Pro subscription. We're happy you got your appointment - that's the goal!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Questions -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </span>
+          Technical Questions
+        </h2>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">I'm not receiving emails. What should I check?</h3>
+            <p class="mt-2 text-gray-600">First, check your spam/junk folder - our emails come from <strong>alerts@scdmvappointments.com</strong>. Add this address to your contacts to ensure delivery. Also verify you entered your email correctly when signing up. If issues persist, contact us.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">How do I change my notification preferences?</h3>
+            <p class="mt-2 text-gray-600">Currently, you can unsubscribe and re-subscribe with new preferences. We're working on adding an account management page where you can update your region and appointment type preferences directly.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">What regions do you cover?</h3>
+            <p class="mt-2 text-gray-600">We monitor appointments across all 8 SC DMV regions:</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Greenville</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Columbia</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Charleston</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Myrtle Beach</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Spartanburg</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Florence</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Rock Hill</span>
+              <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">Aiken</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Still Have Questions -->
+      <div class="bg-brand-50 rounded-2xl p-8 text-center border border-brand-200">
+        <h2 class="text-xl font-bold text-gray-900">Still have questions?</h2>
+        <p class="mt-2 text-gray-600">We're here to help. Reach out and we'll get back to you as soon as possible.</p>
+        <a href="mailto:support@scdmvappointments.com" class="mt-4 inline-flex items-center justify-center rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white hover:bg-brand-700 transition-colors">
+          Contact Support
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-gray-400 text-sm">
+          &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>
