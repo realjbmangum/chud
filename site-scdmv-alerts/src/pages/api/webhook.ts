@@ -1,5 +1,10 @@
 import type { APIRoute } from "astro";
 import { constructWebhookEvent } from "../../lib/stripe";
+import {
+  sendEmail,
+  formatWelcomeEmailHTML,
+  formatWelcomeEmailText,
+} from "../../lib/notifications";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
@@ -25,25 +30,61 @@ export const POST: APIRoute = async ({ request, locals }) => {
           customer: string;
           subscription: string;
           customer_email: string;
-          metadata: { email?: string };
+          metadata: { email?: string; tier?: string };
         };
 
         const email = session.metadata?.email || session.customer_email;
+        const tier = session.metadata?.tier || "pro"; // Default to "pro" if not specified
 
         if (email) {
           await db
             .prepare(
               `UPDATE subscribers
-               SET tier = 'paid',
+               SET tier = ?,
                    stripe_customer_id = ?,
                    stripe_subscription_id = ?,
                    updated_at = datetime('now')
                WHERE email = ?`
             )
-            .bind(session.customer, session.subscription, email.toLowerCase())
+            .bind(tier, session.customer, session.subscription, email.toLowerCase())
             .run();
 
-          console.log(`Upgraded ${email} to paid tier`);
+          console.log(`Upgraded ${email} to ${tier} tier`);
+
+          // Send welcome email for paid tier
+          const subscriber = await db
+            .prepare("SELECT appointment_type, preferred_region, unsubscribe_token FROM subscribers WHERE email = ?")
+            .bind(email.toLowerCase())
+            .first();
+
+          if (subscriber && env.SENDGRID_API_KEY) {
+            const siteUrl = env.SITE_URL || "https://scdmvappointments.com";
+            const unsubscribeUrl = `${siteUrl}/api/unsubscribe?token=${subscriber.unsubscribe_token}`;
+
+            await sendEmail(
+              {
+                apiKey: env.SENDGRID_API_KEY,
+                fromEmail: env.SENDGRID_FROM_EMAIL || "alerts@scdmvappointments.com",
+                fromName: "SC DMV Alerts",
+              },
+              {
+                to: email.toLowerCase(),
+                subject: `Welcome to SC DMV Alerts ${tier === "cdl" ? "CDL Pro" : "Pro"}!`,
+                html: formatWelcomeEmailHTML({
+                  tier: tier as "pro" | "cdl",
+                  appointmentType: (subscriber.appointment_type as string) || "road_test",
+                  region: (subscriber.preferred_region as string) || "any",
+                  unsubscribeUrl,
+                }),
+                text: formatWelcomeEmailText({
+                  tier: tier as "pro" | "cdl",
+                  appointmentType: (subscriber.appointment_type as string) || "road_test",
+                  region: (subscriber.preferred_region as string) || "any",
+                  unsubscribeUrl,
+                }),
+              }
+            );
+          }
         }
         break;
       }
@@ -73,6 +114,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         const subscription = event.data.object as {
           id: string;
           status: string;
+          metadata?: { tier?: string };
         };
 
         // Handle subscription status changes (past_due, unpaid, etc.)
@@ -89,15 +131,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
           console.log(`Subscription ${subscription.id} status: ${subscription.status}, downgraded to free`);
         } else if (subscription.status === "active") {
+          // Restore to their paid tier (pro or cdl) from metadata, default to pro
+          const tier = subscription.metadata?.tier || "pro";
           await db
             .prepare(
               `UPDATE subscribers
-               SET tier = 'paid',
+               SET tier = ?,
                    updated_at = datetime('now')
                WHERE stripe_subscription_id = ?`
             )
-            .bind(subscription.id)
+            .bind(tier, subscription.id)
             .run();
+
+          console.log(`Subscription ${subscription.id} reactivated as ${tier}`);
         }
         break;
       }

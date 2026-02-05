@@ -1,8 +1,14 @@
 import type { APIRoute } from "astro";
+import {
+  sendEmail,
+  formatWelcomeEmailHTML,
+  formatWelcomeEmailText,
+} from "../../lib/notifications";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const db = locals.runtime.env.DB;
+    const env = locals.runtime.env;
+    const db = env.DB;
     const formData = await request.formData();
 
     const email = formData.get("email")?.toString().trim().toLowerCase();
@@ -25,7 +31,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const validTypes = ["drivers_license", "real_id", "road_test", "motorcycle_test", "cdl", "state_id"];
+    const validTypes = ["road_test", "motorcycle_test", "cdl_a", "cdl_b", "cdl_c", "class_e"];
     if (!validTypes.includes(appointmentType)) {
       return new Response(
         JSON.stringify({ error: "Invalid appointment type" }),
@@ -76,8 +82,43 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .bind(email, phone, appointmentType, region)
       .run();
 
+    // Send welcome email
+    const subscriber = await db
+      .prepare("SELECT unsubscribe_token FROM subscribers WHERE email = ?")
+      .bind(email)
+      .first();
+
+    if (subscriber && env.SENDGRID_API_KEY) {
+      const siteUrl = env.SITE_URL || "https://scdmvappointments.com";
+      const unsubscribeUrl = `${siteUrl}/api/unsubscribe?token=${subscriber.unsubscribe_token}`;
+
+      await sendEmail(
+        {
+          apiKey: env.SENDGRID_API_KEY,
+          fromEmail: env.SENDGRID_FROM_EMAIL || "alerts@scdmvappointments.com",
+          fromName: "SC DMV Alerts",
+        },
+        {
+          to: email,
+          subject: "Welcome to SC DMV Alerts!",
+          html: formatWelcomeEmailHTML({
+            tier: "free",
+            appointmentType,
+            region,
+            unsubscribeUrl,
+          }),
+          text: formatWelcomeEmailText({
+            tier: "free",
+            appointmentType,
+            region,
+            unsubscribeUrl,
+          }),
+        }
+      );
+    }
+
     return new Response(
-      JSON.stringify({ success: true, message: "You're subscribed! We'll notify you when appointments open up." }),
+      JSON.stringify({ success: true, message: "You're subscribed! Check your email for a welcome message." }),
       { status: 201, headers: { "Content-Type": "application/json" } }
     );
 

@@ -265,6 +265,165 @@ export function formatEmailText(
   return text;
 }
 
+// ============ Welcome Email ============
+
+interface WelcomeEmailParams {
+  tier: "free" | "pro" | "cdl";
+  appointmentType: string;
+  region: string;
+  unsubscribeUrl: string;
+}
+
+export function formatWelcomeEmailHTML(params: WelcomeEmailParams): string {
+  const { tier, appointmentType, region, unsubscribeUrl } = params;
+  const typeName = formatAppointmentType(appointmentType);
+  const regionName = region === "any" ? "all SC locations" : formatRegionName(region);
+
+  const tierDetails = {
+    free: { name: "Free", alerts: "1 email alert per day", price: null },
+    pro: { name: "Pro", alerts: "up to 3 email alerts per day", price: "$5.99/month" },
+    cdl: { name: "CDL Pro", alerts: "up to 5 email alerts per day", price: "$19.99/month" },
+  }[tier];
+
+  const cancelSection = tier !== "free" ? `
+    <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 16px; margin: 20px 0;">
+      <h3 style="margin: 0 0 8px 0; color: #92400e; font-size: 14px;">Cancel Your Subscription</h3>
+      <p style="margin: 0; color: #92400e; font-size: 14px;">
+        You can cancel anytime — no fees, no questions asked. Your alerts continue until the end of your billing period.
+        Email <a href="mailto:support@scdmvappointments.com" style="color: #92400e; font-weight: 600;">support@scdmvappointments.com</a> and we'll cancel it immediately.
+      </p>
+    </div>` : "";
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px; background: #f9fafb;">
+  <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 24px; border-radius: 12px 12px 0 0; text-align: center;">
+    <img src="https://scdmvappointments.com/scdmvappt-logo.png" alt="SC DMV Alerts" style="width: 48px; height: 48px; margin-bottom: 12px;" />
+    <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to SC DMV Alerts!</h1>
+    <p style="color: #bfdbfe; margin: 8px 0 0 0; font-size: 14px;">${tierDetails.name} Plan</p>
+  </div>
+
+  <div style="background: #ffffff; padding: 24px; border: 1px solid #e5e7eb; border-top: none;">
+    <p style="margin-top: 0; font-size: 16px;">Thanks for signing up! We're now monitoring SC DMV appointments for you.</p>
+
+    <div style="background: #f0f9ff; border-radius: 8px; padding: 16px; margin: 20px 0;">
+      <h3 style="margin: 0 0 12px 0; color: #1e40af; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Your Alert Settings</h3>
+      <table style="width: 100%; font-size: 14px;">
+        <tr>
+          <td style="padding: 4px 0; color: #6b7280;">Appointment Type</td>
+          <td style="padding: 4px 0; font-weight: 600;">${typeName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 0; color: #6b7280;">Region</td>
+          <td style="padding: 4px 0; font-weight: 600;">${regionName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 0; color: #6b7280;">Alert Frequency</td>
+          <td style="padding: 4px 0; font-weight: 600;">${tierDetails.alerts}</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 0; color: #6b7280;">Alert Hours</td>
+          <td style="padding: 4px 0; font-weight: 600;">6 AM – 6 PM Eastern</td>
+        </tr>${tier !== "free" ? `
+        <tr>
+          <td style="padding: 4px 0; color: #6b7280;">Billing</td>
+          <td style="padding: 4px 0; font-weight: 600;">${tierDetails.price}</td>
+        </tr>` : ""}
+      </table>
+    </div>
+
+    <h3 style="font-size: 16px; margin: 24px 0 12px 0;">What happens next?</h3>
+    <ol style="padding-left: 20px; color: #4b5563;">
+      <li style="margin-bottom: 8px;">We check all 65 SC DMV locations every hour for new openings</li>
+      <li style="margin-bottom: 8px;">When appointments matching your preferences open up, you'll get an email</li>
+      <li style="margin-bottom: 8px;">Click the link in the email to book directly on the SC DMV site</li>
+    </ol>
+
+    <p style="color: #6b7280; font-size: 14px;">
+      <strong>Tip:</strong> Appointments fill up fast! When you get an alert, book within a few minutes for the best chance of getting your preferred time.
+    </p>
+
+    ${cancelSection}
+
+    <div style="background: #f9fafb; border-radius: 8px; padding: 16px; margin: 20px 0;">
+      <h3 style="margin: 0 0 8px 0; color: #374151; font-size: 14px;">Stop Email Alerts</h3>
+      <p style="margin: 0; color: #6b7280; font-size: 14px;">
+        Don't want alerts anymore? Click the unsubscribe link at the bottom of any alert email, or
+        <a href="${unsubscribeUrl}" style="color: #2563eb;">unsubscribe now</a>.
+        ${tier !== "free" ? "Note: unsubscribing stops alerts but does not cancel your subscription. Email support to cancel billing." : ""}
+      </p>
+    </div>
+  </div>
+
+  <div style="padding: 16px; text-align: center; color: #9ca3af; font-size: 12px;">
+    <p style="margin: 0;">
+      SC DMV Alerts · <a href="https://scdmvappointments.com" style="color: #9ca3af;">scdmvappointments.com</a><br>
+      <a href="${unsubscribeUrl}" style="color: #9ca3af;">Unsubscribe</a> · <a href="https://scdmvappointments.com/privacy" style="color: #9ca3af;">Privacy</a> · <a href="https://scdmvappointments.com/terms" style="color: #9ca3af;">Terms</a>
+    </p>
+  </div>
+</body>
+</html>
+  `;
+}
+
+export function formatWelcomeEmailText(params: WelcomeEmailParams): string {
+  const { tier, appointmentType, region, unsubscribeUrl } = params;
+  const typeName = formatAppointmentType(appointmentType);
+  const regionName = region === "any" ? "all SC locations" : formatRegionName(region);
+
+  const tierDetails = {
+    free: { name: "Free", alerts: "1 email alert per day", price: null },
+    pro: { name: "Pro", alerts: "up to 3 email alerts per day", price: "$5.99/month" },
+    cdl: { name: "CDL Pro", alerts: "up to 5 email alerts per day", price: "$19.99/month" },
+  }[tier];
+
+  let text = `Welcome to SC DMV Alerts! (${tierDetails.name} Plan)\n\n`;
+  text += `Thanks for signing up! We're now monitoring SC DMV appointments for you.\n\n`;
+  text += `YOUR ALERT SETTINGS\n`;
+  text += `- Appointment Type: ${typeName}\n`;
+  text += `- Region: ${regionName}\n`;
+  text += `- Alert Frequency: ${tierDetails.alerts}\n`;
+  text += `- Alert Hours: 6 AM - 6 PM Eastern\n`;
+  if (tierDetails.price) text += `- Billing: ${tierDetails.price}\n`;
+  text += `\nWHAT HAPPENS NEXT\n`;
+  text += `1. We check all 65 SC DMV locations every hour for new openings\n`;
+  text += `2. When appointments matching your preferences open up, you'll get an email\n`;
+  text += `3. Click the link in the email to book directly on the SC DMV site\n\n`;
+  text += `Tip: Appointments fill up fast! Book within a few minutes of getting an alert.\n\n`;
+  if (tier !== "free") {
+    text += `CANCEL YOUR SUBSCRIPTION\n`;
+    text += `You can cancel anytime - no fees, no questions asked.\n`;
+    text += `Email support@scdmvappointments.com and we'll cancel it immediately.\n\n`;
+  }
+  text += `STOP EMAIL ALERTS\n`;
+  text += `Unsubscribe: ${unsubscribeUrl}\n`;
+  if (tier !== "free") {
+    text += `Note: unsubscribing stops alerts but does not cancel your subscription. Email support to cancel billing.\n`;
+  }
+  text += `\n---\nSC DMV Alerts · scdmvappointments.com\n`;
+
+  return text;
+}
+
+function formatRegionName(region: string): string {
+  const regionMap: Record<string, string> = {
+    greenville: "Greenville Area",
+    columbia: "Columbia Area",
+    charleston: "Charleston Area",
+    myrtle_beach: "Myrtle Beach Area",
+    spartanburg: "Spartanburg Area",
+    florence: "Florence Area",
+    rock_hill: "Rock Hill Area",
+    aiken: "Aiken Area",
+  };
+  return regionMap[region] || region;
+}
+
 function formatAppointmentType(type: string): string {
   const typeMap: Record<string, string> = {
     road_test: "Road Test (Class D)",
