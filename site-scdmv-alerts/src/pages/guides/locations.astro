@@ -1,0 +1,1710 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+// Appointment type definitions
+const appointmentTypes = [
+  { id: 'road_test', name: 'Road Test (Class D)', color: '#3b82f6' },
+  { id: 'motorcycle_test', name: 'Motorcycle Test', color: '#f97316' },
+  { id: 'cdl_road', name: 'CDL Road Test', color: '#22c55e' },
+  { id: 'class_e', name: 'Class E Skills', color: '#14b8a6' },
+  { id: 'class_f', name: 'Class F Skills', color: '#8b5cf6' },
+  { id: 'kiosk', name: 'Self-Service Kiosk', color: '#ec4899' }
+]
+
+// All DMV office locations - sourced from official SC DMV API (dmv.sc.gov/scdmv/get-locations)
+// Last updated: January 2026
+const offices = [
+  {
+    id: 'abbeville',
+    name: 'Abbeville',
+    region: 'greenville',
+    address: '1331 Haigler Street Ext., Abbeville, SC 29260',
+    phone: '864-459-2147',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.1683487,
+    lng: -82.4082503,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'aiken',
+    name: 'Aiken',
+    region: 'aiken',
+    address: '1755 Richland Ave East, Aiken, SC 29801',
+    phone: '803-641-7752',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.5520028,
+    lng: -81.6944998,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'allendale',
+    name: 'Allendale',
+    region: 'aiken',
+    address: '3657 Allendale Fairfax Rd, Fairfax, SC 29827',
+    phone: '803-584-2694',
+    hours: 'Wed only 9:30am-5pm',
+    saturday: false,
+    lat: 32.9909476,
+    lng: -81.2844675,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'anderson',
+    name: 'Anderson',
+    region: 'greenville',
+    address: '331 29 Bypass North, Anderson, SC 29621',
+    phone: '864-260-2205',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.4999387,
+    lng: -82.6131319,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'bamberg',
+    name: 'Bamberg',
+    region: 'columbia',
+    address: '341 Lacey Street, Bamberg, SC 29003',
+    phone: '803-245-0837',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.3108343,
+    lng: -81.0339533,
+    services: ['road_test']
+  },
+  {
+    id: 'barnwell',
+    name: 'Barnwell',
+    region: 'aiken',
+    address: '1270 Main Street, Barnwell, SC 29812',
+    phone: '803-259-3335',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.2482024,
+    lng: -81.3465906,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'batesburg',
+    name: 'Batesburg',
+    region: 'columbia',
+    address: '509 Liberty Street, Batesburg, SC 29006',
+    phone: '803-532-5285',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.9002108,
+    lng: -81.5428278,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'beaufort',
+    name: 'Beaufort',
+    region: 'charleston',
+    address: '28 Munch Dr, Beaufort, SC 29906',
+    phone: '843-379-8822',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.416487,
+    lng: -80.738433,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'belton',
+    name: 'Belton',
+    region: 'greenville',
+    address: "123 O'Neal Street, Belton, SC 29627",
+    phone: '864-338-5114',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.5221411,
+    lng: -82.4925874,
+    services: ['road_test']
+  },
+  {
+    id: 'bennettsville',
+    name: 'Bennettsville',
+    region: 'florence',
+    address: '337 Highway 9 West, Bennettsville, SC 29512',
+    phone: '843-479-0785',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.6398064,
+    lng: -79.7014996,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'bishopville',
+    name: 'Bishopville',
+    region: 'florence',
+    address: '508 South Lee Street, Bishopville, SC 29010',
+    phone: '803-484-4573',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.2090517,
+    lng: -80.2540084,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'bluffton',
+    name: 'Bluffton',
+    region: 'charleston',
+    address: '15 Sheridan Park, Bluffton, SC 29910',
+    phone: '843-815-6981',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.2615613,
+    lng: -80.8585548,
+    services: ['road_test']
+  },
+  {
+    id: 'camden',
+    name: 'Camden',
+    region: 'columbia',
+    address: '1056 Ehrenclou Drive, Camden, SC 29020',
+    phone: '803-432-4340',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.238347,
+    lng: -80.616517,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'charleston-leeds-avenue',
+    name: 'Charleston - Leeds Avenue',
+    region: 'charleston',
+    address: '3790 Leeds Ave, North Charleston, SC 29405',
+    phone: '843-740-6168',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.8474257,
+    lng: -80.014932,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'charleston-orleans-rd',
+    name: 'Charleston - Orleans Rd',
+    region: 'charleston',
+    address: '946 Orleans Rd., Charleston, SC 29407',
+    phone: '843-852-2636',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.7991924,
+    lng: -80.0297809,
+    services: ['road_test']
+  },
+  {
+    id: 'chester',
+    name: 'Chester',
+    region: 'rock_hill',
+    address: '508 Belt Road, Chester, SC 29706',
+    phone: '803-385-6082',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.6947055,
+    lng: -81.1920978,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'chesterfield',
+    name: 'Chesterfield',
+    region: 'florence',
+    address: '100 Laney St., Chesterfield, SC 29709',
+    phone: '843-623-3541',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.7315272,
+    lng: -80.0770551,
+    services: ['road_test']
+  },
+  {
+    id: 'columbia-oneil-court',
+    name: "Columbia - O'Neil Court",
+    region: 'columbia',
+    address: "228-A O'Neil Court, Columbia, SC 29223",
+    phone: '803-419-9403',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.0699769,
+    lng: -80.9543467,
+    services: ['road_test']
+  },
+  {
+    id: 'columbia-shop-road',
+    name: 'Columbia - Shop Road',
+    region: 'columbia',
+    address: '1630 Shop Rd, Columbia, SC 29201',
+    phone: '803-737-8350',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.9689581,
+    lng: -81.0022895,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'conway',
+    name: 'Conway',
+    region: 'myrtle_beach',
+    address: '4103 Highway 701 North, Conway, SC 29526',
+    phone: '843-365-4781',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.911403,
+    lng: -79.04568,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'darlington',
+    name: 'Darlington',
+    region: 'florence',
+    address: '2200 East Bobo Newsome Highway, Hartsville, SC 29550',
+    phone: '843-332-4237',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.304104,
+    lng: -79.9868401,
+    services: ['road_test']
+  },
+  {
+    id: 'dillon',
+    name: 'Dillon',
+    region: 'florence',
+    address: '1705 Highway 301 South, Dillon, SC 29536',
+    phone: '843-774-4712',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.3950011,
+    lng: -79.3838769,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'edgefield',
+    name: 'Edgefield',
+    region: 'aiken',
+    address: '849 Highway 25 North, Edgefield, SC 29824',
+    phone: '803-637-3113',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.8072155,
+    lng: -81.9335032,
+    services: ['road_test']
+  },
+  {
+    id: 'florence',
+    name: 'Florence',
+    region: 'florence',
+    address: '3102 East Palmetto Street, Florence, SC 29506',
+    phone: '843-317-4007',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.1963695,
+    lng: -79.7060385,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'fort-mill',
+    name: 'Fort Mill',
+    region: 'rock_hill',
+    address: '3071 Highway 21 Bypass, Fort Mill, SC 29715',
+    phone: '803-547-8350',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 35.0758012,
+    lng: -80.9363785,
+    services: ['road_test']
+  },
+  {
+    id: 'fountain-inn',
+    name: 'Fountain Inn',
+    region: 'greenville',
+    address: '1310 North Main Street, Fountain Inn, SC 29644',
+    phone: '864-967-4013',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.7073702,
+    lng: -82.2300594,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'gaffney',
+    name: 'Gaffney',
+    region: 'spartanburg',
+    address: '451 Hyatt Street, Gaffney, SC 29341',
+    phone: '864-488-1386',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 35.070841,
+    lng: -81.6800259,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'georgetown',
+    name: 'Georgetown',
+    region: 'charleston',
+    address: '214 Ridge Street, Georgetown, SC 29440',
+    phone: '843-527-8730',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.3852593,
+    lng: -79.3135965,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'greenville-saluda-dam',
+    name: 'Greenville - Saluda Dam',
+    region: 'greenville',
+    address: '15 Saluda Dam Road, Greenville, SC 29611',
+    phone: '864-241-1147',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.8573773,
+    lng: -82.4626342,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'greenville-edgeworth',
+    name: 'Greenville - Edgeworth',
+    region: 'greenville',
+    address: '122 Edgeworth St, Greenville, SC 29601',
+    phone: '864-232-6123',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.8401697,
+    lng: -82.3673573,
+    services: ['road_test']
+  },
+  {
+    id: 'greenwood',
+    name: 'Greenwood',
+    region: 'aiken',
+    address: '510 W. Alexander Ext., Greenwood, SC 29646',
+    phone: '864-227-6434',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.1718672,
+    lng: -82.1612506,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'greer',
+    name: 'Greer',
+    region: 'greenville',
+    address: '610 Arlington Road, Greer, SC 29651',
+    phone: '864-801-9375',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.9498945,
+    lng: -82.212076,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'hampton',
+    name: 'Hampton',
+    region: 'charleston',
+    address: '115 Cemetery Road, Varnville, SC 29944',
+    phone: '803-943-3482',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.8612599,
+    lng: -81.0923074,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'irmo-ballentine',
+    name: 'Irmo - Ballentine',
+    region: 'columbia',
+    address: '1016 Broad Stone Road, Irmo, SC 29063',
+    phone: '803-749-9041',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.1423638,
+    lng: -81.2374889,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'kingstree',
+    name: 'Kingstree',
+    region: 'florence',
+    address: '785 Eastland Avenue, Kingstree, SC 29556',
+    phone: '843-354-9217',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.6786739,
+    lng: -79.8140976,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'ladson',
+    name: 'Ladson',
+    region: 'charleston',
+    address: '135 Wimberly Drive, Ladson, SC 29456',
+    phone: '843-572-7854',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.9934845,
+    lng: -80.0951179,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'lake-city',
+    name: 'Lake City',
+    region: 'florence',
+    address: '728 S. Ron McNair Blvd., Lake City, SC 29560',
+    phone: '843-394-7902',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.851337,
+    lng: -79.764667,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'lancaster',
+    name: 'Lancaster',
+    region: 'rock_hill',
+    address: '1694 Pageland Highway, Lancaster, SC 29720',
+    phone: '803-286-4859',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.725441,
+    lng: -80.7329199,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'laurens',
+    name: 'Laurens',
+    region: 'spartanburg',
+    address: '390 Fairgrounds Road, Laurens, SC 29360',
+    phone: '864-682-3213',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.4962782,
+    lng: -81.9785611,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'lexington',
+    name: 'Lexington',
+    region: 'columbia',
+    address: '122 Park Rd, Lexington, SC 29072',
+    phone: '803-356-8537',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.9879179,
+    lng: -81.2495754,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'manning',
+    name: 'Manning',
+    region: 'florence',
+    address: '3721 Alex Harvin Hwy., Manning, SC 29102',
+    phone: '803-473-3432',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.6702933,
+    lng: -80.2504505,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'marion',
+    name: 'Marion',
+    region: 'florence',
+    address: '2757 East Highway 76, Mullins, SC 29574',
+    phone: '843-431-1148',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.1875524,
+    lng: -79.3337481,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'mccormick',
+    name: 'McCormick',
+    region: 'aiken',
+    address: '504 Airport Road, Suite A, McCormick, SC 29835',
+    phone: '864-465-3229',
+    hours: 'Wed only 9:30am-5pm',
+    saturday: false,
+    lat: 33.9068869,
+    lng: -82.2719583,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'moncks-corner',
+    name: 'Moncks Corner',
+    region: 'charleston',
+    address: '1005 N U.S. Hwy 52, Moncks Corner, SC 29461',
+    phone: '843-761-3686',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.1884519,
+    lng: -80.0011550,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'charleston-mount-pleasant',
+    name: 'Charleston - Mount Pleasant',
+    region: 'charleston',
+    address: '1189 Sweetgrass Basket Parkway Suite 500, Mt. Pleasant, SC 29466',
+    phone: '843-884-9760',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.8321685,
+    lng: -79.8227855,
+    services: ['road_test']
+  },
+  {
+    id: 'myrtle-beach',
+    name: 'Myrtle Beach',
+    region: 'myrtle_beach',
+    address: '1200 21st Ave North, Myrtle Beach, SC 29577',
+    phone: '843-448-9957',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.7093019,
+    lng: -78.8795268,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'myrtle-beach-commons',
+    name: 'Myrtle Beach Commons',
+    region: 'myrtle_beach',
+    address: '1330 Howard Parkway, Myrtle Beach, SC 29577',
+    phone: '843-839-8003',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.673487,
+    lng: -78.9414328,
+    services: ['road_test', 'cdl_road']
+  },
+  {
+    id: 'newberry',
+    name: 'Newberry',
+    region: 'columbia',
+    address: '275 Mt. Bethel-Garmany Road, Newberry, SC 29108',
+    phone: '803-276-4816',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.2916511,
+    lng: -81.5961683,
+    services: ['road_test']
+  },
+  {
+    id: 'north-augusta',
+    name: 'North Augusta',
+    region: 'aiken',
+    address: '1711 Ascauga Lake Road, North Augusta, SC 29841',
+    phone: '803-279-6659',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.5565804,
+    lng: -81.9306932,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'north-myrtle-beach',
+    name: 'North Myrtle Beach',
+    region: 'myrtle_beach',
+    address: '107 Highway 57 North, Little River, SC 29566',
+    phone: '843-399-5567',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.8858063,
+    lng: -78.6853393,
+    services: ['road_test']
+  },
+  {
+    id: 'orangeburg',
+    name: 'Orangeburg',
+    region: 'columbia',
+    address: '1720 Charleston Highway, Orangeburg, SC 29115',
+    phone: '803-531-6866',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.4707544,
+    lng: -80.8465665,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'pickens',
+    name: 'Pickens',
+    region: 'greenville',
+    address: '2133 Gentry Memorial Highway, Pickens, SC 29671',
+    phone: '864-878-1396',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.857756,
+    lng: -82.6724588,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'ridgeland',
+    name: 'Ridgeland',
+    region: 'charleston',
+    address: '407 Live Oak Drive, Ridgeland, SC 29936',
+    phone: '843-726-6934',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.4909622,
+    lng: -80.9831274,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'rock-hill',
+    name: 'Rock Hill',
+    region: 'rock_hill',
+    address: '305 Hands Mill Road, Rock Hill, SC 29732',
+    phone: '803-329-6332',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.9954121,
+    lng: -81.0996463,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'saint-george',
+    name: 'Saint George',
+    region: 'charleston',
+    address: '5315 East Jim Bilton Blvd., Saint George, SC 29477',
+    phone: '843-563-6130',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.1808413,
+    lng: -80.5614259,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'saint-matthews',
+    name: 'Saint Matthews',
+    region: 'columbia',
+    address: '415 Chestnut Street Suite 2, St. Matthews, SC 29135',
+    phone: '803-874-1950',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.6617149,
+    lng: -80.7874998,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'saluda',
+    name: 'Saluda',
+    region: 'aiken',
+    address: '400 West Wheeler Circle, Saluda, SC 29138',
+    phone: '864-445-2571',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.0111328,
+    lng: -81.7794022,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'seneca',
+    name: 'Seneca',
+    region: 'greenville',
+    address: '13009 South Radio Station Road, Seneca, SC 29678',
+    phone: '864-882-8698',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.6800009,
+    lng: -82.9894264,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'spartanburg-fairforest-road',
+    name: 'Spartanburg - Fairforest Road',
+    region: 'spartanburg',
+    address: '8794 Fairforest Rd Suite B, Spartanburg, SC 29303',
+    phone: '864-587-4713',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.9732806,
+    lng: -81.9975865,
+    services: ['road_test', 'motorcycle_test']
+  },
+  {
+    id: 'spartanburg-southport-road',
+    name: 'Spartanburg - Southport Road',
+    region: 'spartanburg',
+    address: '1625 Southport Road, Spartanburg, SC 29306',
+    phone: '864-594-4940',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.9142108,
+    lng: -81.9066388,
+    services: ['road_test', 'motorcycle_test', 'cdl_road', 'class_e', 'class_f']
+  },
+  {
+    id: 'sumter',
+    name: 'Sumter',
+    region: 'florence',
+    address: '430 South Pike Street, Sumter, SC 29150',
+    phone: '803-775-8559',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 33.9404533,
+    lng: -80.3256709,
+    services: ['road_test', 'motorcycle_test', 'cdl_road']
+  },
+  {
+    id: 'union',
+    name: 'Union',
+    region: 'spartanburg',
+    address: '1000 North Pickney Street, Union, SC 29379',
+    phone: '864-427-9278',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.7270083,
+    lng: -81.6282517,
+    services: ['road_test']
+  },
+  {
+    id: 'walterboro',
+    name: 'Walterboro',
+    region: 'charleston',
+    address: '102 Mable T. Willis Blvd., Walterboro, SC 29488',
+    phone: '843-538-7248',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 32.8837067,
+    lng: -80.698083,
+    services: ['road_test', 'motorcycle_test', 'class_e', 'class_f']
+  },
+  {
+    id: 'winnsboro',
+    name: 'Winnsboro',
+    region: 'columbia',
+    address: '1161 Kincaid Bridge Road, Winnsboro, SC 29180',
+    phone: '803-635-6291',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.3715931,
+    lng: -81.1029464,
+    services: ['road_test']
+  },
+  {
+    id: 'woodruff',
+    name: 'Woodruff',
+    region: 'spartanburg',
+    address: '351 South Main Street, Woodruff, SC 29388',
+    phone: '864-476-5913',
+    hours: 'Mon-Fri 8:30am-5pm',
+    saturday: false,
+    lat: 34.7372247,
+    lng: -82.0336917,
+    services: ['road_test']
+  },
+  // SCDMV Express Kiosks - sourced from scdmvexpress.com
+  // Self-service kiosks in grocery stores for vehicle registration
+  {
+    id: 'kiosk-columbia-kroger',
+    name: 'Kiosk - Kroger (Columbia)',
+    region: 'columbia',
+    address: '1028 Roberts Branch Pkwy, Columbia, SC 29203',
+    phone: '',
+    hours: '6am-11pm daily',
+    saturday: true,
+    lat: 34.0556,
+    lng: -80.9744,
+    services: ['kiosk'],
+    isKiosk: true
+  },
+  {
+    id: 'kiosk-greer-publix',
+    name: 'Kiosk - Publix (Greer)',
+    region: 'greenville',
+    address: '411 The Pkwy, Greer, SC 29650',
+    phone: '',
+    hours: '7am-10pm daily',
+    saturday: true,
+    lat: 34.9294,
+    lng: -82.2310,
+    services: ['kiosk'],
+    isKiosk: true
+  },
+  {
+    id: 'kiosk-summerville-publix',
+    name: 'Kiosk - Publix (Summerville)',
+    region: 'charleston',
+    address: '1724 State Rd, Summerville, SC 29486',
+    phone: '',
+    hours: '7am-10pm daily',
+    saturday: true,
+    lat: 33.0185,
+    lng: -80.1756,
+    services: ['kiosk'],
+    isKiosk: true
+  }
+]
+
+// Region definitions
+const regions = [
+  { id: 'all', name: 'All Regions' },
+  { id: 'columbia', name: 'Columbia Area' },
+  { id: 'charleston', name: 'Charleston Area' },
+  { id: 'greenville', name: 'Greenville Area' },
+  { id: 'spartanburg', name: 'Spartanburg Area' },
+  { id: 'myrtle_beach', name: 'Myrtle Beach Area' },
+  { id: 'florence', name: 'Florence Area' },
+  { id: 'rock_hill', name: 'Rock Hill Area' },
+  { id: 'aiken', name: 'Aiken Area' }
+]
+
+// Separate DMV offices from kiosks
+const dmvOffices = offices.filter(o => !o.isKiosk)
+const kiosks = offices.filter(o => o.isKiosk)
+
+// Group offices by region for the list view (excluding kiosks)
+const officesByRegion = regions.slice(1).map(region => ({
+  ...region,
+  offices: dmvOffices.filter(o => o.region === region.id)
+}))
+---
+
+<Layout title="SC DMV Locations Map - Find Offices Near You" description="Interactive map of SC DMV office locations. Filter by region and appointment type to find the right office for road tests, CDL tests, and more.">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;"><img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />SC DMV APPOINTMENTS</a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-gray-600 hover:text-gray-900">Guides</a>
+          <a href="/guides/locations" class="text-sm font-medium text-brand-600">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+          <a href="/#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm">
+        <a href="/guides" class="text-gray-500 hover:text-gray-700">Guides</a>
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-gray-900 font-medium">DMV Locations</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-red-50 to-white py-8 sm:py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center">
+          <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">SC DMV Locations</h1>
+          <p class="text-gray-600">65 offices + 3 self-service kiosks across South Carolina</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+
+      <!-- Filters -->
+      <div class="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <!-- Region Filter -->
+          <div class="flex-1">
+            <label for="region-filter" class="block text-sm font-medium text-gray-700 mb-2">Region</label>
+            <select id="region-filter" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+              {regions.map(region => (
+                <option value={region.id}>{region.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Appointment Type Filter -->
+          <div class="flex-1">
+            <label for="type-filter" class="block text-sm font-medium text-gray-700 mb-2">Appointment Type</label>
+            <select id="type-filter" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500">
+              <option value="all">All Types</option>
+              {appointmentTypes.map(type => (
+                <option value={type.id}>{type.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Results Count -->
+          <div class="flex items-end">
+            <div class="bg-gray-100 rounded-lg px-4 py-2.5 text-sm text-gray-600">
+              <span id="results-count">{offices.length}</span> locations
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Container -->
+      <div class="relative">
+        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-200 bg-gray-100"></div>
+
+        <!-- Map Loading State -->
+        <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-xl">
+          <div class="text-center">
+            <svg class="w-8 h-8 text-gray-400 animate-spin mx-auto mb-2" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-gray-500">Loading map...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Legend -->
+      <div class="mt-4 flex flex-wrap gap-3">
+        <span class="text-sm text-gray-500 mr-2">Filter by:</span>
+        {appointmentTypes.map(type => (
+          <span class="inline-flex items-center gap-1.5 text-xs text-gray-600">
+            <span class="w-3 h-3 rounded-full" style={`background-color: ${type.color}`}></span>
+            {type.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="py-4 border-b border-gray-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <a href="#tips" class="px-4 py-2 rounded-full bg-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">Tips for Shorter Waits</a>
+        <a href="#online" class="px-4 py-2 rounded-full bg-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">Online Services</a>
+        <a href="#kiosks" class="px-4 py-2 rounded-full bg-gray-100 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">Self-Service Kiosks</a>
+        <a href="#locations" class="px-4 py-2 rounded-full bg-brand-100 text-sm font-medium text-brand-700 hover:bg-brand-200 transition-colors">All Locations List</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <article class="py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+      <!-- General Hours -->
+      <section class="mb-12">
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">General Hours</h2>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-medium text-gray-900 mb-2">Most Offices</h3>
+              <ul class="space-y-1 text-gray-600">
+                <li><strong>Mon, Tue, Thu, Fri:</strong> 8:30 AM - 5:00 PM</li>
+                <li><strong>Wednesday:</strong> 9:30 AM - 5:00 PM</li>
+              </ul>
+              <p class="text-sm text-gray-500 mt-2">Offices open late on Wednesdays</p>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-900 mb-2">Limited Hours Offices</h3>
+              <ul class="space-y-1 text-gray-600">
+                <li><strong>Allendale:</strong> Wednesdays only</li>
+                <li><strong>McCormick:</strong> Wednesdays only</li>
+              </ul>
+              <p class="text-sm text-gray-500 mt-2">Check before visiting these locations</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Road Test Hours -->
+      <section class="mb-12">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
+          <div class="flex gap-3">
+            <svg class="w-6 h-6 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+              <h3 class="font-semibold text-amber-800 mb-2">Road Test & Skills Test Hours</h3>
+              <ul class="space-y-2 text-amber-700">
+                <li><strong>Walk-ins:</strong> 8:30 AM - 1:30 PM (9:30 AM on Wednesdays)</li>
+                <li><strong>Appointments:</strong> 2:00 PM - 4:00 PM</li>
+                <li><strong>Knowledge tests:</strong> Must start by 4:00 PM</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips Section -->
+      <section id="tips" class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Tips for Shorter Wait Times</h2>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Go Early</h3>
+            <p class="text-gray-600 text-sm">
+              Arrive when doors open at 8:30 AM (9:30 on Wednesdays). The first hour typically has the shortest waits.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Best Days: Tue-Thu</h3>
+            <p class="text-gray-600 text-sm">
+              Mondays and Fridays are busiest. Mid-week visits typically have shorter lines.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Mid-Month is Best</h3>
+            <p class="text-gray-600 text-sm">
+              Avoid the first and last week of each month when people rush to renew.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Skip the Lunch Rush</h3>
+            <p class="text-gray-600 text-sm">
+              11 AM - 1 PM is peak time. Arrive before or after this window.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Bring Your Documents</h3>
+            <p class="text-gray-600 text-sm">
+              Double-check you have everything. Nothing wastes more time than coming back.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="w-12 h-12 rounded-lg bg-cyan-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">Check Wait Times Online</h3>
+            <p class="text-gray-600 text-sm">
+              The official SCDMV site shows live wait times before you go.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Online Services -->
+      <section id="online" class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Skip the DMV - Do It Online</h2>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h3 class="font-semibold text-gray-900 mb-4">Driver Services</h3>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Renew driver's license or permit
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Get duplicate license or ID
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Check driving record points
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Pay reinstatement fees
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h3 class="font-semibold text-gray-900 mb-4">Vehicle Services</h3>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Renew vehicle registration
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Get duplicate registration
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Replace lost/stolen plate or decal
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Get duplicate title
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <a href="https://dmv.sc.gov/Online-Services" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-700 transition-colors">
+            SCDMV Online Services
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Kiosks -->
+      <section id="kiosks" class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">SCDMV Express Kiosks</h2>
+
+        <div class="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200 p-6 mb-6">
+          <div class="flex flex-col sm:flex-row gap-6">
+            <div class="flex-shrink-0">
+              <div class="w-16 h-16 rounded-xl bg-pink-100 flex items-center justify-center">
+                <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Self-Service Kiosks in Grocery Stores</h3>
+              <p class="text-gray-600 mb-4">
+                SCDMV Express kiosks are available whenever the store is open - no DMV hours to worry about. $4.50 convenience fee.
+              </p>
+              <p class="font-medium text-gray-900 mb-2">What you can do at a kiosk:</p>
+              <ul class="space-y-1 text-gray-600">
+                <li>- Renew vehicle registration (with renewal notice barcode)</li>
+                <li>- Print duplicate registration</li>
+                <li>- Get replacement registration decal</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kiosk Locations -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          {kiosks.map((kiosk) => (
+            <div class="bg-white rounded-xl border-2 border-pink-200 p-5 hover:border-pink-400 hover:shadow-lg transition-all">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </div>
+                <h4 class="font-bold text-gray-900">{kiosk.name.replace('Kiosk - ', '')}</h4>
+              </div>
+              <p class="text-sm text-gray-600 mb-2">{kiosk.address}</p>
+              <p class="text-sm text-pink-600 font-semibold mb-3">
+                <span class="inline-flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {kiosk.hours}
+                </span>
+              </p>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(kiosk.address)}`}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-pink-600 font-medium"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Get Directions
+              </a>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-sm text-gray-500 mt-6 text-center">
+          More kiosk locations coming soon. Visit <a href="https://scdmvexpress.com" target="_blank" rel="noopener" class="text-brand-600 hover:text-brand-700 font-medium">scdmvexpress.com</a> for updates.
+        </p>
+      </section>
+
+      <!-- Locations List -->
+      <section id="locations" class="mb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <h2 class="text-2xl font-bold text-gray-900">All Locations by Region</h2>
+
+          <!-- Search Box -->
+          <div class="relative">
+            <input
+              type="text"
+              id="location-search"
+              placeholder="Search by city..."
+              class="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+            />
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="mb-6 flex flex-wrap items-center gap-4">
+          <span class="text-sm text-gray-500">Services:</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+            Road Test
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm">
+            <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+            Motorcycle
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            CDL
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm">
+            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+            Class E/F
+          </span>
+        </div>
+
+        <!-- Collapsible Region Sections -->
+        <div class="space-y-4" id="regions-container">
+          {officesByRegion.map((region, index) => (
+            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden region-section" data-region={region.id}>
+              <!-- Region Header (Clickable) -->
+              <button
+                type="button"
+                class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors text-left region-toggle"
+                data-expanded="false"
+              >
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center">
+                    <span class="text-brand-600 font-bold text-sm">{region.offices.length}</span>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">{region.name}</h3>
+                    <p class="text-sm text-gray-500">{region.offices.length} office{region.offices.length !== 1 ? 's' : ''}</p>
+                  </div>
+                </div>
+                <svg class="w-5 h-5 text-gray-400 transition-transform region-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <!-- Region Content (Collapsible) -->
+              <div class="region-content hidden border-t border-gray-100">
+                <div class="p-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {region.offices.map((office) => (
+                    <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 hover:border-brand-300 hover:shadow-sm transition-all">
+                      <!-- Office Header -->
+                      <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-semibold text-gray-900">{office.name}</h4>
+                        <div class="flex gap-1">
+                          {office.services.includes('cdl_road') && (
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500" title="CDL Road Test"></span>
+                          )}
+                          {(office.services.includes('class_e') || office.services.includes('class_f')) && (
+                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500" title="Class E/F Skills"></span>
+                          )}
+                        </div>
+                      </div>
+
+                      <!-- Address -->
+                      <p class="text-sm text-gray-600 mb-2">{office.address}</p>
+
+                      <!-- Hours -->
+                      <p class="text-sm text-gray-500 mb-3">
+                        <span class="inline-flex items-center gap-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {office.hours}
+                        </span>
+                      </p>
+
+                      <!-- Actions Row -->
+                      <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+                        <a href={`tel:${office.phone.replace(/[^0-9]/g, '')}`} class="text-sm text-brand-600 hover:text-brand-700 font-medium">
+                          {office.phone}
+                        </a>
+                        <a
+                          href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address)}`}
+                          target="_blank"
+                          rel="noopener"
+                          class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-brand-600 font-medium"
+                        >
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          Directions
+                        </a>
+                      </div>
+
+                      <!-- Service Tags -->
+                      <div class="mt-3 flex flex-wrap gap-1">
+                        {office.services.map(service => {
+                          const typeInfo = appointmentTypes.find(t => t.id === service)
+                          return typeInfo ? (
+                            <span class="inline-block px-2 py-0.5 text-xs rounded-full text-white" style={`background-color: ${typeInfo.color}`}>
+                              {service === 'road_test' ? 'Road' : service === 'motorcycle_test' ? 'Moto' : service === 'cdl_road' ? 'CDL' : service === 'class_e' ? 'E' : service === 'class_f' ? 'F' : service}
+                            </span>
+                          ) : null
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <svg class="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-gray-500">No offices found matching your search.</p>
+          <button type="button" id="clear-search" class="mt-2 text-brand-600 hover:text-brand-700 font-medium">Clear search</button>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact SCDMV</h2>
+
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg border border-gray-200 p-6 text-center">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <h3 class="font-semibold text-gray-900 mb-1">Phone</h3>
+            <a href="tel:8038965000" class="text-brand-600 hover:text-brand-700">(803) 896-5000</a>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 p-6 text-center">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h3 class="font-semibold text-gray-900 mb-1">Website</h3>
+            <a href="https://dmv.sc.gov" target="_blank" rel="noopener" class="text-brand-600 hover:text-brand-700">dmv.sc.gov</a>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 p-6 text-center">
+            <svg class="w-8 h-8 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <h3 class="font-semibold text-gray-900 mb-1">Mailing Address</h3>
+            <p class="text-sm text-gray-600">PO Box 1498<br>Blythewood, SC 29016</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </article>
+
+  <!-- CTA -->
+  <section class="py-16 sm:py-20 bg-brand-600">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white">Need a Road Test Appointment?</h2>
+      <p class="mt-4 text-lg text-brand-100 max-w-2xl mx-auto">
+        Don't wait in line just to find out there are no appointments. Get alerts when slots open at your preferred DMV location.
+      </p>
+      <a href="/#signup-free" class="mt-8 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-brand-600 hover:bg-brand-50 transition-colors">
+        Get Free Alerts
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-gray-400 text-sm">
+          &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="mailto:support@scdmvappointments.com" class="text-gray-400 hover:text-white transition-colors">Support</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
+
+  <!-- Mapbox JS -->
+  <script is:inline src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+
+  <!-- Map Initialization Script -->
+  <script is:inline define:vars={{ offices, appointmentTypes }}>
+    // Wait for DOM and Mapbox to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get Mapbox token from meta tag (set by Cloudflare)
+      const mapboxToken = document.querySelector('meta[name="mapbox-token"]')?.content;
+
+      if (!mapboxToken) {
+        console.error('Mapbox token not found');
+        document.getElementById('map-loading').innerHTML = `
+          <div class="text-center p-8">
+            <p class="text-gray-500">Map unavailable. Please check the list below for locations.</p>
+          </div>
+        `;
+        return;
+      }
+
+      mapboxgl.accessToken = mapboxToken;
+
+      // Initialize map centered on South Carolina
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [-80.9, 33.8], // Center of SC
+        zoom: 6.5
+      });
+
+      // Store markers for filtering
+      let markers = [];
+
+      // Service colors
+      const serviceColors = {};
+      appointmentTypes.forEach(t => {
+        serviceColors[t.id] = t.color;
+      });
+
+      // Create markers for all offices
+      function createMarkers(filteredOffices) {
+        // Remove existing markers
+        markers.forEach(m => m.remove());
+        markers = [];
+
+        filteredOffices.forEach(office => {
+          // Determine marker color based on services
+          let markerColor = '#3b82f6'; // Default blue
+          if (office.services.includes('kiosk')) {
+            markerColor = '#ec4899'; // Pink for kiosks
+          } else if (office.services.includes('cdl_road')) {
+            markerColor = '#22c55e'; // Green for CDL
+          }
+
+          // Create popup content
+          const servicesHtml = office.services.map(s => {
+            const type = appointmentTypes.find(t => t.id === s);
+            return type ? `<span style="background:${type.color};color:white;padding:2px 6px;border-radius:9999px;font-size:10px;margin-right:4px;">${type.name}</span>` : '';
+          }).join('');
+
+          const phoneHtml = office.phone
+            ? `<a href="tel:${office.phone.replace(/[^0-9]/g, '')}" style="color:#2563eb;font-size:12px;">${office.phone}</a>`
+            : (office.isKiosk ? `<p style="color:#ec4899;font-size:12px;font-weight:500;">Credit & Debit Cards</p>` : '');
+
+          const popupHtml = `
+            <div style="max-width:280px;">
+              <h3 style="font-weight:600;font-size:14px;margin-bottom:4px;">${office.name}</h3>
+              <p style="color:#6b7280;font-size:12px;margin-bottom:4px;">${office.address}</p>
+              <p style="color:#6b7280;font-size:12px;margin-bottom:4px;">${office.hours}</p>
+              ${phoneHtml}
+              <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">${servicesHtml}</div>
+            </div>
+          `;
+
+          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupHtml);
+
+          const marker = new mapboxgl.Marker({ color: markerColor })
+            .setLngLat([office.lng, office.lat])
+            .setPopup(popup)
+            .addTo(map);
+
+          markers.push(marker);
+        });
+
+        // Update count
+        document.getElementById('results-count').textContent = filteredOffices.length;
+      }
+
+      // Filter function
+      function filterOffices() {
+        const regionFilter = document.getElementById('region-filter').value;
+        const typeFilter = document.getElementById('type-filter').value;
+
+        let filtered = offices;
+
+        if (regionFilter !== 'all') {
+          filtered = filtered.filter(o => o.region === regionFilter);
+        }
+
+        if (typeFilter !== 'all') {
+          filtered = filtered.filter(o => o.services.includes(typeFilter));
+        }
+
+        createMarkers(filtered);
+
+        // Fit bounds if filtered
+        if (filtered.length > 0 && (regionFilter !== 'all' || typeFilter !== 'all')) {
+          const bounds = new mapboxgl.LngLatBounds();
+          filtered.forEach(o => bounds.extend([o.lng, o.lat]));
+          map.fitBounds(bounds, { padding: 50, maxZoom: 10 });
+        } else if (regionFilter === 'all' && typeFilter === 'all') {
+          map.flyTo({ center: [-80.9, 33.8], zoom: 6.5 });
+        }
+      }
+
+      // Event listeners for filters
+      document.getElementById('region-filter').addEventListener('change', filterOffices);
+      document.getElementById('type-filter').addEventListener('change', filterOffices);
+
+      // Map load event
+      map.on('load', function() {
+        document.getElementById('map-loading').style.display = 'none';
+        createMarkers(offices);
+      });
+
+      // Add navigation controls
+      map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    });
+  </script>
+
+  <!-- Collapsible Regions + Search Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Collapsible region toggles
+      const regionToggles = document.querySelectorAll('.region-toggle');
+
+      regionToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const section = this.closest('.region-section');
+          const content = section.querySelector('.region-content');
+          const chevron = section.querySelector('.region-chevron');
+          const isExpanded = this.getAttribute('data-expanded') === 'true';
+
+          if (isExpanded) {
+            content.classList.add('hidden');
+            chevron.classList.remove('rotate-180');
+            this.setAttribute('data-expanded', 'false');
+          } else {
+            content.classList.remove('hidden');
+            chevron.classList.add('rotate-180');
+            this.setAttribute('data-expanded', 'true');
+          }
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('location-search');
+      const regionsContainer = document.getElementById('regions-container');
+      const noResults = document.getElementById('no-results');
+      const clearSearch = document.getElementById('clear-search');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const query = this.value.toLowerCase().trim();
+          const sections = document.querySelectorAll('.region-section');
+          let totalMatches = 0;
+
+          sections.forEach(section => {
+            const content = section.querySelector('.region-content');
+            const toggle = section.querySelector('.region-toggle');
+            const chevron = section.querySelector('.region-chevron');
+            const cards = content.querySelectorAll('.bg-gray-50');
+            let sectionMatches = 0;
+
+            cards.forEach(card => {
+              const text = card.textContent.toLowerCase();
+              if (query === '' || text.includes(query)) {
+                card.classList.remove('hidden');
+                sectionMatches++;
+              } else {
+                card.classList.add('hidden');
+              }
+            });
+
+            if (sectionMatches > 0) {
+              section.classList.remove('hidden');
+              totalMatches += sectionMatches;
+              // Auto-expand sections with matches when searching
+              if (query !== '') {
+                content.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+                toggle.setAttribute('data-expanded', 'true');
+              }
+            } else {
+              section.classList.add('hidden');
+            }
+          });
+
+          // Show/hide no results message
+          if (totalMatches === 0 && query !== '') {
+            noResults.classList.remove('hidden');
+            regionsContainer.classList.add('hidden');
+          } else {
+            noResults.classList.add('hidden');
+            regionsContainer.classList.remove('hidden');
+          }
+
+          // Reset when search is cleared
+          if (query === '') {
+            sections.forEach(section => {
+              section.classList.remove('hidden');
+              const content = section.querySelector('.region-content');
+              const toggle = section.querySelector('.region-toggle');
+              const chevron = section.querySelector('.region-chevron');
+              const cards = content.querySelectorAll('.bg-gray-50');
+              cards.forEach(card => card.classList.remove('hidden'));
+              // Collapse all sections
+              content.classList.add('hidden');
+              chevron.classList.remove('rotate-180');
+              toggle.setAttribute('data-expanded', 'false');
+            });
+          }
+        });
+      }
+
+      // Clear search button
+      if (clearSearch) {
+        clearSearch.addEventListener('click', function() {
+          searchInput.value = '';
+          searchInput.dispatchEvent(new Event('input'));
+        });
+      }
+    });
+  </script>
+</Layout>

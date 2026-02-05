@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const guides = [
+  {
+    title: "SC Road Test Guide",
+    description: "Everything you need to know to pass your Class D driving test in South Carolina. Requirements, what to bring, and tips.",
+    href: "/guides/road-test",
+    icon: "car",
+    available: true
+  },
+  {
+    title: "Motorcycle Test Guide",
+    description: "Prepare for your SC motorcycle skills test. Learn the maneuvers, requirements, and what to expect.",
+    href: "/guides/motorcycle-test",
+    icon: "motorcycle",
+    available: true
+  },
+  {
+    title: "CDL License Guide",
+    description: "Class A, B, and C commercial driver's license requirements. Skills tests, endorsements, and more.",
+    href: "/guides/cdl",
+    icon: "truck",
+    available: true
+  },
+  {
+    title: "REAL ID Guide",
+    description: "What documents you need for a REAL ID in South Carolina. Proof of identity, residency, and Social Security.",
+    href: "/guides/real-id",
+    icon: "id",
+    available: true
+  },
+  {
+    title: "License Renewal Guide",
+    description: "How to renew your SC driver's license. Online, in-person, and what to bring.",
+    href: "/guides/license-renewal",
+    icon: "refresh",
+    available: true
+  },
+  {
+    title: "SC DMV Locations",
+    description: "Find SC DMV offices near you with hours, services offered, and tips for shorter wait times.",
+    href: "/guides/locations",
+    icon: "map",
+    available: true
+  }
+]
+---
+
+<Layout title="SC DMV Guides - Everything You Need to Know" description="Comprehensive guides for SC DMV services: road tests, REAL ID, license renewal, CDL, and more. Clear, friendly, and easy to understand.">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-bold" style="color: #85ccfa;"><img src="/scdmvappt-logo.png" alt="SC DMV Appointments" class="h-10 w-10" />SC DMV APPOINTMENTS</a>
+        <nav class="flex items-center gap-6">
+          <a href="/guides" class="text-sm font-medium text-brand-600">Guides</a>
+          <a href="/guides/locations" class="text-sm font-medium text-gray-600 hover:text-gray-900">Locations</a>
+          <a href="/faq" class="text-sm font-medium text-gray-600 hover:text-gray-900">FAQ</a>
+          <a href="/#signup-free" class="inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            Get Alerts
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-brand-50 to-white py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900">
+        SC DMV Guides
+      </h1>
+      <p class="mt-4 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+        Clear, friendly guides to help you navigate the South Carolina DMV. No confusing jargon - just what you need to know.
+      </p>
+    </div>
+  </section>
+
+  <!-- Guides Grid -->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {guides.map((guide) => (
+          <a
+            href={guide.available ? guide.href : undefined}
+            class:list={[
+              "block rounded-xl p-6 border transition-all",
+              guide.available
+                ? "bg-white border-gray-200 shadow-sm hover:shadow-md hover:border-brand-300 cursor-pointer"
+                : "bg-gray-50 border-gray-200 cursor-not-allowed opacity-60"
+            ]}
+          >
+            <div class="flex items-start justify-between mb-4">
+              {guide.icon === "car" && (
+                <div class="w-12 h-12 rounded-lg bg-brand-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                </div>
+              )}
+              {guide.icon === "motorcycle" && (
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.5 12c.93 0 1.78.28 2.5.76V8c-1.04-.54-2.24-.81-3.5-.81-1.71 0-3.28.57-4.53 1.54l-2.84-2.84L11.59 6h-1.75l-2.12 2.12C6.68 7.41 5.41 7 4 7c-2.21 0-4 1.79-4 4s1.79 4 4 4c.82 0 1.58-.25 2.21-.67l1.28 1.28c-.67.63-1.07 1.51-1.07 2.47 0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5c0-.55-.13-1.06-.35-1.52l3.12-3.12c.46.22.97.35 1.52.35.43 0 .84-.08 1.22-.22L15.92 17H19l2.5-2.5C21.5 13.67 20.63 12 19.5 12zM4 13c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                  </svg>
+                </div>
+              )}
+              {guide.icon === "truck" && (
+                <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                  </svg>
+                </div>
+              )}
+              {guide.icon === "id" && (
+                <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                  </svg>
+                </div>
+              )}
+              {guide.icon === "refresh" && (
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </div>
+              )}
+              {guide.icon === "map" && (
+                <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+              )}
+
+              {!guide.available && (
+                <span class="inline-flex items-center rounded-full bg-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-600">
+                  Coming Soon
+                </span>
+              )}
+            </div>
+
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">{guide.title}</h2>
+            <p class="text-sm text-gray-600">{guide.description}</p>
+
+            {guide.available && (
+              <div class="mt-4 text-sm font-medium text-brand-600 flex items-center gap-1">
+                Read guide
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 sm:py-20 bg-brand-600">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white">Need a Road Test Appointment?</h2>
+      <p class="mt-4 text-lg text-brand-100 max-w-2xl mx-auto">
+        Stop refreshing the DMV website. We'll send you an alert the moment appointments open up.
+      </p>
+      <a href="/#signup-free" class="mt-8 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-brand-600 hover:bg-brand-50 transition-colors">
+        Get Free Alerts
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-gray-400 text-sm">
+          &copy; 2026 SC DMV Alerts. Not affiliated with SC DMV.
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/guides" class="text-gray-400 hover:text-white transition-colors">Guides</a>
+          <a href="/guides/locations" class="text-gray-400 hover:text-white transition-colors">Locations</a>
+          <a href="/faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a>
+          <a href="mailto:support@scdmvappointments.com" class="text-gray-400 hover:text-white transition-colors">Support</a>
+          <a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+          <a href="/terms" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>
