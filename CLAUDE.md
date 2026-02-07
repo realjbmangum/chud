@@ -6,13 +6,28 @@ When starting a session at this root, ask which project we're working on.
 
 ## Dashboard Sync Rule (MANDATORY)
 
-**Every time I create, rename, or delete a file that Brian would need to know about, I MUST update `context/00-Dashboard.md` in the same response.** This includes:
-- New analysis docs, reports, or plans
-- New or renamed email templates, marketing assets
-- New key files in any project folder
-- Deleted files whose links are in the dashboard
+**The dashboard (`context/00-Dashboard.md`) is Brian's single source of truth in Obsidian. If it's not in the dashboard, it doesn't exist to him. No exceptions.**
 
-Brian works from the dashboard in Obsidian. If it's not in the dashboard, it doesn't exist to him. No exceptions.
+### When to update the dashboard:
+- New/renamed/deleted files Brian would need to know about
+- New analysis docs, reports, plans, marketing assets
+- **Any significant code work** — commits, feature builds, refactors,
+  migrations, content changes
+- **At the end of every session** — add a session log entry summarizing
+  what was done, even if working inside a sub-project folder
+- Project status changes (deployed, blocked, new blocker, etc.)
+- New links, key files, or decision records
+
+### When starting any session (even in a sub-project):
+- **Always read `context/00-Dashboard.md`** alongside the project's own
+  CLAUDE.md and progress.txt
+- This ensures continuity across sessions and projects
+
+### Formatting rules:
+- Use Obsidian callouts (`> [!info]`, `> [!success]`, `> [!warning]`)
+- Use wiki-links (`[[path/to/file|Display Name]]`)
+- Wrap long lines for readability in Obsidian's editor
+- Never delete existing content — only add or update
 
 ---
 
