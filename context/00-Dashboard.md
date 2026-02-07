@@ -157,10 +157,10 @@ optional AI polish.
 **GA4 IDs:** Camping Native `G-BP5876ZTQT` · Waterfalls
 `G-3NQJV7QML2` · National Parks `G-WG2965ESY2` (all 3 implemented)
 
-### Camping Native — Content Overhaul (Feb 7)
+### Camping Native — Content Overhaul + SEO (Feb 7)
 
-> [!success] All 81 articles rewritten from AI slop to authentic Brian
-> voice
+> [!success] All 81 articles rewritten, 3 new blog posts, JSON-LD
+> schema, 228 internal cross-links deployed
 
 - Rewrote 80 gear reviews + 1 blog post — first-person, opinionated,
   experience-based copy
@@ -168,12 +168,23 @@ optional AI polish.
 - All 81 articles pushed to Supabase and verified live
 - Originals backed up in `site-camping-native/content-rewrites/originals/`
 
+**New (Feb 7 evening):**
+- JSON-LD structured data on all pages (Organization, BlogPosting,
+  BreadcrumbList) — enables Google rich results
+- 3 new blog posts written and pushed to Supabase:
+  - "A Beginner's Complete Camping Checklist" (18 internal links)
+  - "How I Tested 80 Pieces of Gear on the MST" (13 internal links)
+  - "Preparing for a Thru-Hike After 45" (14 internal links)
+- 228 internal cross-links added to all 80 gear reviews
+- Related posts now cross-category (2 same + 1 complementary)
+- og:type = "article" on post pages for better social sharing
+
 **Next steps for Camping Native:**
-- [ ] Review a few full articles on campingnative.com to confirm
-  quality
-- [ ] Trigger site rebuild if content isn't showing (push to main or
-  manual Cloudflare Pages rebuild)
-- [ ] Decide: commit `content-rewrites/` directory or .gitignore it
+- [ ] Verify new blog posts live on campingnative.com
+- [ ] Validate schema with Google Rich Results Test
+- [ ] Submit updated sitemap to Google Search Console
+- [ ] Consider per-product Product schema for gear reviews
+- [ ] Monitor organic traffic impact over 2-4 weeks
 
 ---
 
@@ -231,7 +242,7 @@ optional AI polish.
 | Potty Directory | ~190 real sessions | Passive, check AdSense | [[site-pottydirectory/CLAUDE\|CLAUDE]] · [[site-pottydirectory/progress\|progress]] |
 | National Parks | New (Jan 27) | GA4 + affiliates + cross-promo live | [[site-nationalparks-directory/CLAUDE\|CLAUDE]] · [[site-nationalparks-directory/progress\|progress]] |
 | Waterfall Directory | 10k+ pageviews | GA4 + affiliates live, needs AdSense | [[site-waterfall-directory/CLAUDE\|CLAUDE]] · [[site-waterfall-directory/progress\|progress]] |
-| Camping Native | Unknown | 81 articles rewritten, affiliates live | [[site-camping-native/CLAUDE\|CLAUDE]] · [[site-camping-native/progress\|progress]] |
+| Camping Native | Unknown | 84 articles, JSON-LD schema, 228 cross-links, affiliates live | [[site-camping-native/CLAUDE\|CLAUDE]] · [[site-camping-native/progress\|progress]] |
 
 ### PRDs Ready (Not Yet Built)
 | Project | Concept | PRD | Links |
@@ -289,7 +300,7 @@ app-action-chess · app-kalshi-edge · app-phonebot · app-eos-people-analyzer �
 | Project | What Got Done |
 |---------|---------------|
 | **LoveNotes** | Complete v2 pivot — prompt-based message builder. New landing page, onboarding, dashboard, 12 API endpoints, 90 prompt templates, 5 new DB tables. Committed, needs deploy. |
-| **Camping Native** | Rewrote all 81 articles from AI slop to authentic Brian voice. Added Amazon affiliate links to all gear posts. |
+| **Camping Native** | Rewrote all 81 articles from AI slop to authentic Brian voice. Added Amazon affiliate links to all gear posts. Added JSON-LD schema (Organization, BlogPosting, BreadcrumbList). Wrote 3 new hub blog posts (5,851 words, 45 internal links). Added 228 internal cross-links to all 80 gear reviews. Improved related posts to cross-category. |
 | **National Parks** | GA4 analytics, 36 affiliate links on gear page, cross-promo footer, sitemap cleanup. |
 | **Waterfalls** | GA4 analytics, affiliate links on 5 guide pages, cross-promo footer. |
 | **PlanCompass** | Animated canvas hero — compass/navigator theme, zero deps, a11y. |
