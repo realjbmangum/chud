@@ -77,15 +77,15 @@
 - [x] Create GA4 property for campingnative.com — `G-BP5876ZTQT` (implemented)
 - [x] Create GA4 property for bestwaterfalls.com — `G-3NQJV7QML2` (implemented)
 - [x] Create GA4 property for bestusnationalparks.com — `G-WG2965ESY2` (implemented)
-- [ ] Add all 3 sites to Google Search Console — get verification codes
+- [x] Add all 3 sites to Google Search Console — get verification codes
 - [ ] Get AdSense publisher ID (`ca-pub-XXXXXXXXXX`) — one shared across all sites
 - [ ] Confirm Amazon Associates tag to use (e.g. `jbmangum27-20`)
 - [ ] After verification: submit sitemaps in Search Console for all 3 sites
 
-**Then Claude implements in this order:**
-1. GA4 + Search Console tags (all 3 sites)
-2. Cross-promotion footer links (free traffic, all 3 sites)
-3. Affiliate links on National Parks gear page (36 products, biggest quick win)
+**Implementation progress:**
+1. ~~GA4 + Search Console tags (all 3 sites)~~ DONE
+2. ~~Cross-promotion footer links (free traffic, all 3 sites)~~ DONE
+3. ~~Affiliate links on National Parks gear page (36 products)~~ DONE (tag: `jbmangum27-20`)
 4. AdSense ad placements (all 3 sites)
 5. Affiliate links on Camping Native gear posts (80 posts)
 6. Affiliate links in Waterfalls guides (lower priority)
