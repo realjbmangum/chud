@@ -1,33 +1,115 @@
-# C.H.U.D. (Claude Heads Up Display)
+# Monorepo — Brian Mangum / LIGHTHOUSE 27 LLC
 
-> Floating desktop overlay showing real-time stats for Claude Code terminal sessions
+This is a monorepo containing all projects. Each project has its own `CLAUDE.md` and `progress.txt`.
 
-## Tech Stack
-- **Runtime:** Electron + Node.js 18+
-- **Frontend:** Vanilla JS (no framework)
-- **Communication:** Unix Sockets
-- **Version:** MVP v0.1.0
+When starting a session at this root, ask which project we're working on.
 
-## Key Features
-- Session tracking
-- Token usage monitoring
-- Cost estimation
-- Todo progress display
-- Optional quota tracking
+## Dashboard Sync Rule (MANDATORY)
 
-## Development
-```bash
-npm install
-npm start
-```
+**Every time I create, rename, or delete a file that Brian would need to know about, I MUST update `context/00-Dashboard.md` in the same response.** This includes:
+- New analysis docs, reports, or plans
+- New or renamed email templates, marketing assets
+- New key files in any project folder
+- Deleted files whose links are in the dashboard
 
-## Architecture Notes
-- Single-instance protection to prevent app freezing
-- Reads Claude Code session data via Unix sockets
-- Transparent overlay that stays on top
-
-## Status
-MVP complete and functional.
+Brian works from the dashboard in Obsidian. If it's not in the dashboard, it doesn't exist to him. No exceptions.
 
 ---
-*See progress.txt for session history (create if needed)*
+
+## Portfolio Summary (Updated Feb 6, 2026 — cleaned up)
+
+### LIVE & ACCEPTING PAYMENTS (2)
+
+| Project | URL | Revenue Model | Status |
+|---------|-----|---------------|--------|
+| **site-scdmv-alerts** | scdmvappointments.com | Free / Pro $5.99 / CDL $19.99 | Stable. 3-day monitoring test Feb 5-8. Marketing plan + press kit ready. |
+| **app-lovenotes** | sendmylove.app | $5/mo subscription | Live. 2,515 messages. Stripe working. SMS pending Twilio verification. |
+
+### LIVE & GENERATING TRAFFIC (5)
+
+| Project | URL | Revenue Model | Status |
+|---------|-----|---------------|--------|
+| **site-recordstore-directory** | recordstops.com | Premium listings + affiliate | 296 stores, 5 states, 683 GA users/month. 16 city guides. Newsletter worker. Podcast lead (Patrick Foster). Social active. |
+| **site-pottydirectory** | pottydirectory.com | AdSense + premium listings | 1,400+ listings. ~190 real organic sessions (96% of 18K sessions are bots). Check AdSense revenue. |
+| **site-nationalparks-directory** | bestusnationalparks.com | Affiliate + display ads | 63 parks. NPS API integration. Needs affiliate links. |
+| **site-waterfall-directory** | bestwaterfalls.com | Affiliate + display ads | 10k+ pageviews. Only 17 NC waterfalls seeded — needs content + monetization. |
+| **site-camping-native** | campingnative.com | Affiliate | 80 gear posts migrated from WP. Blog active. |
+
+### DEPLOYED BUT NOT MONETIZED (1)
+
+| Project | URL | Status |
+|---------|-----|--------|
+| **site-pet-health-decoder** | — | 12 health articles. No revenue model. No traffic. |
+
+### IN PROGRESS (2)
+
+| Project | Status | Links |
+|---------|--------|-------|
+| **app-heirloom** | Building with partner (Oliver) | Landing page done, MVP in progress |
+| **app-plancompass** | Unblocked — API key acquired, ready to build | Target: Nov 2026 OEP |
+
+### PRDs READY — NOT YET BUILT (2)
+
+| Project | Concept | PRD |
+|---------|---------|-----|
+| **site-church-directory** | NC church finder, 15-20k listings via Google Places, programmatic SEO | `site-church-directory/PRD.md` |
+| **site-statehuntingleases-com** | SE US hunting lease marketplace, landowners + providers | `site-statehuntingleases-com/PRD.md` |
+
+### INTERNAL TOOLS (5)
+
+| Tool | What It Does |
+|------|-------------|
+| **app-jgen** | Internal tool (live) |
+| **app-tacoma-tracker** | Internal tool (live) |
+| **app-subscription-admin** | Internal admin tool |
+| **chud/** | Electron overlay — Claude Code session stats (tokens, cost). MVP complete. |
+| **site-directory-factory** | BUILD wizard + MANAGE pipeline for directory sites. Deployed. |
+| **mcp-cloudflare-domains** | MCP server for domain availability checks via Cloudflare. |
+
+### DELETED (Feb 6, 2026)
+
+Removed from repo — recoverable from git history:
+
+app-action-chess · app-kalshi-edge · app-phonebot · app-eos-people-analyzer · site-carnivorerestaurants-com · app-investment-advisor
+
+---
+
+## Priority Stack (Feb 6, 2026 — reviewed by 3-agent team)
+
+**FOCUS NOW (Feb 6-14):**
+1. **LoveNotes** — Valentine's Day sprint. Create social accounts TODAY. Post pre-written content daily through Feb 14. Product Hunt launch Feb 12-13.
+2. **SCDMV Alerts** — Send 3 press pitch emails after 3-day test passes (Feb 8). Emails already written in press kit.
+3. **RecordStops** — Respond to podcast lead (Patrick Foster). Continue social media. Most complete product in portfolio.
+
+**QUICK WINS (Feb 15+):**
+4. Waterfall Directory — Add AdSense + affiliate links to existing 10k pageviews (2 hours)
+5. National Parks — Add affiliate links to 63 park pages (1 hour)
+6. Potty Directory — Check AdSense dashboard. If earning, optimize. If not, leave it.
+
+**IN PROGRESS:**
+- Heirloom (building with Oliver)
+- PlanCompass (unblocked — has API key, target Nov 2026 OEP)
+
+**DON'T DO:**
+- New directory sites
+- New features on existing products
+- Any building before the top 3 are marketed
+
+**Key Insight: Stop building, start selling. 10 deployed products, 0 marketing campaigns running. Valentine's Day is Feb 14 — 8 days away.**
+
+---
+
+## Infrastructure
+
+- **Hosting:** Cloudflare Pages (all sites) + Cloudflare Workers (crons/scrapers)
+- **Databases:** Cloudflare D1 (8 of 50,000 limit) — upgraded to paid plan Feb 2026
+- **Email:** SendGrid (50k/month)
+- **Payments:** Stripe
+- **SMS:** Twilio (toll-free verification rejected — not working)
+- **Maps:** Mapbox
+- **Admin:** Cloudflare Access for protected routes
+- **Monthly cost:** ~$6 (Kalshi Edge deleted, no more Claude API burn)
+
+---
+
+*Each project has its own CLAUDE.md with stack details, env vars, and session history.*
