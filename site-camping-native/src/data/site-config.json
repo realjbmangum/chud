@@ -1,0 +1,96 @@
+{
+  "name": "Camping Native",
+  "tagline": "Your Guide to the Wild",
+  "description": "Discover the best campsites, top-rated gear, and outdoor challenges. Your adventure starts here with Bigfoot as your guide.",
+  "domain": "campingnative.com",
+  "mascot": {
+    "name": "Sasquatch Sam",
+    "description": "A friendly Bigfoot who knows every trail, every campsite, and the best marshmallow-roasting techniques."
+  },
+  "navigation": [
+    { "label": "Campsites", "href": "/campsites", "icon": "tent" },
+    { "label": "Map", "href": "/map", "icon": "map" },
+    { "label": "Gear", "href": "/gear", "icon": "backpack" },
+    { "label": "Challenges", "href": "/challenges", "icon": "trophy" },
+    { "label": "Blog", "href": "/blog", "icon": "book" }
+  ],
+  "categories": {
+    "gear": [
+      { "slug": "camping-gear", "name": "Camping Gear", "icon": "tent", "description": "Tents, sleeping bags, and camp essentials" },
+      { "slug": "hiking", "name": "Hiking", "icon": "boot", "description": "Boots, backpacks, and trail gear" },
+      { "slug": "fishing", "name": "Fishing", "icon": "fish", "description": "Rods, tackle, and angler essentials" },
+      { "slug": "outdoor-cooking", "name": "Outdoor Cooking", "icon": "flame", "description": "Stoves, cookware, and camp kitchen" },
+      { "slug": "survival", "name": "Survival", "icon": "compass", "description": "Emergency gear and wilderness tools" }
+    ],
+    "campsites": [
+      { "slug": "tent-camping", "name": "Tent Camping", "icon": "tent" },
+      { "slug": "rv-camping", "name": "RV & Trailer", "icon": "caravan" },
+      { "slug": "cabin-rentals", "name": "Cabin Rentals", "icon": "cabin" },
+      { "slug": "glamping", "name": "Glamping", "icon": "star" },
+      { "slug": "backcountry", "name": "Backcountry", "icon": "mountain" }
+    ]
+  },
+  "challenges": [
+    {
+      "id": "first-night",
+      "name": "First Night Under Stars",
+      "description": "Complete your first camping trip",
+      "points": 10,
+      "difficulty": "beginner",
+      "icon": "star"
+    },
+    {
+      "id": "fire-starter",
+      "name": "Fire Starter",
+      "description": "Build a campfire without matches or lighters",
+      "points": 25,
+      "difficulty": "intermediate",
+      "icon": "flame"
+    },
+    {
+      "id": "50-state-camper",
+      "name": "50 State Camper",
+      "description": "Camp in all 50 US states",
+      "points": 500,
+      "difficulty": "legendary",
+      "icon": "flag"
+    },
+    {
+      "id": "sunrise-summit",
+      "name": "Sunrise Summit",
+      "description": "Reach a mountain summit before sunrise",
+      "points": 50,
+      "difficulty": "advanced",
+      "icon": "sun"
+    },
+    {
+      "id": "catch-dinner",
+      "name": "Catch Your Dinner",
+      "description": "Catch and cook a fish on a camping trip",
+      "points": 30,
+      "difficulty": "intermediate",
+      "icon": "fish"
+    },
+    {
+      "id": "leave-no-trace",
+      "name": "Leave No Trace Master",
+      "description": "Complete 10 trips with zero waste left behind",
+      "points": 100,
+      "difficulty": "advanced",
+      "icon": "leaf"
+    }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/campingnative",
+    "facebook": "https://facebook.com/campingnative",
+    "youtube": "https://youtube.com/@campingnative"
+  },
+  "contact": {
+    "email": "hello@campingnative.com"
+  },
+  "monetization": {
+    "ga4Id": "G-BP5876ZTQT",
+    "adsenseId": "",
+    "amazonTag": ""
+  }
+}

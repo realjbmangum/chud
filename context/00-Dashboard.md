@@ -74,7 +74,9 @@
 > **Plan:** [[context/outdoor-network-monetization-plan|Full Implementation Plan]]
 
 **Brian's action items (do these first):**
-- [ ] Create 3 GA4 properties (one per site) — get measurement IDs (`G-XXXXXXXXXX`)
+- [x] Create GA4 property for campingnative.com — `G-BP5876ZTQT` (implemented)
+- [x] Create GA4 property for bestwaterfalls.com — `G-3NQJV7QML2` (implemented)
+- [x] Create GA4 property for bestusnationalparks.com — `G-WG2965ESY2` (implemented)
 - [ ] Add all 3 sites to Google Search Console — get verification codes
 - [ ] Get AdSense publisher ID (`ca-pub-XXXXXXXXXX`) — one shared across all sites
 - [ ] Confirm Amazon Associates tag to use (e.g. `jbmangum27-20`)
@@ -87,6 +89,8 @@
 4. AdSense ad placements (all 3 sites)
 5. Affiliate links on Camping Native gear posts (80 posts)
 6. Affiliate links in Waterfalls guides (lower priority)
+
+**GA4 IDs:** Camping Native `G-BP5876ZTQT` · Waterfalls `G-3NQJV7QML2` · National Parks `G-WG2965ESY2` (all 3 implemented)
 
 ---
 
