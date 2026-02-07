@@ -201,6 +201,7 @@ optional AI polish.
 ### Strategy & Research
 - [[context/portfolio-review-feb6-2026|Portfolio Review (Feb 6, 2026)]] — 3-agent team analysis
 - [[context/market-opportunities|Market Opportunities by Project]]
+- [[context/Research/api-opportunities-audit|API Opportunities Audit]] — Archive.org, Discogs, Open-Meteo, and 10+ untapped free APIs mapped to projects
 - [[context/Research/marketing-f5bot-reddit-monitoring|F5Bot Reddit Monitoring Setup]]
 - [[context/Research/saas-monetization-strategy|SaaS Monetization Strategy]]
 
